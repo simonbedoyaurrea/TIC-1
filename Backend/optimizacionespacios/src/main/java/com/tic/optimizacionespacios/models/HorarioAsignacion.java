@@ -1,8 +1,7 @@
-package com.tic.optimizacionespacios.aulas.entities;
+package com.tic.optimizacionespacios.models;
 
-import com.tic.optimizacionespacios.aulas.enums.EstadoMateria;
-import com.tic.optimizacionespacios.aulas.enums.TipoSesion;
-import com.tic.optimizacionespacios.profesores.entities.Profesor;
+import com.tic.optimizacionespacios.models.enums.EstadoMateria;
+import com.tic.optimizacionespacios.models.enums.TipoSesion;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -62,4 +61,5 @@ public class HorarioAsignacion {
     //Dice de donde vien, si de Banner, o de algun administrativo
     @Column(nullable = false)
     private String origen;
+
 }

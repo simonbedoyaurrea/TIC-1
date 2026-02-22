@@ -1,6 +1,6 @@
-package com.tic.optimizacionespacios.aulas.repositories;
+package com.tic.optimizacionespacios.repositories;
 
-import com.tic.optimizacionespacios.aulas.entities.HorarioAsignacion;
+import com.tic.optimizacionespacios.models.HorarioAsignacion;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

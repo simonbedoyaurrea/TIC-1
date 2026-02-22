@@ -1,6 +1,6 @@
-package com.tic.optimizacionespacios.profesores.entities;
+package com.tic.optimizacionespacios.models;
 
-import com.tic.optimizacionespacios.profesores.enums.TipoProfesor;
+import com.tic.optimizacionespacios.models.enums.TipoProfesor;
 import jakarta.persistence.*;
 import lombok.Data;
 

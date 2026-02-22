@@ -1,4 +1,4 @@
-package com.tic.optimizacionespacios.aulas.enums;
+package com.tic.optimizacionespacios.models.enums;
 
 public enum EstadoMateria {
     PROPUESTO,

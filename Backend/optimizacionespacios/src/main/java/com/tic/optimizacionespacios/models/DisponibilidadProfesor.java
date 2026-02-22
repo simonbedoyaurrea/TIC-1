@@ -1,4 +1,4 @@
-package com.tic.optimizacionespacios.profesores.entities;
+package com.tic.optimizacionespacios.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -10,7 +10,7 @@ import java.time.LocalTime;
 @Data
 @Table(name = "disponibilidad_profesor")
 public class DisponibilidadProfesor {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -35,5 +35,5 @@ public class DisponibilidadProfesor {
     @Column(length = 255)
     private String observaciones;
 
-
 }
+

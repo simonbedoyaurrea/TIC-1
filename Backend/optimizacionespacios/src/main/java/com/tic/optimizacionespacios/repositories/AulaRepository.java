@@ -1,6 +1,6 @@
 package com.tic.optimizacionespacios.repositories;
 
-import com.tic.optimizacionespacios.models.Aula;
+import com.tic.optimizacionespacios.models.entities.Aula;
 import com.tic.optimizacionespacios.models.enums.EstadoAula;
 import com.tic.optimizacionespacios.models.enums.TipoAula;
 import org.springframework.data.jpa.repository.JpaRepository;

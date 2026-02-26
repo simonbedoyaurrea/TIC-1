@@ -1,4 +1,4 @@
-package com.tic.optimizacionespacios.models;
+package com.tic.optimizacionespacios.models.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;

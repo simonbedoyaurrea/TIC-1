@@ -1,14 +1,16 @@
-package com.tic.optimizacionespacios.models;
+package com.tic.optimizacionespacios.models.entities;
 
 import com.tic.optimizacionespacios.models.enums.EstadoMateria;
 import com.tic.optimizacionespacios.models.enums.TipoSesion;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
 @Entity
+@Data
 @Table(name = "horarios_asignacion")
 public class HorarioAsignacion {
 

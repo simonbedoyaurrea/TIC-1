@@ -1,6 +1,6 @@
 package com.tic.optimizacionespacios.repositories;
 
-import com.tic.optimizacionespacios.models.Ubicacion;
+import com.tic.optimizacionespacios.models.entities.Ubicacion;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

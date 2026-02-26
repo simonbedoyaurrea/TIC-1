@@ -1,4 +1,4 @@
-package com.tic.optimizacionespacios.models;
+package com.tic.optimizacionespacios.models.entities;
 
 import com.tic.optimizacionespacios.models.enums.TipoProfesor;
 import jakarta.persistence.*;

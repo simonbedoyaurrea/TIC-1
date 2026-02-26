@@ -1,4 +1,4 @@
-package com.tic.optimizacionespacios.models;
+package com.tic.optimizacionespacios.models.entities;
 
 
 import com.tic.optimizacionespacios.models.enums.EstadoAula;
@@ -6,6 +6,8 @@ import com.tic.optimizacionespacios.models.enums.TipoAula;
 import jakarta.persistence.*;
 import lombok.Data;
 
+
+//FALTA IMPLEMENTAR INVENTARIO AULA
 @Entity
 @Data
 @Table(name = "aulas")
@@ -16,7 +18,7 @@ public class Aula {
 
     //Se puede cambiar a numero de sillas
     @Column(nullable = false)
-    private int capacidad_maxima;
+    private int capacidadMaxima;
 
     @ManyToOne
     @JoinColumn(name = "ubicacion_id", nullable = false)

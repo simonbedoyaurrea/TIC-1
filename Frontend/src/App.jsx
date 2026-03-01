@@ -449,14 +449,36 @@
 
 // export default App;
 
-import React from "react";
-import Login from "./pages/Login";
-import AlertForm from "./components/AlertForm";
+
+
+// import React from "react";
+// import Login from "./pages/Login";
+// import AlertForm from "./components/AlertForm";
+
+// export default function App() {
+//   return (
+//     <div>
+//       <AlertForm />
+//     </div>
+//   );
+// }
+
+
+import ClassroomCard from "./components/ClassroomCard";
 
 export default function App() {
+  const testClassroom = {
+    number: "101",
+    floor: 1,
+    type: "Laboratorio",
+    capacity: 40,
+    equipment: ["Videobeam", "Computador", "Pantalla"],
+    status: "available",
+  };
+
   return (
-    <div>
-      <AlertForm />
+    <div className="min-h-screen bg-black flex items-center justify-center">
+      <ClassroomCard classroom={testClassroom} />
     </div>
   );
 }

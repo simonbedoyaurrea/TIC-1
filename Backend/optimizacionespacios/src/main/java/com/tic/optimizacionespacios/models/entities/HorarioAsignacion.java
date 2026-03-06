@@ -19,7 +19,11 @@ public class HorarioAsignacion {
     private Long id;
 
     @Column(nullable = false)
-    private String nombreCurso;
+    private int nrc;
+
+    @ManyToOne
+    @JoinColumn(name = "materia_id", nullable = false)
+    private Materia materia;
 
     @ManyToOne
     @JoinColumn(name = "aula_id", nullable = false)

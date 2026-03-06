@@ -6,6 +6,8 @@ import com.tic.optimizacionespacios.models.enums.TipoAula;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.Set;
+
 
 //FALTA IMPLEMENTAR INVENTARIO AULA
 @Entity
@@ -20,6 +22,7 @@ public class Aula {
     @Column(nullable = false)
     private int capacidadMaxima;
 
+
     @ManyToOne
     @JoinColumn(name = "ubicacion_id", nullable = false)
     private Ubicacion ubicacion;
@@ -27,6 +30,14 @@ public class Aula {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TipoAula tipoDeAula;
+
+    @ManyToMany
+    @JoinTable(
+            name = "aula_recursos",
+            joinColumns = @JoinColumn(name = "aula_id"),
+            inverseJoinColumns = @JoinColumn(name = "recurso_id")
+    )
+    private Set<Recurso> recursos;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

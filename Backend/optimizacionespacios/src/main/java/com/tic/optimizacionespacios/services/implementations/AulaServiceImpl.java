@@ -24,9 +24,7 @@ public class AulaServiceImpl implements AulaService {
         this.ubicacionService = ubicacionService;
     }
 
-    // ===============================
     // CREAR
-    // ===============================
     @Override
     public Aula crear(Aula aula) {
 
@@ -63,8 +61,7 @@ public class AulaServiceImpl implements AulaService {
     // OBTENER POR ID
     @Override
     public Aula obtenerPorId(Long id) {
-        return aulaRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Aula no encontrada"));
+        return aulaRepo.findById(id).orElseThrow(() -> new RuntimeException("Aula no encontrada"));
     }
 
     // LISTAR

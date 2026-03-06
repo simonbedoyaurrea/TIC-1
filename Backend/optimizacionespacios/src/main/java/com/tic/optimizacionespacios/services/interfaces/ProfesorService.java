@@ -16,6 +16,10 @@ public interface ProfesorService {
 
     List<Profesor> listarProfesores();
 
+    void agregarMateria(Long idProfesor, Long idMateria);
+
+    void eliminarMateria(Long idProfesor, Long idMateria);
+
     void eliminarProfesor(Long id);
 
 

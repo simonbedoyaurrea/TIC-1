@@ -9,6 +9,7 @@ public class HorarioAsignacionRequestDTO {
 
     private Long aulaId;
     private Long profesorId;
+    private Long materiaId;
 
     private LocalDate fechaInicio;
     private LocalDate fechaFin;

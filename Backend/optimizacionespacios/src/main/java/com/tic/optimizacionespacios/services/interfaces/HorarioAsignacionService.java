@@ -1,6 +1,8 @@
 package com.tic.optimizacionespacios.services.interfaces;
 
+import com.tic.optimizacionespacios.models.entities.Aula;
 import com.tic.optimizacionespacios.models.entities.HorarioAsignacion;
+import com.tic.optimizacionespacios.models.entities.Materia;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -32,4 +34,5 @@ public interface HorarioAsignacionService {
             LocalDate fechaInicio,
             LocalDate fechaFin
     );
+
 }

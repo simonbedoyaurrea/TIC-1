@@ -1,9 +1,11 @@
 package com.tic.optimizacionespacios.services.implementations;
 
 import com.tic.optimizacionespacios.models.entities.DisponibilidadProfesor;
+import com.tic.optimizacionespacios.models.entities.Materia;
 import com.tic.optimizacionespacios.models.entities.Profesor;
 import com.tic.optimizacionespacios.repositories.DisponibilidadProfesorRepository;
 import com.tic.optimizacionespacios.repositories.ProfesorRepository;
+import com.tic.optimizacionespacios.services.interfaces.MateriaService;
 import com.tic.optimizacionespacios.services.interfaces.ProfesorService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -17,18 +19,19 @@ import java.time.DayOfWeek;
 public class ProfesorServiceImpl implements ProfesorService {
     private final ProfesorRepository profesorRepo;
     private final DisponibilidadProfesorRepository disponibilidadRepo;
+    private final MateriaService materiaService;
+
 
     public ProfesorServiceImpl(
             ProfesorRepository profesorRepo,
-            DisponibilidadProfesorRepository disponibilidadRepo
+            DisponibilidadProfesorRepository disponibilidadRepo,
+            MateriaService materiaService
     ) {
         this.profesorRepo = profesorRepo;
         this.disponibilidadRepo = disponibilidadRepo;
+        this.materiaService = materiaService;
     }
 
-    // ===============================
-    // CRUD
-    // ===============================
     @Override
     public Profesor crearProfesor(Profesor profesor) {
         return profesorRepo.save(profesor);
@@ -58,15 +61,31 @@ public class ProfesorServiceImpl implements ProfesorService {
     }
 
     @Override
+    public void agregarMateria(Long idProfesor, Long idMateria){
+        Profesor profesor = obtenerProfesorPorId(idProfesor);
+        Materia materia = materiaService.obtenerMateria(idMateria);
+
+        profesor.getMaterias().add(materia);
+        profesorRepo.save(profesor);
+    }
+
+    @Override
+    public void eliminarMateria(Long idProfesor, Long idMateria){
+        Profesor profesor = obtenerProfesorPorId(idProfesor);
+        Materia materia = materiaService.obtenerMateria(idMateria);
+
+        profesor.getMaterias().remove(materia);
+        profesorRepo.save(profesor);
+    }
+
+
+    @Override
     public void eliminarProfesor(Long id) {
         Profesor profesor = obtenerProfesorPorId(id);
         profesor.setActivo(false); // borrado lógico
         profesorRepo.save(profesor);
     }
 
-    // ===============================
-    // DISPONIBILIDAD
-    // ===============================
     @Override
     public void agregarDisponibilidad(
             Long profesorId,
@@ -99,9 +118,6 @@ public class ProfesorServiceImpl implements ProfesorService {
         disponibilidadRepo.delete(disp);
     }
 
-    // ===============================
-    // VALIDACIÓN CLAVE
-    // ===============================
     @Override
     public boolean estaDisponible(
             Long profesorId,

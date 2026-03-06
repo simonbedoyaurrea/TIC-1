@@ -1,7 +1,6 @@
 package com.tic.optimizacionespacios.services.implementations;
 
-import com.tic.optimizacionespacios.models.entities.DiaHorario;
-import com.tic.optimizacionespacios.models.entities.HorarioAsignacion;
+import com.tic.optimizacionespacios.models.entities.*;
 import com.tic.optimizacionespacios.models.enums.EstadoMateria;
 import com.tic.optimizacionespacios.repositories.AulaRepository;
 import com.tic.optimizacionespacios.repositories.HorarioAsignacionRepository;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -38,9 +38,10 @@ public class HorarioAsignacionServiceImpl implements HorarioAsignacionService {
 
     @Override
     public HorarioAsignacion crearHorario(HorarioAsignacion horario) {
-
         validarAula(horario);
+        validarProfesorPuedeDarMateria(horario);
         validarConflictos(horario);
+
 
         horario.setEstado(EstadoMateria.PROPUESTO);
 
@@ -60,7 +61,7 @@ public class HorarioAsignacionServiceImpl implements HorarioAsignacionService {
     public HorarioAsignacion aprobarHorario(Long horarioId) {
         HorarioAsignacion horario = obtenerHorario(horarioId);
 
-        if (!"VALIDADO".equals(horario.getEstado())) {
+        if (!EstadoMateria.VALIDADO.equals(horario.getEstado())) {
             throw new IllegalStateException("El horario debe estar VALIDADO para aprobarse");
         }
 
@@ -103,6 +104,15 @@ public class HorarioAsignacionServiceImpl implements HorarioAsignacionService {
         );
     }
 
+    public boolean aulaCumpleRecursos(Materia materia, Aula aula) {
+
+        Set<Recurso> recursosMateria = materia.getRecursosNecesarios();
+        Set<Recurso> recursosAula = aula.getRecursos();
+
+        return recursosAula.containsAll(recursosMateria);
+    }
+
+
 
     // ===============================
     // MÉTODOS PRIVADOS (LIMPIEZA)
@@ -112,6 +122,26 @@ public class HorarioAsignacionServiceImpl implements HorarioAsignacionService {
                 .orElseThrow(() -> new RuntimeException("Horario no encontrado"));
     }
 
+    private void validarProfesorPuedeDarMateria(HorarioAsignacion horario) {
+
+        Profesor profesor = profesorRepo.findById(horario.getProfesor().getId())
+                .orElseThrow(() -> new RuntimeException("Profesor no existe"));
+
+        boolean puedeDarMateria = profesor.getMaterias().stream()
+                .anyMatch(m -> m.getId().equals(horario.getMateria().getId()));
+
+        if (!puedeDarMateria) {
+            throw new RuntimeException("El profesor no está habilitado para dictar esta materia");
+        }
+    }
+
+//    private void validarRecursos(HorarioAsignacion horario) {
+//
+//        Set<Recurso> recursosMateria = horario.getMateria().getRecursosNecesarios();
+//        Set<Recurso> recursosAula = horario.getAula().getRecursos();
+//
+//        if(!recursosAula.containsAll(recursosMateria)) throw new RuntimeException("El aula no cumple con los requisitos (Materiales) de la materia ");
+//    }
 
     private void validarAula(HorarioAsignacion horario) {
         aulaRepo.findById(horario.getAula().getId())
@@ -141,6 +171,11 @@ public class HorarioAsignacionServiceImpl implements HorarioAsignacionService {
                     horario.getFechaFin()
             )) {
                 throw new RuntimeException("Conflicto de profesor en " + dia.getDiaSemana());
+            }
+
+            if(!aulaCumpleRecursos(horario.getMateria(), horario.getAula())){
+                throw new RuntimeException("El aula no cumple con los requisitos (Materiales) de la materia ");
+
             }
 
             boolean disponible = profesorService.estaDisponible(

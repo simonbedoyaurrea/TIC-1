@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 //FALTAN VALIDACIONES
+//FALTA: LOS PROFESORES SOLO PUEDEN DAR LAS MATERIAS QUE ESTEN CAPACITADOS
 @RestController
 @RequestMapping("/api/profesores")
 public class ProfesorController {
@@ -67,6 +68,19 @@ public class ProfesorController {
                 ProfesorMapper.toResponse(actualizado)
         );
     }
+
+    @PutMapping("/{profesorId}/agregarMateria/{materiaId}")
+    public ResponseEntity<Void> agregarMateria(@PathVariable Long profesorId, @PathVariable Long materiaId){
+        profesorService.agregarMateria(profesorId, materiaId);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{profesorId}/eliminarMateria/{materiaId}")
+    public ResponseEntity<Void> eliminarMateria(@PathVariable Long profesorId, @PathVariable Long materiaId){
+        profesorService.eliminarMateria(profesorId, materiaId);
+        return ResponseEntity.ok().build();
+    }
+
 
     // ELIMINAR (LÓGICO)
     @DeleteMapping("/{id}")

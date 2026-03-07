@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // import { useEffect, useState } from "react";
 // import CampusMap from "./components/CampusMap";
 // import RoleSidebar from "./components/RoleSideBar";
@@ -464,21 +465,19 @@
 // }
 
 
-import ClassroomCard from "./components/ClassroomCard";
+import Login from "./pages/Login";
+import AlertForm from "./components/AlertForm";
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
 
 export default function App() {
-  const testClassroom = {
-    number: "101",
-    floor: 1,
-    type: "Laboratorio",
-    capacity: 40,
-    equipment: ["Videobeam", "Computador", "Pantalla"],
-    status: "available",
-  };
-
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center">
-      <ClassroomCard classroom={testClassroom} />
+    <div>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/alert" element={<AlertForm />} />
+      </Routes>
     </div>
   );
 }

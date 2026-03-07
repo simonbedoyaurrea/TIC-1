@@ -13,5 +13,9 @@ public interface AulaService {
 
     List<Aula> listar();
 
+    void agregarRecurso(Long aulaId, Long recursoId);
+
+    void eliminarRecurso(Long aulaId, Long recursoId);
+
     void eliminar(Long id);
 }

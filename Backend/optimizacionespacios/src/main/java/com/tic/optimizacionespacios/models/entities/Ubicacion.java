@@ -22,10 +22,5 @@ public class Ubicacion {
     @Column(length = 255)
     private String referencia;
 
-    //latitud y longitud son datos opcionales que ayudan a crear el mapa dinamico
-    //Si se busca hacer que los salones esten lo mas pegado posibles
-    private double latitud;
-
-    private double longitud;
 
 }

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { loginUser } from "../services/AuthService";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -11,15 +10,7 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    loginUser(email, password)
-      .then(() => {
-        setLoading(false);
-        window.location.href = "/dashboard";
-      })
-      .catch((error) => {
-        setLoading(false);
-        console.error("Error al iniciar sesión:", error);
-      });
+    setTimeout(() => setLoading(false), 2000);
   };
 
   return (
@@ -676,6 +667,65 @@ export default function Login() {
               )}
             </button>
           </form>
+
+          {/* Divider */}
+          <div
+            style={{
+              marginTop: 36,
+              display: "flex",
+              alignItems: "center",
+              gap: 12,
+            }}
+          >
+            <div style={{ flex: 1, height: 1, background: "#e5e7eb" }} />
+            <span style={{ fontSize: 10, color: "#9ca3af", letterSpacing: 2 }}>
+              SSO
+            </span>
+            <div style={{ flex: 1, height: 1, background: "#e5e7eb" }} />
+          </div>
+
+          {/* SSO button */}
+          <button
+            type="button"
+            style={{
+              marginTop: 16,
+              width: "100%",
+              padding: "13px 16px",
+              background: "transparent",
+              border: "1.5px solid #e5e7eb",
+              fontFamily: "DM Mono",
+              fontSize: 12,
+              color: "#374151",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 10,
+              letterSpacing: 1,
+              transition: "all 0.2s",
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.borderColor = "#dc2626";
+              e.currentTarget.style.color = "#dc2626";
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.borderColor = "#e5e7eb";
+              e.currentTarget.style.color = "#374151";
+            }}
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <rect x="3" y="11" width="18" height="11" rx="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg>
+            Acceso con cuenta institucional
+          </button>
 
           {/* Footer note */}
           <div

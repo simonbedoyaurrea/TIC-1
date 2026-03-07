@@ -2,7 +2,7 @@ package com.tic.optimizacionespacios.models;
 
 import java.time.LocalDateTime;
 
-import com.tic.optimizacionespacios.enums.Roles;
+import com.tic.optimizacionespacios.enums.Rol;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -43,7 +43,7 @@ public class User {
     
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Roles rol;
+    private Rol rol;
     
     @Column(name = "fecha_registro")
     private LocalDateTime fechaRegistro;

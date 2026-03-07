@@ -1,22 +1,23 @@
 package com.tic.optimizacionespacios.controllers;
 
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 import com.tic.optimizacionespacios.dto.AulaRequestDTO;
 import com.tic.optimizacionespacios.dto.AulaResponseDTO;
-import com.tic.optimizacionespacios.dto.UbicacionRequestDTO;
 import com.tic.optimizacionespacios.models.entities.Aula;
 import com.tic.optimizacionespacios.models.entities.Ubicacion;
 import com.tic.optimizacionespacios.models.mappers.AulaMapper;
-import com.tic.optimizacionespacios.models.mappers.UbicacionMapper;
 import com.tic.optimizacionespacios.services.interfaces.AulaService;
-import com.tic.optimizacionespacios.services.interfaces.RecursoService;
 import com.tic.optimizacionespacios.services.interfaces.UbicacionService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-@RestController
-@RequestMapping("/api/aulas")
 public class AulaController {
 
     //No esta desarrollada
@@ -25,21 +26,26 @@ public class AulaController {
 
     public AulaController(
             AulaService aulaService,
-            UbicacionService ubicacionService, RecursoService recursoService) {
+            UbicacionService ubicacionService
+    ) {
         this.aulaService = aulaService;
         this.ubicacionService = ubicacionService;
     }
 
     // CREAR AULA
     @PostMapping
-    public ResponseEntity<AulaResponseDTO> crearAula(@RequestBody AulaRequestDTO dto) {
-
-        Ubicacion ubicacion = ubicacionService.obtenerPorId(dto.getIdUbicacion());
+    public ResponseEntity<AulaResponseDTO> crearAula(
+            @RequestBody AulaRequestDTO dto
+    ) {
+        Ubicacion ubicacion =
+                ubicacionService.obtenerPorId(dto.getIdUbicacion());
 
         Aula aula = AulaMapper.toEntity(dto, ubicacion);
         Aula creada = aulaService.crear(aula);
 
-        return ResponseEntity.ok(AulaMapper.toResponse(creada));
+        return ResponseEntity.ok(
+                AulaMapper.toResponse(creada)
+        );
     }
 
     // LISTAR AULAS
@@ -72,31 +78,15 @@ public class AulaController {
             @PathVariable Long id,
             @RequestBody AulaRequestDTO dto
     ) {
-
-        Ubicacion ubicacion = ubicacionService.obtenerPorId(dto.getIdUbicacion());
+        Ubicacion ubicacion =
+                ubicacionService.obtenerPorId(dto.getIdUbicacion());
 
         Aula aula = AulaMapper.toEntity(dto, ubicacion);
         Aula actualizada = aulaService.actualizar(id, aula);
 
-        return ResponseEntity.ok(AulaMapper.toResponse(actualizada));
-    }
-
-    @PutMapping("/{aulaId}/recursos/{recursoId}")
-    public ResponseEntity<Void> agregarRecurso(
-            @PathVariable Long aulaId,
-            @PathVariable Long recursoId
-    ){
-        aulaService.agregarRecurso(aulaId, recursoId);
-        return ResponseEntity.noContent().build();
-    }
-
-    @DeleteMapping("/{aulaId}/recursos/{recursoId}")
-    public ResponseEntity<Void> eliminarRecurso(
-            @PathVariable Long aulaId,
-            @PathVariable Long recursoId
-    ){
-        aulaService.eliminarRecurso(aulaId, recursoId);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(
+                AulaMapper.toResponse(actualizada)
+        );
     }
 
     // ELIMINAR (LÓGICO)

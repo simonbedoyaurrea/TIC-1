@@ -1,10 +1,8 @@
 package com.tic.optimizacionespacios.dto;
 
-import com.tic.optimizacionespacios.models.entities.Recurso;
-import com.tic.optimizacionespacios.models.entities.Ubicacion;
-
 import java.util.List;
-import java.util.Set;
+
+import com.tic.optimizacionespacios.models.entities.Ubicacion;
 
 public record AulaResponseDTO(
         Long id,

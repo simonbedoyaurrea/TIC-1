@@ -1,17 +1,19 @@
 package com.tic.optimizacionespacios.services.interfaces;
 
-import com.tic.optimizacionespacios.models.entities.Aula;
-
 import java.util.List;
 
-public interface AulaService {
-    Aula crear(Aula aula);
+import com.tic.optimizacionespacios.models.entities.Aula;
 
-    Aula actualizar(Long id, Aula aula);
+public interface AulaService {
+    Aula crear(Aula aula, List<Long> recursoIds);
+
+    Aula actualizar(Long id, Aula aula, List<Long> recursoIds);
 
     Aula obtenerPorId(Long id);
 
     List<Aula> listar();
+
+    void actualizarEstado(Long id, String estado);
 
     void agregarRecurso(Long aulaId, Long recursoId);
 

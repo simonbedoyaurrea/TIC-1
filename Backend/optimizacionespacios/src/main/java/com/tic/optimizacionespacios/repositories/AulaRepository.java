@@ -1,13 +1,13 @@
 package com.tic.optimizacionespacios.repositories;
 
-import com.tic.optimizacionespacios.enums.EstadoAula;
-import com.tic.optimizacionespacios.enums.TipoAula;
-import com.tic.optimizacionespacios.models.entities.Aula;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.tic.optimizacionespacios.enums.EstadoAula;
+import com.tic.optimizacionespacios.enums.TipoAula;
+import com.tic.optimizacionespacios.models.entities.Aula;
 
 @Repository
 public interface AulaRepository extends JpaRepository<Aula, Long> {
@@ -20,5 +20,5 @@ public interface AulaRepository extends JpaRepository<Aula, Long> {
 
     List<Aula> findByCapacidadMaximaGreaterThanEqualAndActivoTrue(Integer capacidad);
 
-    boolean existsByCodigo(String codigo);
+    // boolean existsByCodigo(String codigo);
 }

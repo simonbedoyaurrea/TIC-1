@@ -26,7 +26,7 @@ import com.tic.optimizacionespacios.enums.EstadoReporte;
 import com.tic.optimizacionespacios.enums.Rol;
 import com.tic.optimizacionespacios.enums.Urgencia;
 import com.tic.optimizacionespacios.exception.RecursoNoEncontradoException;
-import com.tic.optimizacionespacios.models.Reporte;
+import com.tic.optimizacionespacios.models.entities.Reporte;
 import com.tic.optimizacionespacios.repositories.ReporteRepository;
 
 import lombok.RequiredArgsConstructor;

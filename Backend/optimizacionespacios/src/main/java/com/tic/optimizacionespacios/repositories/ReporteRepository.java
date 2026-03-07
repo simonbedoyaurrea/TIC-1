@@ -1,15 +1,16 @@
 package com.tic.optimizacionespacios.repositories;
 
-import com.tic.optimizacionespacios.enums.EstadoReporte;
-import com.tic.optimizacionespacios.enums.Rol;
-import com.tic.optimizacionespacios.enums.Urgencia;
-import com.tic.optimizacionespacios.models.Reporte;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.tic.optimizacionespacios.enums.EstadoReporte;
+import com.tic.optimizacionespacios.enums.Rol;
+import com.tic.optimizacionespacios.enums.Urgencia;
+import com.tic.optimizacionespacios.models.entities.Reporte;
 
 @Repository
 public interface ReporteRepository extends JpaRepository<Reporte, Long> {

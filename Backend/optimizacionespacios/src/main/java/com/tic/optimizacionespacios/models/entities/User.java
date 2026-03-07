@@ -1,4 +1,4 @@
-package com.tic.optimizacionespacios.models;
+package com.tic.optimizacionespacios.models.entities;
 
 import java.time.LocalDateTime;
 

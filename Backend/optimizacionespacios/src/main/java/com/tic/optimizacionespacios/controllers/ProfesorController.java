@@ -1,5 +1,17 @@
 package com.tic.optimizacionespacios.controllers;
 
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.tic.optimizacionespacios.dto.DisponibilidadProfesorDTO;
 import com.tic.optimizacionespacios.dto.ProfesorRequestDTO;
 import com.tic.optimizacionespacios.dto.ProfesorResponseDTO;
@@ -7,10 +19,6 @@ import com.tic.optimizacionespacios.models.entities.Profesor;
 import com.tic.optimizacionespacios.models.mappers.DisponibilidadProfesorMapper;
 import com.tic.optimizacionespacios.models.mappers.ProfesorMapper;
 import com.tic.optimizacionespacios.services.interfaces.ProfesorService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 //FALTAN VALIDACIONES
 //FALTA: LOS PROFESORES SOLO PUEDEN DAR LAS MATERIAS QUE ESTEN CAPACITADOS

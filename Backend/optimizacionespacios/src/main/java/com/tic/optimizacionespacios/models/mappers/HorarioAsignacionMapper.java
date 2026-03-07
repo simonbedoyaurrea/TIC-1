@@ -2,11 +2,11 @@ package com.tic.optimizacionespacios.models.mappers;
 
 import com.tic.optimizacionespacios.dto.HorarioAsignacionRequestDTO;
 import com.tic.optimizacionespacios.dto.HorarioAsignacionResponseDTO;
+import com.tic.optimizacionespacios.enums.TipoSesion;
 import com.tic.optimizacionespacios.models.entities.Aula;
 import com.tic.optimizacionespacios.models.entities.DiaHorario;
 import com.tic.optimizacionespacios.models.entities.HorarioAsignacion;
 import com.tic.optimizacionespacios.models.entities.Profesor;
-import com.tic.optimizacionespacios.models.enums.TipoSesion;
 
 import java.util.List;
 

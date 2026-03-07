@@ -2,11 +2,11 @@ package com.tic.optimizacionespacios.models.mappers;
 
 import com.tic.optimizacionespacios.dto.AulaRequestDTO;
 import com.tic.optimizacionespacios.dto.AulaResponseDTO;
+import com.tic.optimizacionespacios.enums.EstadoAula;
+import com.tic.optimizacionespacios.enums.TipoAula;
 import com.tic.optimizacionespacios.models.entities.Aula;
 import com.tic.optimizacionespacios.models.entities.Recurso;
 import com.tic.optimizacionespacios.models.entities.Ubicacion;
-import com.tic.optimizacionespacios.models.enums.EstadoAula;
-import com.tic.optimizacionespacios.models.enums.TipoAula;
 
 
 public class AulaMapper {

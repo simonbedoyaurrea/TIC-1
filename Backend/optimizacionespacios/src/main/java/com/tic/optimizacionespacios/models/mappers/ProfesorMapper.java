@@ -2,9 +2,9 @@ package com.tic.optimizacionespacios.models.mappers;
 
 import com.tic.optimizacionespacios.dto.ProfesorRequestDTO;
 import com.tic.optimizacionespacios.dto.ProfesorResponseDTO;
+import com.tic.optimizacionespacios.enums.TipoProfesor;
 import com.tic.optimizacionespacios.models.entities.Materia;
 import com.tic.optimizacionespacios.models.entities.Profesor;
-import com.tic.optimizacionespacios.models.enums.TipoProfesor;
 
 public class ProfesorMapper {
     private ProfesorMapper() {}

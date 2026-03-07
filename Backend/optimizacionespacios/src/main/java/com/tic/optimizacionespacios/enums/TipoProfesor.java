@@ -1,4 +1,4 @@
-package com.tic.optimizacionespacios.models.enums;
+package com.tic.optimizacionespacios.enums;
 
 public enum TipoProfesor {
     CATEDRA,

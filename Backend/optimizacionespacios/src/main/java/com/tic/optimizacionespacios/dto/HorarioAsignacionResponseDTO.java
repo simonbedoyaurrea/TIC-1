@@ -1,11 +1,11 @@
 package com.tic.optimizacionespacios.dto;
 
-import com.tic.optimizacionespacios.models.enums.EstadoMateria;
-
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+
+import com.tic.optimizacionespacios.enums.EstadoMateria;
 
 public record HorarioAsignacionResponseDTO (
      Long id,

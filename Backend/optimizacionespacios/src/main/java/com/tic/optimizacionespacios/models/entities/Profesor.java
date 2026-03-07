@@ -1,10 +1,11 @@
 package com.tic.optimizacionespacios.models.entities;
 
-import com.tic.optimizacionespacios.models.enums.TipoProfesor;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.List;
+
+import com.tic.optimizacionespacios.enums.TipoProfesor;
 
 @Entity
 @Data

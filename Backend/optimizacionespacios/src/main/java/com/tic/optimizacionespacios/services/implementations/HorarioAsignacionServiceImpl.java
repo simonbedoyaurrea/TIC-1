@@ -1,7 +1,7 @@
 package com.tic.optimizacionespacios.services.implementations;
 
+import com.tic.optimizacionespacios.enums.EstadoMateria;
 import com.tic.optimizacionespacios.models.entities.*;
-import com.tic.optimizacionespacios.models.enums.EstadoMateria;
 import com.tic.optimizacionespacios.repositories.AulaRepository;
 import com.tic.optimizacionespacios.repositories.HorarioAsignacionRepository;
 import com.tic.optimizacionespacios.repositories.ProfesorRepository;

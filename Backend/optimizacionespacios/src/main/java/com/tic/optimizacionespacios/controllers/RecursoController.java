@@ -1,20 +1,22 @@
 package com.tic.optimizacionespacios.controllers;
 
-import com.tic.optimizacionespacios.dto.MateriaRequestDTO;
-import com.tic.optimizacionespacios.dto.MateriaResponseDTO;
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.tic.optimizacionespacios.dto.RecursoRequestDTO;
 import com.tic.optimizacionespacios.dto.RecursoResponseDTO;
-import com.tic.optimizacionespacios.models.entities.Materia;
 import com.tic.optimizacionespacios.models.entities.Recurso;
-import com.tic.optimizacionespacios.models.mappers.MateriaMapper;
 import com.tic.optimizacionespacios.models.mappers.RecursoMapper;
-import com.tic.optimizacionespacios.repositories.RecursoRepository;
 import com.tic.optimizacionespacios.services.interfaces.RecursoService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/api/recursos")

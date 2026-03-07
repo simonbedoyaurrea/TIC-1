@@ -1,13 +1,14 @@
 package com.tic.optimizacionespacios.models.entities;
 
-import com.tic.optimizacionespacios.models.enums.EstadoMateria;
-import com.tic.optimizacionespacios.models.enums.TipoSesion;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+
+import com.tic.optimizacionespacios.enums.EstadoMateria;
+import com.tic.optimizacionespacios.enums.TipoSesion;
 
 @Entity
 @Data

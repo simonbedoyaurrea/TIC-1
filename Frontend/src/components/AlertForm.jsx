@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { enviarReporte } from "../services/ReporteService";
 
 // ---── Bloques UPB ──────────────────────────────────────────────
 const BLOQUES = [
@@ -165,6 +166,8 @@ export default function AlertForm() {
   });
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [serverError, setServerError] = useState("");
   const [dragging, setDragging] = useState(false);
 
   const set = (field, value) => {
@@ -198,13 +201,45 @@ export default function AlertForm() {
       form.files.filter((_, idx) => idx !== i),
     );
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const errs = validate();
     if (Object.keys(errs).length) {
       setErrors(errs);
       return;
     }
-    setSubmitted(true);
+
+    setServerError("");
+    setLoading(true);
+
+    // Map frontend values to backend DTO/enums
+    const rolMap = {
+      Estudiante: "ESTUDIANTE",
+      Docente: "DOCENTE",
+      Administrativo: "ADMINISTRATIVO",
+    };
+
+    const dto = {
+      rol: rolMap[form.rol] || form.rol,
+      contacto: form.contacto || null,
+      numeroBloque: Number(form.bloque),
+      salon: form.salon,
+      piso: form.piso || null,
+      inhabilitado: !!form.inhabilitado,
+      categoria: form.categoria,
+      subcategoria: form.subcategoria,
+      descripcion: form.descripcion,
+      urgencia: form.urgencia ? form.urgencia.toUpperCase() : null,
+    };
+
+    try {
+      await enviarReporte(dto, form.files);
+      setSubmitted(true);
+    } catch (err) {
+      console.error("Error al enviar reporte:", err);
+      setServerError(err.message || "Error al enviar reporte");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const reset = () => {

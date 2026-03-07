@@ -58,6 +58,7 @@ public class SecurityConfig {
                             .requestMatchers("/h2-console/**").permitAll()
                             .requestMatchers("/h2-console").permitAll()
                             .requestMatchers("/error").permitAll()
+                            .requestMatchers(HttpMethod.POST, "/api/reportes").permitAll()
 
                             
                             // Public species endpoints (allow all users to view species)

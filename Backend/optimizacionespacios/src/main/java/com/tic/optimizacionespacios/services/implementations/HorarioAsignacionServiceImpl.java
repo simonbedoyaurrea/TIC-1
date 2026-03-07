@@ -5,6 +5,7 @@ import com.tic.optimizacionespacios.models.enums.EstadoMateria;
 import com.tic.optimizacionespacios.repositories.AulaRepository;
 import com.tic.optimizacionespacios.repositories.HorarioAsignacionRepository;
 import com.tic.optimizacionespacios.repositories.ProfesorRepository;
+import com.tic.optimizacionespacios.services.interfaces.AulaService;
 import com.tic.optimizacionespacios.services.interfaces.HorarioAsignacionService;
 import com.tic.optimizacionespacios.services.interfaces.ProfesorService;
 import jakarta.transaction.Transactional;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -22,18 +24,20 @@ public class HorarioAsignacionServiceImpl implements HorarioAsignacionService {
     private final ProfesorRepository profesorRepo;
     private final ProfesorService profesorService;
     private final AulaRepository aulaRepo;
+    private final AulaService aulaService;
 
     //Inyeccion dependencias
     public HorarioAsignacionServiceImpl(
             HorarioAsignacionRepository horarioRepo,
             ProfesorRepository profesorRepo,
             ProfesorService profesorService,
-            AulaRepository aulaRepo
-    ) {
+            AulaRepository aulaRepo,
+            AulaService aulaService) {
         this.horarioRepo = horarioRepo;
         this.profesorRepo = profesorRepo;
         this.profesorService = profesorService;
         this.aulaRepo = aulaRepo;
+        this.aulaService = aulaService;
     }
 
     @Override
@@ -46,6 +50,81 @@ public class HorarioAsignacionServiceImpl implements HorarioAsignacionService {
         horario.setEstado(EstadoMateria.PROPUESTO);
 
         return horarioRepo.save(horario);
+    }
+
+    @Override
+    public List<HorarioAsignacion> obtenerHorarios(){
+        return horarioRepo.findAll();
+    }
+
+    @Override
+    public HorarioAsignacion obtenerHorario(Long id){
+        return horarioRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Horario no encontrado"));
+    }
+
+    @Override
+    public HorarioAsignacion actualizar(Long id, HorarioAsignacion horarioAsignacion){
+        HorarioAsignacion existente = obtenerHorario(id);
+
+        existente.setNrc(horarioAsignacion.getNrc());
+        existente.setAula(horarioAsignacion.getAula());
+        existente.setAula(horarioAsignacion.getAula());
+        existente.setProfesor(horarioAsignacion.getProfesor());
+        existente.setFechaInicio(horarioAsignacion.getFechaInicio());
+        existente.setFechaFin(horarioAsignacion.getFechaFin());
+        existente.setDias(horarioAsignacion.getDias());
+        existente.setHoraInicio(horarioAsignacion.getHoraInicio());
+        existente.setHoraFin(horarioAsignacion.getHoraFin());
+        existente.setTipoSesion(horarioAsignacion.getTipoSesion());
+        existente.setEstado(horarioAsignacion.getEstado());
+        existente.setOrigen(horarioAsignacion.getOrigen());
+
+        validarConflictos(existente);
+        validarProfesorPuedeDarMateria(existente);
+
+        return horarioRepo.save(existente);
+    }
+
+    @Override
+    public HorarioAsignacion cambiarAula(Long horarioId, Long aulaId){
+        HorarioAsignacion existente = obtenerHorario(horarioId);
+        Aula aula = aulaService.obtenerPorId(aulaId);
+
+        existente.setAula(aula);
+
+        validarConflictos(existente);
+
+        return horarioRepo.save(existente);
+
+    }
+
+    @Override
+    public HorarioAsignacion cambiarProfesor(Long horarioId, Long profesorId){
+        HorarioAsignacion existente = obtenerHorario(horarioId);
+        Profesor profesor = profesorService.obtenerProfesorPorId(profesorId);
+
+        existente.setProfesor(profesor);
+
+        validarProfesorPuedeDarMateria(existente);
+        validarConflictos(existente);
+
+        return horarioRepo.save(existente);
+
+    }
+
+    @Override
+    public HorarioAsignacion cambiarFecha(Long horarioId, LocalDate fechaInicio, LocalDate fechaFin){
+        HorarioAsignacion existente = obtenerHorario(horarioId);
+
+        if(fechaInicio.isBefore(fechaFin)){
+            throw new RuntimeException("Las fechas no son validas");
+        }
+
+        existente.setFechaInicio(fechaInicio);
+        existente.setFechaFin(fechaFin);
+
+        return horarioRepo.save(existente);
     }
 
     //Cambiar estado a Validado
@@ -117,11 +196,6 @@ public class HorarioAsignacionServiceImpl implements HorarioAsignacionService {
     // ===============================
     // MÉTODOS PRIVADOS (LIMPIEZA)
     // ===============================
-    private HorarioAsignacion obtenerHorario(Long id) {
-        return horarioRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Horario no encontrado"));
-    }
-
     private void validarProfesorPuedeDarMateria(HorarioAsignacion horario) {
 
         Profesor profesor = profesorRepo.findById(horario.getProfesor().getId())
@@ -135,13 +209,6 @@ public class HorarioAsignacionServiceImpl implements HorarioAsignacionService {
         }
     }
 
-//    private void validarRecursos(HorarioAsignacion horario) {
-//
-//        Set<Recurso> recursosMateria = horario.getMateria().getRecursosNecesarios();
-//        Set<Recurso> recursosAula = horario.getAula().getRecursos();
-//
-//        if(!recursosAula.containsAll(recursosMateria)) throw new RuntimeException("El aula no cumple con los requisitos (Materiales) de la materia ");
-//    }
 
     private void validarAula(HorarioAsignacion horario) {
         aulaRepo.findById(horario.getAula().getId())
@@ -192,4 +259,5 @@ public class HorarioAsignacionServiceImpl implements HorarioAsignacionService {
             }
         }
     }
+
 }

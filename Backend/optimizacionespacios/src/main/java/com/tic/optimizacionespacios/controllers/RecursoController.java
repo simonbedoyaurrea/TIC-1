@@ -1,20 +1,14 @@
 package com.tic.optimizacionespacios.controllers;
 
-import com.tic.optimizacionespacios.dto.MateriaRequestDTO;
-import com.tic.optimizacionespacios.dto.MateriaResponseDTO;
 import com.tic.optimizacionespacios.dto.RecursoRequestDTO;
 import com.tic.optimizacionespacios.dto.RecursoResponseDTO;
-import com.tic.optimizacionespacios.models.entities.Materia;
 import com.tic.optimizacionespacios.models.entities.Recurso;
-import com.tic.optimizacionespacios.models.mappers.MateriaMapper;
 import com.tic.optimizacionespacios.models.mappers.RecursoMapper;
-import com.tic.optimizacionespacios.repositories.RecursoRepository;
 import com.tic.optimizacionespacios.services.interfaces.RecursoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/api/recursos")

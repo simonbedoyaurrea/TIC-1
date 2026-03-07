@@ -33,6 +33,18 @@ public class HorarioAsignacionRequestDTO {
         return fechaFin;
     }
 
+    public Long getAulaId() {
+        return aulaId;
+    }
+
+    public Long getProfesorId() {
+        return profesorId;
+    }
+
+    public Long getMateriaId() {
+        return materiaId;
+    }
+
     public LocalTime getHoraInicio() {
         return horaInicio;
     }

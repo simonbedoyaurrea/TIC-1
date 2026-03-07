@@ -1,9 +1,11 @@
 package com.tic.optimizacionespacios.services.implementations;
 
 import com.tic.optimizacionespacios.models.entities.Aula;
+import com.tic.optimizacionespacios.models.entities.Recurso;
 import com.tic.optimizacionespacios.models.entities.Ubicacion;
 import com.tic.optimizacionespacios.repositories.AulaRepository;
 import com.tic.optimizacionespacios.services.interfaces.AulaService;
+import com.tic.optimizacionespacios.services.interfaces.RecursoService;
 import com.tic.optimizacionespacios.services.interfaces.UbicacionService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -15,13 +17,15 @@ import java.util.List;
 public class AulaServiceImpl implements AulaService {
     private final AulaRepository aulaRepo;
     private final UbicacionService ubicacionService;
+    private final RecursoService recursoService;
 
     public AulaServiceImpl(
             AulaRepository aulaRepo,
-            UbicacionService ubicacionService
+            UbicacionService ubicacionService, RecursoService recursoService
     ) {
         this.aulaRepo = aulaRepo;
         this.ubicacionService = ubicacionService;
+        this.recursoService = recursoService;
     }
 
     // CREAR
@@ -69,6 +73,27 @@ public class AulaServiceImpl implements AulaService {
     public List<Aula> listar() {
         return aulaRepo.findAll();
     }
+
+    @Override
+    public void agregarRecurso(Long aulaId, Long recursoId) {
+        Aula aula = aulaRepo.findById(aulaId).orElseThrow(() -> new RuntimeException("Aula no existe"));
+        Recurso recurso = recursoService.obtenerRecurso(recursoId);
+
+        aula.getRecursos().add(recurso);
+        aulaRepo.save(aula);
+
+    }
+
+    @Override
+    public void eliminarRecurso(Long aulaId, Long recursoId) {
+        Aula aula = aulaRepo.findById(aulaId).orElseThrow(() -> new RuntimeException("Aula no existe"));
+        Recurso recurso = recursoService.obtenerRecurso(recursoId);
+
+        aula.getRecursos().remove(recurso);
+        aulaRepo.save(aula);
+
+    }
+
 
     // ELIMINAR
     @Override

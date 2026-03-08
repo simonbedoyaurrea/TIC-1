@@ -2,6 +2,7 @@ import Login from "./pages/Login";
 import AlertForm from "./components/AlertForm";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
+import Bloque from './pages/Bloque'
 
 export default function App() {
   return (
@@ -10,6 +11,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Home />} />
         <Route path="/alert" element={<AlertForm />} />
+        <Route path="/bloque" element={<Bloque/>}/>
       </Routes>
     </div>
   );

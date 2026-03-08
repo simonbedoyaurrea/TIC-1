@@ -10,7 +10,5 @@ import com.tic.optimizacionespacios.models.entities.Ubicacion;
 @Repository
 public interface UbicacionRepository extends JpaRepository<Ubicacion, Long> {
 
-    List<Ubicacion> findByBloque(String bloque);
-
 }
  

@@ -84,26 +84,20 @@ public class HorarioController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> validarHorario(
-            @PathVariable Long id
-    ) {
+    @PutMapping("/{id}/validar")
+    public ResponseEntity<Void> validarHorario(@PathVariable Long id) {
         horarioService.validarHorario(id);
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> aprobarHorario(
-            @PathVariable Long id
-    ) {
+    @PutMapping("/{id}/aprobar")
+    public ResponseEntity<Void> aprobarHorario(@PathVariable Long id) {
         horarioService.aprobarHorario(id);
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> cancelarHorario(
-            @PathVariable Long id
-    ) {
+    @DeleteMapping("/{id}/cancelar")
+    public ResponseEntity<Void> cancelarHorario(@PathVariable Long id) {
         horarioService.cancelarHorario(id);
         return ResponseEntity.noContent().build();
     }

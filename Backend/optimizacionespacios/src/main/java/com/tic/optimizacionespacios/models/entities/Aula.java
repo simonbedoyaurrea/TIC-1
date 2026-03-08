@@ -21,7 +21,6 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 
-//FALTA IMPLEMENTAR INVENTARIO AULA
 @Entity
 @Data
 @Table(name = "aulas")
@@ -30,10 +29,16 @@ public class Aula {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
+    private int piso;
+
+    @Column(nullable = false)
+    private int numeroAula;
+
+
     //Se puede cambiar a numero de sillas
     @Column(nullable = false)
     private int capacidadMaxima;
-
 
     @ManyToOne
     @JoinColumn(name = "ubicacion_id", nullable = false)

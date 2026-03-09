@@ -1,19 +1,19 @@
-import api from "../apis/axiosConfig";
+import apiClient from '../apis/apiClient'
 
 export const aulaService = {
 
   obtenerTodas: async () => {
-    const response = await api.get("/aulas");
+    const response = await apiClient.get("/aulas");
     return response.data;
   },
 
   obtenerPorBloque: async (bloque) => {
-    const response = await api.get(`/aulas/bloque/${bloque}`);
+    const response = await apiClient.get(`/aulas/bloque/${bloque}`);
     return response.data;
   },
 
   obtenerPorId: async (id) => {
-    const response = await api.get(`/aulas/${id}`);
+    const response = await apiClient.get(`/aulas/${id}`);
     return response.data;
   },
 

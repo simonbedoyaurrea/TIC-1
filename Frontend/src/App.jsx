@@ -11,7 +11,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Home />} />
         <Route path="/alert" element={<AlertForm />} />
-        <Route path="/bloque" element={<Bloque/>}/>
+        <Route path="/bloque/:idBloque" element={<Bloque />}/>
       </Routes>
     </div>
   );

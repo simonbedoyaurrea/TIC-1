@@ -1,13 +1,18 @@
 import bloque11 from "/bloque11.jpg";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
+
 
 import { useAulasPorPiso } from "../hooks/useAulasPorPiso";
-import { useBloquePorId } from "../hooks/useBloquePorId";
+import { useBloquePorId } from "../hooks/useBloquePorId"; 
 
 import AulaCard from "../components/AulaCard";
 import PisoButton from "../components/PisoButton";
 
-const Bloque = ({ idBloque }) => {
+
+const Bloque = () => {
+
+	const { idBloque } = useParams();
 
   const [pisoSeleccionado, setPisoSeleccionado] = useState(1);
 

@@ -1,4 +1,5 @@
-import { aulaService } from "../services/AulaService";
+
+import { ubicacionService } from '../services/UbicacionService'
 import { useEffect, useState } from "react";
 
 export const useAulasPorPiso = (bloque, piso) => {
@@ -12,7 +13,7 @@ export const useAulasPorPiso = (bloque, piso) => {
       setLoading(true);
 
       try {
-        const data = await aulaService.obtenerPorBloque(bloque);
+        const data = await ubicacionService.obtenerAulasBloque(bloque);
 
         const filtradas = piso
           ? data.filter((aula) => aula.piso === piso)

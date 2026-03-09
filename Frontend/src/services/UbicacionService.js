@@ -1,4 +1,4 @@
-import api from "../apis/axiosConfig";
+import api from "../apis/apiClient";
 
 export const ubicacionService = {
 

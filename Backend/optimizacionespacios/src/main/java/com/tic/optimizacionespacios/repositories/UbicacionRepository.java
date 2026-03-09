@@ -12,7 +12,11 @@ import com.tic.optimizacionespacios.models.entities.Ubicacion;
 
 @Repository
 public interface UbicacionRepository extends JpaRepository<Ubicacion, Long> {
-    @Query("SELECT u FROM Ubicacion u LEFT JOIN FETCH u.aulas WHERE u.id = :id")
-    Optional<Ubicacion> findByIdWithAulas(@Param("id") Long id);
+//    @Query("SELECT u FROM Ubicacion u LEFT JOIN FETCH u.aulas WHERE u.id = :id")
+//    Optional<Ubicacion> findByIdWithAulas(@Param("id") Long id);
+
+    // En UbicacionRepository o AulaRepository
+    @Query("SELECT u FROM Ubicacion u LEFT JOIN FETCH u.aulas a LEFT JOIN FETCH a.recursos WHERE u.id = :id")
+    Optional<Ubicacion> findByIdConAulasYRecursos(@Param("id") Long id);
 }
  

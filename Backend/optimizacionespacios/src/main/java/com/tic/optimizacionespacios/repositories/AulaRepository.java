@@ -14,8 +14,6 @@ public interface AulaRepository extends JpaRepository<Aula, Long> {
 
     List<Aula> findByActivoTrue();
 
-    List<Aula> findByUbicacionBloque(String bloque);
-
     List<Aula> findByTipoDeAulaAndActivoTrue(TipoAula tipoDeAula);
 
     List<Aula> findByEstadoAulaAndActivoTrue(EstadoAula estadoAula);

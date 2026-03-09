@@ -2,14 +2,15 @@ import { ubicacionService } from "../services/UbicacionService";
 import { useEffect, useState } from "react";
 
 export const useBloquePorId = (id) => {
-  const [ubicacion, setUbicacion] = useState([]);
+  const [bloque, setBloque] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const cargar = async () => {
       try {
         const data = await ubicacionService.obtenerPorId(id);
-        setUbicacion(data);
+        console.log(data);
+        setBloque(data);
       } catch (error) {
         console.error("Error cargando aulas", error);
       } finally {
@@ -20,5 +21,5 @@ export const useBloquePorId = (id) => {
     cargar();
   }, [id]);
 
-  return { ubicacion, loading };
+  return { bloque, loading };
 };

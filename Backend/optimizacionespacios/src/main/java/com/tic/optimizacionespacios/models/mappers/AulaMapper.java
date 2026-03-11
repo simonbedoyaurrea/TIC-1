@@ -42,7 +42,7 @@ public class AulaMapper {
                 aula.getUbicacion().getId(),
                 aula.getRecursos()
                         .stream()
-                        .map(Recurso::getId)
+                        .map(RecursoMapper::toResponse)
                         .toList()
         );
     }

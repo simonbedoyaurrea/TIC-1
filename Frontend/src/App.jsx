@@ -3,6 +3,7 @@ import AlertForm from "./components/AlertForm";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Bloque from './pages/Bloque'
+import {FormularioPage} from './pages/HorarioPrueba'
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/alert" element={<AlertForm />} />
         <Route path="/bloque/:idBloque" element={<Bloque />}/>
+        <Route path="/prueba" element={<FormularioPage/>}/>
       </Routes>
     </div>
   );

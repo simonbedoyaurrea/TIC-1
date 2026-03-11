@@ -12,5 +12,5 @@ public record AulaResponseDTO(
         String tipo,
         String estado,
         Long ubicacion,
-        List<Long> recursos
+        List<RecursoResponseDTO> recursos
 ) {}

@@ -61,7 +61,6 @@ const Bloque = () => {
         </div>
       </aside>
 
-      {/* MAIN */}
       <section className="relative z-10 flex-1 p-6">
         <header className="mb-8 text-white">
           <h1 className="text-3xl font-bold">

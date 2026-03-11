@@ -35,9 +35,12 @@ public class UbicacionServiceImpl implements UbicacionService {
 
     @Override
     public Ubicacion obtenerPorId(Long id) {
-        System.out.println(id);
-        return ubicacionRepo.findByIdConAulasYRecursos(id)
+        Ubicacion ubicacion = ubicacionRepo.findByIdConAulas(id)
                 .orElseThrow(() -> new RuntimeException("Ubicación no encontrada"));
+
+        ubicacionRepo.findAulasConRecursosByUbicacion(id); // inicializa recursos
+
+        return ubicacion;
     }
 
     @Override

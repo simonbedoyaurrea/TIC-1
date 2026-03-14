@@ -72,7 +72,7 @@ const COLOR_MAP = {
 // ── Pasos del flujo ───────────────────────────────────────────
 const PASOS = ["Cargar archivos", "Validar datos", "Generar horario"];
 
-export default function CargaDatosHorario() {
+export default function cargaDatosHorario() {
   const [archivos, setArchivos] = useState({ docentes: null, materias: null, aulas: null });
   const [dragging, setDragging] = useState(null);
   const [pasoActivo] = useState(0);

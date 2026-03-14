@@ -1,20 +1,13 @@
-import Login from "./pages/Login";
-import AlertForm from "./components/AlertForm";
-import { Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import Bloque from './pages/Bloque'
-import {FormularioPage} from './pages/HorarioPrueba'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import CargaDatosHorario from './pages/CargaDatosHorario'
 
-export default function App() {
+function App() {
   return (
-    <div>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/alert" element={<AlertForm />} />
-        <Route path="/bloque/:idBloque" element={<Bloque />}/>
-        <Route path="/prueba" element={<FormularioPage/>}/>
-      </Routes>
-    </div>
-  );
+    <Routes>
+      <Route path="/" element={<Navigate to="/horario/carga" replace />} />
+      <Route path="/horario/carga" element={<CargaDatosHorario />} />
+    </Routes>
+  )
 }
+
+export default App

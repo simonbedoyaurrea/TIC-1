@@ -76,7 +76,7 @@ public class MateriaController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/{materiaId}/agregarRecurso/{recursoId}")
+    @DeleteMapping("/{materiaId}/eliminarRecurso/{recursoId}")
     public ResponseEntity<Void> eliminarRecurso(@PathVariable Long materiaId, @PathVariable Long recursoId){
         materiaService.eliminarRecurso(materiaId, recursoId);
         return ResponseEntity.ok().build();

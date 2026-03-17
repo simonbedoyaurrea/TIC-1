@@ -1,5 +1,6 @@
 package com.tic.optimizacionespacios.services.interfaces;
 
+import com.tic.optimizacionespacios.models.entities.Aula;
 import com.tic.optimizacionespacios.models.entities.Ubicacion;
 
 import java.util.List;
@@ -13,6 +14,8 @@ public interface UbicacionService {
     Ubicacion obtenerPorId(Long id);
 
     List<Ubicacion> listar();
+
+    List<Aula> obtenerAulas(Long id);
 
     void eliminar(Long id);
 }

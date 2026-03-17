@@ -1,6 +1,8 @@
 package com.tic.optimizacionespacios.dto;
 
 public class AulaRequestDTO {
+    private Integer piso;
+    private Integer numeroAula;
     private Integer capacidad;
     private String tipo;   // AULA | LABORATORIO
     private String estado; // DISPONIBLE | MANTENIMIENTO | NO_DISPONIBLE
@@ -22,4 +24,11 @@ public class AulaRequestDTO {
         return idUbicacion;
     }
 
+    public Integer getPiso() {
+        return piso;
+    }
+
+    public Integer getNumeroAula() {
+        return numeroAula;
+    }
 }

@@ -3,12 +3,8 @@ package com.tic.optimizacionespacios.controllers;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 import com.tic.optimizacionespacios.dto.AulaRequestDTO;
 import com.tic.optimizacionespacios.dto.AulaResponseDTO;
@@ -18,6 +14,8 @@ import com.tic.optimizacionespacios.models.mappers.AulaMapper;
 import com.tic.optimizacionespacios.services.interfaces.AulaService;
 import com.tic.optimizacionespacios.services.interfaces.UbicacionService;
 
+@Controller
+@RequestMapping("/api/aulas")
 public class AulaController {
 
     //No esta desarrollada
@@ -59,6 +57,7 @@ public class AulaController {
 
         return ResponseEntity.ok(respuesta);
     }
+
 
     // OBTENER AULA POR ID
     @GetMapping("/{id}")

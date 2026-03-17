@@ -1,27 +1,24 @@
 const API_URL = "http://localhost:8080/api/auth";
 
 export async function loginUser(email, password) {
-  try {
-    const response = await fetch(`${API_URL}/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
 
-    if (!response.ok) {
-      throw new Error("Credenciales inválidas");
-    }
+  const response = await fetch(`${API_URL}/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email, password }),
+  });
 
-    const data = await response.json();
-
-    localStorage.setItem("token", data.token);
-
-    return data;
-  } catch (error) {
-    throw error;
+  if (!response.ok) {
+    throw new Error("Credenciales inválidas");
   }
+
+  const data = await response.json();
+
+  localStorage.setItem("token", data.token);
+
+  return data;
 }
 
 export function logoutUser() {
@@ -34,4 +31,16 @@ export function getToken() {
 
 export function isAuthenticated() {
   return !!getToken();
+}
+
+export function authHeader() {
+
+  const token = getToken();
+
+  if (!token) return {};
+
+  return {
+    Authorization: `Bearer ${token}`,
+  };
+
 }

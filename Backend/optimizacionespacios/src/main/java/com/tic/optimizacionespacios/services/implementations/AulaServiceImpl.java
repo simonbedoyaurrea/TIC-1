@@ -75,6 +75,11 @@ public class AulaServiceImpl implements AulaService {
     }
 
     @Override
+    public List<Aula> obtenerAulasConRecursosPorUbicacion(Long idUbicacion) {
+        return aulaRepo.findAulasConRecursosByUbicacion(idUbicacion);
+    }
+
+    @Override
     public void agregarRecurso(Long aulaId, Long recursoId) {
         Aula aula = aulaRepo.findById(aulaId).orElseThrow(() -> new RuntimeException("Aula no existe"));
         Recurso recurso = recursoService.obtenerRecurso(recursoId);

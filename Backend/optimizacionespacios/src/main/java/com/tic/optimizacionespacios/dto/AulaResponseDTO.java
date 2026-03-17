@@ -6,9 +6,11 @@ import com.tic.optimizacionespacios.models.entities.Ubicacion;
 
 public record AulaResponseDTO(
         Long id,
+        Integer piso,
+        Integer numeroAula,
         Integer capacidad,
         String tipo,
         String estado,
-        Ubicacion ubicacion,
-        List<Long> recursos
+        Long ubicacion,
+        List<RecursoResponseDTO> recursos
 ) {}

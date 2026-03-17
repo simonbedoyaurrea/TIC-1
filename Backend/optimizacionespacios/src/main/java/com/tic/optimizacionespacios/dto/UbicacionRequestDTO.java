@@ -1,21 +1,28 @@
 package com.tic.optimizacionespacios.dto;
 
+import java.util.List;
+
 public class UbicacionRequestDTO {
-    private Long id;
     private int bloque;
-    private int piso;
+    private String nombre;
+    private int pisos;
+    private List<Long> aulas;
 
     public UbicacionRequestDTO(){}
-
-    public Long getId() {
-        return id;
-    }
 
     public int getBloque() {
         return bloque;
     }
 
-    public int getPiso() {
-        return piso;
+    public String getNombre() {
+        return nombre;
+    }
+
+    public int getPisos() {
+        return pisos;
+    }
+
+    public List<Long> getAulas() {
+        return aulas;
     }
 }

@@ -5,6 +5,7 @@ import java.util.List;
 public class UbicacionRequestDTO {
     private int bloque;
     private String nombre;
+    private String imagenUrl;
     private int pisos;
     private List<Long> aulas;
 
@@ -20,6 +21,10 @@ public class UbicacionRequestDTO {
 
     public int getPisos() {
         return pisos;
+    }
+
+    public String getImagenUrl() {
+        return imagenUrl;
     }
 
     public List<Long> getAulas() {

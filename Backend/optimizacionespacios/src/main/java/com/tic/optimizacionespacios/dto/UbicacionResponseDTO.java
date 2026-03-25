@@ -6,6 +6,7 @@ public record UbicacionResponseDTO(
         Long id,
         Integer bloque,
         String nombre,
+        String imagenUrl,
         Integer pisos,
         List<Long>aulas
 ) {

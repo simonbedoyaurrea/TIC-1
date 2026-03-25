@@ -35,7 +35,7 @@ public class MateriaServiceImpl implements MateriaService {
 
     @Override
     public List<Materia> obtenerMaterias(){
-        return materiaRepository.findAll();
+        return materiaRepository.findAllConRecursos();
     }
 
     @Override

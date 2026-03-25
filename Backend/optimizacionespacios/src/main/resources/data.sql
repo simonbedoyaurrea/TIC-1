@@ -1,7 +1,7 @@
 -- UBICACIONES (Bloques)
-INSERT INTO ubicaciones (id, bloque, nombre, pisos, referencia) VALUES(1, 11, 'Escuela de Ingenierías', 8, '');
-INSERT INTO ubicaciones (id, bloque, nombre, pisos, referencia) VALUES(2, 9, 'Formación Avanzada', 5, '');
-INSERT INTO ubicaciones (id, bloque, nombre, pisos, referencia) VALUES(3, 10, 'Escuela de Arquitectura', 5, '');
+INSERT INTO ubicaciones (id, bloque, nombre, imagen_url, pisos, referencia) VALUES(1, 11, 'Escuela de Ingenierías', 'https://www.upb.edu.co/es/imagenes/img-res-d-bloqueonceingenierias-cam-1464102729233.jpg', 8, '');
+INSERT INTO ubicaciones (id, bloque, nombre, imagen_url, pisos, referencia) VALUES(2, 9, 'Formación Avanzada','https://www.upb.edu.co/es/imagenes/img-renovaci%C3%B3ninfraestructurainterna5-1464234549402.jpeg', 5, '');
+INSERT INTO ubicaciones (id, bloque, nombre, imagen_url, pisos, referencia) VALUES(3, 10, 'Escuela de Arquitectura','https://images.homify.com/c_fill,f_auto,h_700,q_auto/v1505143247/p/photo/image/2222456/MAO_1601.jpg', 5, '');
 
 -- RECURSOS
 INSERT INTO recursos (id, nombre, descripcion, activo) VALUES (1, 'PROYECTOR', 'Proyector multimedia', true);

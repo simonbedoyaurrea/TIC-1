@@ -20,6 +20,10 @@ public class Ubicacion {
     private String nombre;
 
     @Column(nullable = false)
+    private String imagenUrl;
+
+
+    @Column(nullable = false)
     private int pisos;
 
     @OneToMany(mappedBy = "ubicacion")

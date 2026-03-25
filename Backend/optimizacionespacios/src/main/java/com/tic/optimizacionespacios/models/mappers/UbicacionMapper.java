@@ -14,6 +14,8 @@ public class UbicacionMapper {
         Ubicacion ubicacion = new Ubicacion();
 
         ubicacion.setBloque(dto.getBloque());
+        ubicacion.setNombre(dto.getNombre());
+        ubicacion.setImagenUrl(dto.getImagenUrl());
         ubicacion.setPisos(dto.getPisos());
 
         return ubicacion;
@@ -24,6 +26,7 @@ public class UbicacionMapper {
                 ubicacion.getId(),
                 ubicacion.getBloque(),
                 ubicacion.getNombre(),
+                ubicacion.getImagenUrl(),
                 ubicacion.getPisos(),
                 ubicacion.getAulas().
                         stream().

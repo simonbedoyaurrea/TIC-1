@@ -1,58 +1,85 @@
 import { useState } from "react";
+import { CalendarDays } from "lucide-react";
 
-export default function ProfesorInput() {
-  const [value, setValue] = useState("Cesar Augusto Vargas");
+const dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
 
-  const clearInput = () => {
-    setValue("");
+export const HorarioInput = ({ value, onChange }) => {
+  const [diasSeleccionados, setDiasSeleccionados] = useState(value?.dias || []);
+  const [horaInicio, setHoraInicio] = useState(value?.horaInicio || "");
+  const [horaFin, setHoraFin] = useState(value?.horaFin || "");
+
+  const actualizar = (nuevo) => {
+    const data = {
+      dias: diasSeleccionados,
+      horaInicio,
+      horaFin,
+      ...nuevo,
+    };
+
+    onChange?.(data);
   };
 
   return (
-    <div className="w-full max-w-md">
-      {/* Label */}
-      <label className="block text-lg font-semibold mb-2">
-        Profesor
-      </label>
+    <div className="flex gap-8">
+      {/* Icono */}
+      <CalendarDays size={50} />
 
-      {/* Input container */}
-      <div className="flex items-center bg-gray-200 rounded-md px-3 py-2">
-        
-        {/* Icono usuario */}
-        <div className="mr-3 text-gray-600">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M5.121 17.804A9 9 0 1118.88 17.8M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+      {/* Radios */}
+      <div className="flex flex-col gap-2">
+        {dias.map((d) => (
+          <label key={d} className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              value={d}
+              checked={diasSeleccionados.includes(d)}
+              onChange={(e) => {
+                let nuevosDias;
+
+                if (e.target.checked) {
+                  nuevosDias = [...diasSeleccionados, d];
+                } else {
+                  nuevosDias = diasSeleccionados.filter((dia) => dia !== d);
+                }
+
+                setDiasSeleccionados(nuevosDias);
+                actualizar({ dias: nuevosDias });
+              }}
             />
-          </svg>
+            {d}
+          </label>
+        ))}
+      </div>
+
+      {/* Horas */}
+      <div className="flex flex-col gap-4 w-64">
+        <div>
+          <label className="block mb-1 font-medium">Hora inicio</label>
+
+          <input
+            type="time"
+            value={horaInicio}
+            onChange={(e) => {
+              setHoraInicio(e.target.value);
+              actualizar({ horaInicio: e.target.value });
+            }}
+            className="w-full border rounded-lg px-3 py-2"
+          />
         </div>
 
-        {/* Input */}
-        <input
-          type="text"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          className="flex-1 bg-transparent outline-none text-gray-700"
-        />x
+        <div>
+          <label className="block mb-1 font-medium">Hora fin</label>
 
-        {/* Botón limpiar */}
-        {value && (
-          <button
-            onClick={clearInput}
-            className="ml-2 text-gray-500 hover:text-gray-700"
-          >
-            ✕
-          </button>
-        )}
+          <input
+            type="time"
+            value={horaFin}
+            onChange={(e) => {
+              setHoraFin(e.target.value);
+              actualizar({ horaFin: e.target.value });
+            }}
+            className="w-full border rounded-lg px-3 py-2"
+          />
+        </div>
       </div>
     </div>
   );
-}
+};

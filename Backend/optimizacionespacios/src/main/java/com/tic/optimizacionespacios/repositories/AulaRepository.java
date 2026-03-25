@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface AulaRepository extends JpaRepository<Aula, Long> {
@@ -25,5 +26,14 @@ public interface AulaRepository extends JpaRepository<Aula, Long> {
     @Query("SELECT DISTINCT a FROM Aula a LEFT JOIN FETCH a.recursos WHERE a.ubicacion.id = :idUbicacion")
     List<Aula> findAulasConRecursosByUbicacion(@Param("idUbicacion") Long idUbicacion);
 
-    //boolean existsByCodigo(String codigo);
+    @Query("SELECT DISTINCT a FROM Aula a " +
+            "LEFT JOIN FETCH a.recursos " +
+            "LEFT JOIN FETCH a.ubicacion")
+    List<Aula> findAllConRelaciones();
+
+    @Query("SELECT a FROM Aula a " +
+            "LEFT JOIN FETCH a.recursos " +
+            "LEFT JOIN FETCH a.ubicacion " +
+            "WHERE a.id = :id")
+    Optional<Aula> findByIdConRelaciones(@Param("id") Long id);
 }

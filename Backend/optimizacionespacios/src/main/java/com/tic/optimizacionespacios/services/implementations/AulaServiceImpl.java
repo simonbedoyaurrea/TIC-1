@@ -71,7 +71,7 @@ public class AulaServiceImpl implements AulaService {
     // LISTAR
     @Override
     public List<Aula> listar() {
-        return aulaRepo.findAll();
+        return aulaRepo.findAllConRelaciones();
     }
 
     @Override

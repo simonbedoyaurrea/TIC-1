@@ -1,7 +1,7 @@
 package com.tic.optimizacionespacios.prueba;
 
 import com.tic.optimizacionespacios.enums.Rol;
-import com.tic.optimizacionespacios.models.User;
+import com.tic.optimizacionespacios.models.entities.User;
 import com.tic.optimizacionespacios.repositories.UsuarioRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;

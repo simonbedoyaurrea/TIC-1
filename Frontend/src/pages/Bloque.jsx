@@ -1,4 +1,3 @@
-import bloque11 from "/bloque11.jpg";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -33,7 +32,7 @@ const Bloque = () => {
   return (
     <div
       className="relative min-h-screen bg-cover bg-center flex"
-      style={{ backgroundImage: `url(${bloque11})` }}
+      style={{ backgroundImage: `url(${bloque.imagenUrl})` }}
     >
       <div className="absolute inset-0 bg-black/70"></div>
 

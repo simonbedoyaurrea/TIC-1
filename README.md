@@ -94,6 +94,46 @@ Se trabaja bajo metodología ágil (Scrum), organizada en sprints que incluyen:
 * Pruebas
 * Validación del modelo
 
+Además, el equipo mantiene una dinámica constante de seguimiento:
+
+* 📅 Reuniones semanales para revisar el progreso
+* 📌 Uso de tablero en Trello para la gestión de tareas
+* 🔄 Organización del trabajo por sprints
+* ✅ Cierre de cada sprint los días sábado
+
+---
+
+## 🗂️ Plan de Sprints
+
+**Sprint 1 – Análisis del problema**
+
+* Identificación de la problemática
+* Definición de requerimientos
+* Investigación de herramientas de optimización
+
+**Sprint 2 – Modelado**
+
+* Definición de variables
+* Establecimiento de restricciones
+* Diseño del modelo matemático
+
+**Sprint 3 – Implementación**
+
+* Desarrollo del modelo en OR-Tools
+* Programación de la lógica de asignación
+
+**Sprint 4 – Pruebas y validación**
+
+* Pruebas con diferentes escenarios
+* Ajustes del modelo
+* Validación de resultados
+
+**Sprint 5 – Optimización y mejoras**
+
+* Mejora del rendimiento
+* Ajuste fino de restricciones
+* Preparación de entrega final
+
 ---
 
 ## ⚠️ Riesgos Identificados
@@ -107,16 +147,16 @@ Se trabaja bajo metodología ágil (Scrum), organizada en sprints que incluyen:
 ## 👥 Contribuidores
 
 * 👩🏼‍💻 María Alexandra Jiménez Suárez – Ingeniería de Sistemas
-* 👩‍💻 Simón Bedoya – Ingeniería de Sistemas
-* 👩‍💻 Sebastian Quiceno– Ingeniería de Sistemas
-* 👩‍💻 Juan Jose Mesa– Ingeniería de Sistemas
+* 👨‍💻 Simón Bedoya – Ingeniería de Sistemas
+* 👨‍💻 Sebastian Quiceno – Ingeniería de Sistemas
+* 👨‍💻 Juan Jose Mesa – Ingeniería de Sistemas
 * 👨‍💻 Julián – Ingeniería de Ciencia de Datos
 
 ---
 
 ## 🙌 Agradecimientos
 
-Agradecemos al apoyo de Universidad Pontificia Bolivariana por brindarnos el conocimiento y el espacio para desarrollar este proyecto.
+Agradecemos al apoyo de la Universidad Pontificia Bolivariana por brindarnos el conocimiento y el espacio para desarrollar este proyecto.
 
 También a todas las personas que, directa o indirectamente, aportaron ideas, apoyo y motivación durante el proceso.
 

@@ -1,115 +1,134 @@
-# 🏫 Sistema Inteligente de Optimización de Espacios Académicos  
-![Python](https://img.shields.io/badge/Python-3.x-blue)
-![Status](https://img.shields.io/badge/Status-En%20desarrollo-yellow)
-![License](https://img.shields.io/badge/License-Acad%C3%A9mico-lightgrey)
+# 🧠 Sistema de Optimización para Asignación de Aulas - UPB
 
-Sistema web orientado a la **automatización y optimización de la asignación de aulas y horarios académicos** en la Universidad Pontificia Bolivariana (UPB), integrando datos de prematrícula, restricciones técnicas y disponibilidad de espacios.
+## 📌 Descripción del Proyecto
 
----
+Este proyecto tiene como objetivo desarrollar un modelo de optimización que permita asignar aulas y horarios académicos de manera automática en la Universidad Pontificia Bolivariana (UPB).
 
-## 📋 Tabla de Contenidos
-- [🎯 Descripción](#-descripción)
-- [⚠️ Problemática](#️-problemática)
-- [✨ Características](#-características)
-- [🛠️ Tecnologías](#️-tecnologías)
-- [🚀 Instalación](#-instalación)
-- [💻 Uso](#-uso)
-- [🎯 Resultados Esperados](#-resultados-esperados)
-- [👥 Contribuidores](#-contribuidores)
-- [🗓️ Roadmap](#️-roadmap)
-- [🧩 Arquitectura](#-arquitectura-del-sistema)
-- [⚠️ Riesgos](#️-riesgos)
-- [📄 Licencia](#-licencia)
+Actualmente, este proceso se realiza de forma manual, lo que genera errores, conflictos y un uso ineficiente de los espacios. Nuestra solución se enfoca específicamente en aplicar técnicas de optimización matemática para mejorar este proceso.
 
 ---
 
-## 🎯 Descripción  
+## 🚨 Problemática
 
-Este proyecto desarrolla un sistema institucional que permite **gestionar, optimizar y automatizar la asignación de espacios académicos**, reemplazando procesos manuales basados en Excel por un enfoque inteligente basado en simulación y optimización.
-
-El sistema permite:
-
-- 🧠 Generar horarios académicos sin conflictos  
-- 🏫 Asignar aulas según capacidad real  
-- 🖥️ Validar requerimientos técnicos  
-- 📊 Optimizar uso de espacios  
-- ⚙️ Reducir carga operativa  
-- 📁 Generar archivos compatibles con Banner  
+* 📄 Asignación manual mediante hojas de cálculo
+* ⚠️ Conflictos de horarios entre docentes, grupos y aulas
+* 🏫 Uso ineficiente de los espacios físicos
+* 📊 Falta de precisión debido a datos variables (prematrícula)
+* 🐌 Procesos lentos y altamente dependientes del factor humano
 
 ---
 
-## ⚠️ Problemática  
+## 💡 Solución Propuesta
 
-Actualmente, la asignación de aulas presenta múltiples limitaciones:
+Se propone un modelo de optimización que:
 
-- ❌ Procesos manuales (Excel + validaciones humanas)  
-- ❌ Errores frecuentes (choques de horarios, duplicidad)  
-- ❌ Uso ineficiente de espacios  
-- ❌ Falta de integración de prematrícula  
-- ❌ Dificultad para manejar múltiples variables simultáneamente  
+* 🔹 Asigna aulas de forma automática
 
-Esto impacta directamente en:
+* 🔹 Considera restricciones como:
 
-- 📉 Calidad académica  
-- ⏱️ Tiempo de planificación  
-- 🔄 Retrabajo administrativo  
-- 😓 Experiencia de estudiantes y docentes  
+  * Capacidad del aula
+  * Disponibilidad de horarios
+  * Requerimientos específicos de cada clase
 
----
+* 🔹 Minimiza conflictos de asignación
 
-## ✨ Características  
-
-### 🔹 Optimización Académica
-- 🧮 Asignación automática de aulas  
-- 📏 Validación de capacidad  
-- 🖥️ Compatibilidad técnica (laboratorios, equipos)  
-- ⏰ Gestión de horarios  
-
-### 🔹 Motor de Simulación
-- ⚙️ Algoritmo basado en **OR-Tools**  
-- 🔄 Simulación de escenarios  
-- 🚫 Eliminación de conflictos  
-
-### 🔹 Integración Institucional
-- 📥 Carga de datos desde Excel  
-- 📊 Integración de prematrícula  
-- 📁 Exportación a **Banner**  
-
-### 🔹 Infraestructura
-- 🛠️ Reporte de daños  
-- 🔔 Notificaciones  
-- 🧹 Gestión de aseo  
-
-### 🔹 Visualización
-- 🗺️ Mapa interactivo  
-- 📍 Disponibilidad de espacios  
-- 👥 Acceso por roles  
+* 🔹 Maximiza el uso eficiente de los espacios
 
 ---
 
-## 🛠️ Tecnologías  
+## 🧠 Enfoque de Optimización
 
-### Backend
-- Python  
-- OR-Tools  
-
-### Datos
-- Excel  
-- Integración con Banner  
-
-### Gestión
-- Git & GitHub  
-- Trello (Kanban)  
+El sistema utiliza técnicas de optimización combinatoria mediante **Google OR-Tools**, permitiendo modelar el problema como un conjunto de restricciones y variables que buscan una solución óptima o cercana a la óptima.
 
 ---
 
-## 🚀 Instalación  
+## 🚀 Características Principales
 
-### Prerrequisitos
-- Python 3.x  
-- Git  
+* ✔️ Modelo matemático de asignación
+* ✔️ Validación automática de restricciones
+* ✔️ Reducción de conflictos
+* ✔️ Optimización del uso de aulas
+* ✔️ Adaptabilidad a cambios en los datos
 
-### Clonar repositorio
-```bash
-git clone https://github.com/tu-usuario/optimizacion-espacios.git
-cd optimizacion-espacios
+---
+
+## 🧪 Uso del Modelo
+
+1. Definir los datos de entrada:
+
+   * Cursos
+   * Docentes
+   * Horarios disponibles
+   * Aulas y capacidades
+
+2. Ejecutar el modelo de optimización
+
+3. Obtener la asignación óptima de aulas
+
+---
+
+## 📊 Resultados Esperados
+
+* ⏱️ Reducción del tiempo de asignación
+* ❌ Disminución de errores humanos
+* 📈 Mejor aprovechamiento de los espacios
+* 🎯 Asignaciones más precisas y coherentes
+
+---
+
+## 📈 Métricas de Éxito
+
+* Reducción de conflictos de horarios
+* Nivel de ocupación de aulas
+* Tiempo de ejecución del modelo
+* Calidad de la solución generada
+
+---
+
+## 🧩 Metodología de Trabajo
+
+Se trabaja bajo metodología ágil (Scrum), organizada en sprints que incluyen:
+
+* Planeación
+* Desarrollo
+* Pruebas
+* Validación del modelo
+
+---
+
+## ⚠️ Riesgos Identificados
+
+* Calidad de los datos de entrada
+* Complejidad del modelo de optimización
+* Escalabilidad del sistema
+
+---
+
+## 👥 Contribuidores
+
+* 👩🏼‍💻 María Alexandra Jiménez Suárez – Ingeniería de Sistemas
+* 👩‍💻 Simón Bedoya – Ingeniería de Sistemas
+* 👩‍💻 Sebastian Quiceno– Ingeniería de Sistemas
+* 👩‍💻 Juan Jose Mesa– Ingeniería de Sistemas
+* 👨‍💻 Julián – Ingeniería de Ciencia de Datos
+
+---
+
+## 🙌 Agradecimientos
+
+Agradecemos al apoyo de Universidad Pontificia Bolivariana por brindarnos el conocimiento y el espacio para desarrollar este proyecto.
+
+También a todas las personas que, directa o indirectamente, aportaron ideas, apoyo y motivación durante el proceso.
+
+---
+
+## ❤️ Nota Final
+
+Este proyecto fue desarrollado con dedicación, aprendizaje constante y mucho compromiso.
+
+
+---
+
+## 📌 Estado del Proyecto
+
+🚧 En desarrollo

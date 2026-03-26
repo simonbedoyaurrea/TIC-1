@@ -182,3 +182,51 @@ INSERT INTO disponibilidad_profesor (profesor_id, dia_semana, hora_inicio, hora_
 
                                                                                                                 (10, 'MONDAY', '14:00:00', '18:00:00', true, null),
                                                                                                                 (10, 'WEDNESDAY', '08:00:00', '12:00:00', true, null);
+
+-- HORARIOS ASIGNACION
+
+INSERT INTO horarios_asignacion
+(id, nrc, materia_id, aula_id, profesor_id, fecha_inicio, fecha_fin, hora_inicio, hora_fin, duracion_minutos, tipo_sesion, estado, origen)
+VALUES
+    (1, 1001, 1, 1, 1, '2026-02-01', '2026-06-30', '08:00:00', '10:00:00', 120, 'CLASE', 'APROBADO', 'MANUAL'),
+
+    (2, 1002, 2, 2, 2, '2026-02-01', '2026-06-30', '14:00:00', '16:00:00', 120, 'CLASE', 'APROBADO', 'MANUAL'),
+
+    (3, 1003, 3, 6, 5, '2026-02-01', '2026-06-30', '09:00:00', '11:00:00', 120, 'CLASE', 'APROBADO', 'MANUAL'),
+
+    (4, 1004, 4, 6, 3, '2026-02-01', '2026-06-30', '10:00:00', '12:00:00', 120, 'CLASE', 'APROBADO', 'MANUAL'),
+
+    (5, 1005, 5, 3, 9, '2026-02-01', '2026-06-30', '10:00:00', '12:00:00', 120, 'CLASE', 'APROBADO', 'MANUAL'),
+
+    (6, 1006, 6, 4, 7, '2026-02-01', '2026-06-30', '07:00:00', '09:00:00', 120, 'CLASE', 'APROBADO', 'MANUAL'),
+
+    (7, 1007, 7, 1, 6, '2026-02-01', '2026-06-30', '09:00:00', '11:00:00', 120, 'CLASE', 'APROBADO', 'MANUAL'),
+
+    (8, 1008, 8, 7, 5, '2026-02-01', '2026-06-30', '08:00:00', '10:00:00', 120, 'CLASE', 'APROBADO', 'MANUAL'),
+
+    (9, 1009, 9, 8, 3, '2026-02-01', '2026-06-30', '09:00:00', '11:00:00', 120, 'CLASE', 'APROBADO', 'MANUAL'),
+
+    (10, 1010, 10, 6, 4, '2026-02-01', '2026-06-30', '13:00:00', '15:00:00', 120, 'CLASE', 'APROBADO', 'MANUAL');
+
+INSERT INTO dias_horario (id, dia_semana, horario_id) VALUES
+                                                                    (1, 'MONDAY', 1),
+                                                                    (2, 'WEDNESDAY', 1),
+
+                                                                    (3, 'TUESDAY', 2),
+                                                                    (4, 'THURSDAY', 2),
+
+                                                                    (5, 'MONDAY', 3),
+
+                                                                    (6, 'TUESDAY', 4),
+
+                                                                    (7, 'FRIDAY', 5),
+
+                                                                    (8, 'MONDAY', 6),
+
+                                                                    (9, 'FRIDAY', 7),
+
+                                                                    (10, 'THURSDAY', 8),
+
+                                                                    (11, 'FRIDAY', 9),
+
+                                                                    (12, 'WEDNESDAY', 10);

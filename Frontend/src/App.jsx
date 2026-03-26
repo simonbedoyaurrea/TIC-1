@@ -6,6 +6,7 @@ import Bloque from "./pages/Bloque";
 import { FormularioPage } from "./pages/HorarioPrueba";
 import CargaDatosHorario from "./pages/CargaDatosHorario";
 import AdminDashboard from "./pages/AdminDashboard";
+import Aula from './pages/Aula'
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
         <Route path="/prueba" element={<FormularioPage />} />
         <Route path="/horario/carga" element={<CargaDatosHorario />} />
         <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/aula/:idAula" element={<Aula/>}/>
       </Routes>
     </div>
   );

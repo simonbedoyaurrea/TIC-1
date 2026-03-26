@@ -54,13 +54,27 @@ public class HorarioAsignacionServiceImpl implements HorarioAsignacionService {
 
     @Override
     public List<HorarioAsignacion> obtenerHorarios(){
-        return horarioRepo.findAll();
+        return horarioRepo.findAllWithDias();
     }
 
     @Override
     public HorarioAsignacion obtenerHorario(Long id){
         return horarioRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Horario no encontrado"));
+    }
+
+    @Override
+    public List<HorarioAsignacion> obtenerHorariosAula(Long idAula) {
+        List<HorarioAsignacion> horarioAula = obtenerHorarios()
+                .stream()
+                .filter(horario -> horario.getAula().getId().equals(idAula))
+                .toList();
+
+        if (horarioAula.isEmpty()) {
+            throw new RuntimeException("No se encontraron horarios para el aula");
+        }
+
+        return horarioAula;
     }
 
     @Override

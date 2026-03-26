@@ -22,5 +22,4 @@ public class DiaHorario {
     @Column(nullable = false)
     private DayOfWeek diaSemana;
 
-
 }

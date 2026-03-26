@@ -81,4 +81,7 @@ public interface HorarioAsignacionRepository extends JpaRepository<HorarioAsigna
             @Param("fechaFin") LocalDate fechaFin
     );
 
+    @Query("SELECT h FROM HorarioAsignacion h JOIN FETCH h.dias")
+    List<HorarioAsignacion> findAllWithDias();
+
 }

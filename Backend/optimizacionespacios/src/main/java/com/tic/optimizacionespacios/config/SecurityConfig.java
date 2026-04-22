@@ -58,29 +58,17 @@ public class SecurityConfig {
                             .requestMatchers("/h2-console/**").permitAll()
                             .requestMatchers("/h2-console").permitAll()
                             .requestMatchers("/error").permitAll()
+                            .requestMatchers("/api/**").permitAll()
+                            .requestMatchers("/api/materias/simulacion").permitAll()
                             .requestMatchers(HttpMethod.POST, "/api/reportes").permitAll()
+                            .requestMatchers(HttpMethod.POST, "/api/materias/simulacion/carga").permitAll()
+                            .requestMatchers(HttpMethod.GET, "/api/reportes/**").permitAll()
 
                             
                             // Public species endpoints (allow all users to view species)
                             .requestMatchers(HttpMethod.GET, "/api/especies/**").permitAll()
 
-                            // Admin-only endpoints - REQ-003
-                            // Species management (admin endpoints)
-                            .requestMatchers("/api/admin/especies/**").hasRole("ADMIN")
-                            
-                            // Species CUD operations (admin only)
-                            .requestMatchers(HttpMethod.POST, "/api/especies/**").hasRole("ADMIN")
-                            .requestMatchers(HttpMethod.PUT, "/api/especies/**").hasRole("ADMIN")
-                            .requestMatchers(HttpMethod.DELETE, "/api/especies/**").hasRole("ADMIN")
-
-                            // Task management (admin only)
-                            .requestMatchers("/api/admin/tareas/**").hasRole("ADMIN")
-
-                            // Crop management - authenticated users (PRODUCTOR)
-                            .requestMatchers("/api/cultivos/**").authenticated()
-
-                            // Producer endpoints
-                            .requestMatchers("/api/producer/**").hasRole("PRODUCTOR")
+                          
 
                             // Any other request must be authenticated
                             .anyRequest().authenticated()

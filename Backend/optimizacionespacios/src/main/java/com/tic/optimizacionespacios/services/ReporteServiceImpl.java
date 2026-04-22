@@ -1,23 +1,13 @@
 package com.tic.optimizacionespacios.services;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.tic.optimizacionespacios.dto.ActualizarEstadoDTO;
 import com.tic.optimizacionespacios.dto.ReporteRequestDTO;
@@ -39,8 +29,6 @@ public class ReporteServiceImpl implements ReporteService {
 
     private final ReporteRepository reporteRepository;
 
-    @Value("${app.upload.dir}")
-    private String uploadDir;
 
     // ── Mapa de bloques UPB ────────────────────────────────────────────────
     // El frontend solo manda el número, el backend resuelve el nombre
@@ -78,13 +66,11 @@ public class ReporteServiceImpl implements ReporteService {
     // ════════════════════════════════════════════════════════════════════════
     @Override
     @Transactional
-    public ReporteResponseDTO crearReporte(ReporteRequestDTO dto, List<MultipartFile> archivos) {
+    public ReporteResponseDTO crearReporte(ReporteRequestDTO dto) {
 
         // 1. Resolver nombre del bloque a partir del número
         String nombreBloque = BLOQUES_UPB.getOrDefault(dto.getNumeroBloque(), "Bloque desconocido");
-
-        // 2. Guardar los archivos en disco y obtener sus rutas
-        List<String> rutasEvidencias = guardarArchivos(archivos, dto.getNumeroBloque(), dto.getSalon());
+        
 
         // 3. Construir la entidad con el builder de Lombok
         Reporte reporte = Reporte.builder()
@@ -100,7 +86,6 @@ public class ReporteServiceImpl implements ReporteService {
                 .descripcion(dto.getDescripcion().trim())
                 .urgencia(dto.getUrgencia())
                 .estado(EstadoReporte.PENDIENTE)  // siempre inicia en PENDIENTE
-                .evidencias(rutasEvidencias)
                 .build();
 
         // 4. Guardar en base de datos
@@ -213,7 +198,6 @@ public class ReporteServiceImpl implements ReporteService {
     public void eliminar(Long id) {
         Reporte reporte = buscarOFallar(id);
         // Primero eliminar los archivos del servidor
-        reporte.getEvidencias().forEach(this::eliminarArchivo);
         reporteRepository.delete(reporte);
         log.info(" Reporte {} eliminado", id);
     }
@@ -281,56 +265,6 @@ public class ReporteServiceImpl implements ReporteService {
      * Estructura: uploads/evidencias/bloque_{n}/{salon}/
      * Retorna las rutas relativas (para guardarlas en BD).
      */
-    private List<String> guardarArchivos(List<MultipartFile> archivos,
-                                         Integer bloque, String salon) {
-        if (archivos == null || archivos.isEmpty()) return new ArrayList<>();
-
-        List<String> rutas = new ArrayList<>();
-
-        // Normalizar el nombre del salón para usarlo como carpeta
-        String salonCarpeta = salon.replaceAll("[^a-zA-Z0-9]", "_").toLowerCase();
-        Path carpeta = Paths.get(uploadDir, "bloque_" + bloque, salonCarpeta);
-
-        try {
-            Files.createDirectories(carpeta); // Crea la carpeta si no existe
-
-            for (MultipartFile archivo : archivos) {
-                if (archivo.isEmpty()) continue;
-
-                String nombreOriginal = Objects.requireNonNull(archivo.getOriginalFilename());
-                String extension = nombreOriginal.contains(".")
-                        ? nombreOriginal.substring(nombreOriginal.lastIndexOf("."))
-                        : "";
-
-                // UUID garantiza nombres únicos y evita colisiones
-                String nombreUnico = UUID.randomUUID() + extension;
-                Path destino = carpeta.resolve(nombreUnico);
-
-                Files.copy(archivo.getInputStream(), destino,
-                        StandardCopyOption.REPLACE_EXISTING);
-
-                // Solo guardamos la ruta relativa, no la absoluta
-                rutas.add("bloque_" + bloque + "/" + salonCarpeta + "/" + nombreUnico);
-                log.debug("📎 Archivo guardado: {}", nombreUnico);
-            }
-        } catch (IOException e) {
-            log.error("❌ Error al guardar archivos: {}", e.getMessage());
-            throw new RuntimeException("No se pudieron guardar los archivos de evidencia", e);
-        }
-
-        return rutas;
-    }
-
-    /**
-     * Elimina un archivo del servidor dado su ruta relativa.
-     */
-    private void eliminarArchivo(String rutaRelativa) {
-        try {
-            Files.deleteIfExists(Paths.get(uploadDir, rutaRelativa));
-        } catch (IOException e) {
-            log.warn("⚠️ No se pudo eliminar el archivo: {}", rutaRelativa);
-        }
-    }
 
     /**
      * Convierte una entidad Reporte al DTO de respuesta.
@@ -352,7 +286,6 @@ public class ReporteServiceImpl implements ReporteService {
                 .urgencia(r.getUrgencia())
                 .estado(r.getEstado())
                 .notaAdmin(r.getNotaAdmin())
-                .evidencias(r.getEvidencias())
                 .fechaCreacion(r.getFechaCreacion())
                 .fechaActualizacion(r.getFechaActualizacion())
                 .fechaResolucion(r.getFechaResolucion())

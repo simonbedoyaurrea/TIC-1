@@ -24,13 +24,10 @@ export default function Login() {
 
   return (
     <div
+      className="bg-black flex overflow-hidden relative "
       style={{
         minHeight: "100vh",
-        background: "#0a0a0a",
-        display: "flex",
         fontFamily: "'DM Mono', monospace",
-        overflow: "hidden",
-        position: "relative",
       }}
     >
       <style>{`
@@ -248,7 +245,6 @@ export default function Login() {
         }
       `}</style>
 
-      {/* Background grid */}
       <div className="grid-bg" />
 
       {/* Decorative shapes */}
@@ -413,47 +409,6 @@ export default function Login() {
             </div>
           </div>
 
-          {/* Stats */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr 1fr",
-              gap: 12,
-              animation: "fade-up 0.6s ease 0.2s forwards",
-              opacity: 0,
-            }}
-          >
-            {[
-              { val: "94%", label: "Ocupación óptima" },
-              { val: "247", label: "Espacios activos" },
-              { val: "12K", label: "Reservas/mes" },
-            ].map((s) => (
-              <div key={s.label} className="stat-card">
-                <div
-                  style={{
-                    fontFamily: "Bebas Neue, sans-serif",
-                    fontSize: 28,
-                    color: "#facc15",
-                    lineHeight: 1,
-                  }}
-                >
-                  {s.val}
-                </div>
-                <div
-                  style={{
-                    fontSize: 9,
-                    color: "rgba(255,255,255,0.4)",
-                    letterSpacing: 1.5,
-                    textTransform: "uppercase",
-                    marginTop: 4,
-                  }}
-                >
-                  {s.label}
-                </div>
-              </div>
-            ))}
-          </div>
-
           {/* Bottom tag */}
           <div
             style={{
@@ -465,7 +420,7 @@ export default function Login() {
               opacity: 0,
             }}
           >
-            <div className="corner-tag">v2.4.1</div>
+            <div className="corner-tag">BETA</div>
             <div
               style={{
                 height: 1,

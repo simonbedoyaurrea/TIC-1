@@ -10,13 +10,13 @@ function buildQuery(params = {}) {
   return qs ? `?${qs}` : "";
 }
 
-export async function enviarReporte(reporteDto, archivos = []) {
+export async function enviarReporte(reporteDto) {
   try {
     const fd = new FormData();
-    fd.append("reporte", new Blob([JSON.stringify(reporteDto)], { type: "application/json" }));
-    if (archivos && archivos.length) {
-      archivos.forEach((f) => fd.append("archivos", f));
-    }
+    fd.append(
+      "reporte",
+      new Blob([JSON.stringify(reporteDto)], { type: "application/json" }),
+    );
 
     const headers = {};
     const token = getToken();

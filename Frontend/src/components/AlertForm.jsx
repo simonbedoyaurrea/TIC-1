@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { enviarReporte } from "../services/ReporteService";
+import { Notebook, PenTool, ShieldUser } from "lucide-react";
 
 // ---── Bloques UPB ──────────────────────────────────────────────
 const BLOQUES = [
@@ -133,9 +134,9 @@ const URGENCIAS = [
 ];
 
 const ROLES = [
-  { key: "Estudiante", icon: "🎓" },
-  { key: "Docente", icon: "📚" },
-  { key: "Administrativo", icon: "🏢" },
+  { key: "Estudiante", icon: <Notebook /> },
+  { key: "Docente", icon: <PenTool /> },
+  { key: "Administrativo", icon: <ShieldUser /> },
 ];
 
 // ── Helpers ──────────────────────────────────────────────────
@@ -160,7 +161,6 @@ export default function AlertForm() {
     subcategoria: "",
     descripcion: "",
     urgencia: "",
-    files: [],
     contacto: "",
     fecha: new Date().toISOString().split("T")[0],
   });
@@ -232,7 +232,7 @@ export default function AlertForm() {
     };
 
     try {
-      await enviarReporte(dto, form.files);
+      await enviarReporte(dto);
       setSubmitted(true);
     } catch (err) {
       console.error("Error al enviar reporte:", err);
@@ -265,7 +265,12 @@ export default function AlertForm() {
     const urg = URGENCIAS.find((u) => u.key === form.urgencia);
     const bloqueInfo = BLOQUES.find((b) => b.num === Number(form.bloque));
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center p-6">
+      <div
+        className="min-h-screen flex items-center justify-center p-6 bg-black"
+        style={{
+          backgroundImage: `url("https://www.transparenttextures.com/patterns/dark-mosaic.png")`,
+        }}
+      >
         <div className="bg-white border-4 border-yellow-400 max-w-md w-full p-8 text-center shadow-[8px_8px_0px_#facc15]">
           <div className="w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center mx-auto mb-5">
             <svg
@@ -308,7 +313,7 @@ export default function AlertForm() {
 
           <p className="text-gray-500 text-xs mb-6">
             El equipo de mantenimiento fue notificado. Tiempo de respuesta:
-            24–72 h hábiles.
+            24-72 h hábiles.
           </p>
           <button
             onClick={reset}
@@ -323,7 +328,12 @@ export default function AlertForm() {
 
   // ── Form ───────────────────────────────────────────────────
   return (
-    <div className="min-h-screen bg-black py-10 px-4">
+    <div
+      className="min-h-screen bg-black py-10 px-4"
+      style={{
+        backgroundImage: `url("https://www.transparenttextures.com/patterns/dark-mosaic.png")`,
+      }}
+    >
       {/* Header */}
       <div className="max-w-2xl mx-auto mb-7">
         <div className="flex items-center gap-3 mb-1">
@@ -553,59 +563,6 @@ export default function AlertForm() {
               ))}
             </div>
           </Field>
-
-          {/* ⑤ EVIDENCIA */}
-          <Field label="Evidencia (foto o video)" error={errors.files}>
-            <div
-              onDragOver={(e) => {
-                e.preventDefault();
-                setDragging(true);
-              }}
-              onDragLeave={() => setDragging(false)}
-              onDrop={(e) => {
-                e.preventDefault();
-                setDragging(false);
-                handleFiles(e.dataTransfer.files);
-              }}
-              className={`relative border-2 border-dashed px-4 py-5 text-center transition-colors ${dragging ? "border-red-600 bg-red-50" : "border-gray-300 hover:border-black bg-gray-50"}`}
-            >
-              <input
-                type="file"
-                multiple
-                accept="image/*,video/*"
-                className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
-                onChange={(e) => handleFiles(e.target.files)}
-              />
-              <div className="text-2xl mb-1">📷</div>
-              <p className="text-xs text-gray-500">
-                <span className="font-bold text-black">Clic para subir</span> o
-                arrastra aquí
-              </p>
-              <p className="text-[10px] text-gray-400 mt-0.5">
-                Imágenes y videos · Máx. 50 MB por archivo
-              </p>
-            </div>
-            {form.files.length > 0 && (
-              <div className="flex flex-wrap gap-2 mt-1">
-                {form.files.map((f, i) => (
-                  <div
-                    key={i}
-                    className="flex items-center gap-1.5 bg-gray-100 border border-gray-200 px-2 py-1 text-[11px] font-medium text-gray-600"
-                  >
-                    {f.type.startsWith("video") ? "🎥" : "🖼️"} {f.name}
-                    <button
-                      type="button"
-                      onClick={() => removeFile(i)}
-                      className="text-gray-400 hover:text-red-600 font-bold cursor-pointer"
-                    >
-                      ✕
-                    </button>
-                  </div>
-                ))}
-              </div>
-            )}
-          </Field>
-
           {/* ⑥ CONTACTO */}
           <Field label="Correo de contacto">
             <div className="relative">

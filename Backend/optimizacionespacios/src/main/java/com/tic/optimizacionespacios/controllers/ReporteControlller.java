@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.tic.optimizacionespacios.dto.ActualizarEstadoDTO;
 import com.tic.optimizacionespacios.dto.ReporteRequestDTO;
@@ -91,10 +90,9 @@ public class ReporteControlller {
     // Crear reporte (soporta archivos multipart opcionales)
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ReporteResponseDTO> crearReporte(
-            @Valid @RequestPart("reporte") ReporteRequestDTO dto,
-            @RequestPart(value = "archivos", required = false) List<MultipartFile> archivos
-    ) {
-        ReporteResponseDTO creado = reporteService.crearReporte(dto, archivos);
+            @Valid @RequestPart("reporte") ReporteRequestDTO dto)
+             {
+        ReporteResponseDTO creado = reporteService.crearReporte(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(creado);
     }
 

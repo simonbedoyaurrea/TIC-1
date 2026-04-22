@@ -3,8 +3,14 @@ package com.tic.optimizacionespacios.controllers;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.tic.optimizacionespacios.dto.AulaRequestDTO;
 import com.tic.optimizacionespacios.dto.AulaResponseDTO;
@@ -14,7 +20,7 @@ import com.tic.optimizacionespacios.models.mappers.AulaMapper;
 import com.tic.optimizacionespacios.services.interfaces.AulaService;
 import com.tic.optimizacionespacios.services.interfaces.UbicacionService;
 
-@Controller
+@RestController
 @RequestMapping("/api/aulas")
 public class AulaController {
 

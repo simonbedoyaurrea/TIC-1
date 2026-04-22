@@ -1,33 +1,8 @@
 import { useState } from "react";
+import apiClient from "../apis/apiClient";
 
 // ── Configuración de secciones ────────────────────────────────
 const SECCIONES = [
-  {
-    id: "docentes",
-    titulo: "Docentes",
-    subtitulo: "Información del cuerpo docente",
-    color: "blue",
-    icono: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth={1.5}
-        strokeLinecap="round"
-        className="w-5 h-5"
-      >
-        <circle cx="12" cy="8" r="4" />
-        <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
-      </svg>
-    ),
-    campos: [
-      { nombre: "Nombre completo", requerido: true },
-      { nombre: "Código docente", requerido: true },
-      { nombre: "Departamento", requerido: true },
-      { nombre: "Horas máx. semanales", requerido: true },
-      { nombre: "Disponibilidad horaria", requerido: false },
-    ],
-  },
   {
     id: "materias",
     titulo: "Materias",
@@ -56,9 +31,9 @@ const SECCIONES = [
     ],
   },
   {
-    id: "aulas",
-    titulo: "Aulas",
-    subtitulo: "Espacios físicos disponibles",
+    id: "simulacion",
+    titulo: "Simulación",
+    subtitulo: "Simulación de horarios paara cada materia",
     color: "yellow",
     icono: (
       <svg
@@ -85,11 +60,6 @@ const SECCIONES = [
 
 // ── Colores por sección ───────────────────────────────────────
 const COLOR_MAP = {
-  blue: {
-    icon: "bg-blue-950 text-blue-400",
-    border: "border-blue-800",
-    badge: "bg-blue-950 text-blue-400",
-  },
   red: {
     icon: "bg-red-950 text-red-400",
     border: "border-red-800",
@@ -102,14 +72,34 @@ const COLOR_MAP = {
   },
 };
 
-// ── Pasos del flujo ───────────────────────────────────────────
-const PASOS = ["Cargar archivos", "Validar datos", "Generar horario"];
-
 export default function CargaDatosHorario() {
+  const enviarArchivos = async () => {
+    try {
+      const formDataMaterias = new FormData();
+      formDataMaterias.append("file", archivos.materias);
+
+      const formDataHorarios = new FormData();
+      formDataHorarios.append("fileHorario", archivos.simulacion);
+
+      const [resMaterias, resHorarios] = await Promise.all([
+        apiClient.post("/simulacion/materias/carga", formDataMaterias, {
+          headers: { "Content-Type": "multipart/form-data" },
+        }),
+        apiClient.post("/simulacion/horarios/carga", formDataHorarios, {
+          headers: { "Content-Type": "multipart/form-data" },
+        }),
+      ]);
+
+      console.log("Materias:", resMaterias.data);
+      console.log("Horarios:", resHorarios.data);
+    } catch (error) {
+      console.error("Error subiendo archivos", error);
+    }
+  };
+
   const [archivos, setArchivos] = useState({
-    docentes: null,
     materias: null,
-    aulas: null,
+    simulacion: null,
   });
   const [dragging, setDragging] = useState(null);
   const [pasoActivo] = useState(0);
@@ -140,7 +130,7 @@ export default function CargaDatosHorario() {
           </span>
           <span className="w-px h-6 bg-zinc-700" />
           <span className="text-sm font-semibold tracking-wide text-white uppercase">
-            Generador de Horarios
+            Carga de archivos
           </span>
         </div>
       </header>
@@ -152,38 +142,8 @@ export default function CargaDatosHorario() {
             Carga de datos
           </h1>
           <p className="text-zinc-400 text-sm">
-            Sube los archivos Excel o CSV con la información requerida para
-            generar el horario académico.
+            Sube los archivos Excel o CSV con la información requerida
           </p>
-        </div>
-
-        {/* PASOS */}
-        <div className="flex items-center gap-0 mb-10">
-          {PASOS.map((paso, i) => (
-            <div key={paso} className="flex items-center">
-              <div
-                className={`flex items-center gap-2 px-4 py-2 border text-sm font-bold uppercase tracking-wide transition-all ${
-                  i === pasoActivo
-                    ? "border-red-500 bg-red-950 text-red-400"
-                    : i < pasoActivo
-                      ? "border-zinc-600 bg-zinc-900 text-zinc-400"
-                      : "border-zinc-800 bg-transparent text-zinc-600"
-                }`}
-              >
-                <span
-                  className={`w-6 h-6 flex items-center justify-center text-xs font-black border rounded-full ${
-                    i === pasoActivo
-                      ? "border-red-500 text-red-400"
-                      : "border-zinc-700 text-zinc-600"
-                  }`}
-                >
-                  {i + 1}
-                </span>
-                {paso}
-              </div>
-              {i < PASOS.length - 1 && <div className="w-8 h-px bg-zinc-700" />}
-            </div>
-          ))}
         </div>
 
         {/* AVISO */}
@@ -202,10 +162,8 @@ export default function CargaDatosHorario() {
           <p className="text-xs text-zinc-400 leading-relaxed">
             Los{" "}
             <span className="text-white font-semibold">
-              tres archivos son obligatorios
+              Dos archivos son obligatorios
             </span>{" "}
-            para continuar al siguiente paso. Descarga cada plantilla para
-            asegurarte de usar el formato correcto antes de subir tu archivo.
           </p>
         </div>
 
@@ -346,16 +304,6 @@ export default function CargaDatosHorario() {
                     ))}
                   </div>
                 </div>
-
-                {/* Plantilla */}
-                <div className="px-5 pb-5 flex items-center justify-between border-t border-zinc-900 pt-3">
-                  <span className="text-xs text-zinc-600">
-                    Plantilla disponible
-                  </span>
-                  <button className="text-xs font-bold text-yellow-400 border border-yellow-800 hover:bg-yellow-950 px-3 py-1 rounded transition-colors uppercase tracking-wide">
-                    Descargar .xlsx
-                  </button>
-                </div>
               </div>
             );
           })}
@@ -396,15 +344,14 @@ export default function CargaDatosHorario() {
         {/* ACCIONES */}
         <div className="flex items-center justify-between">
           <button
-            onClick={() =>
-              setArchivos({ docentes: null, materias: null, aulas: null })
-            }
+            onClick={() => setArchivos({ materias: null, aulas: null })}
             className="text-sm text-zinc-500 hover:text-white border border-zinc-800 hover:border-zinc-600 px-5 py-2.5 rounded transition-all uppercase tracking-wide font-bold"
           >
             Limpiar todo
           </button>
           <button
             disabled={!todosListos}
+            onClick={enviarArchivos}
             className={`text-sm font-black uppercase tracking-widest px-8 py-2.5 rounded transition-all ${
               todosListos
                 ? "bg-red-600 hover:bg-red-500 text-white cursor-pointer"

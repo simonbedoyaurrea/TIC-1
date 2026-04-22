@@ -1,18 +1,18 @@
 import { useState } from "react";
-import mapa from "../assets/mapa.jpeg";
+import mapa from "../assets/MapaUPB.png";
 
 // ── Posiciones calibradas con el mapa real del campus UPB ─────
 // x = porcentaje desde la izquierda, y = porcentaje desde arriba
 const buildingPositions = {
-  1:  { x: 58, y: 78 },
-  2:  { x: 63, y: 80 },
-  3:  { x: 58, y: 69 },
-  4:  { x: 40, y: 72 },
-  5:  { x: 34, y: 56 },
-  6:  { x: 53, y: 52 },
-  7:  { x: 59, y: 41},
-  8:  { x: 58, y: 36 },
-  9:  { x: 60, y: 25 },
+  1: { x: 58, y: 78 },
+  2: { x: 63, y: 80 },
+  3: { x: 58, y: 69 },
+  4: { x: 40, y: 72 },
+  5: { x: 34, y: 56 },
+  6: { x: 53, y: 52 },
+  7: { x: 59, y: 41 },
+  8: { x: 58, y: 36 },
+  9: { x: 60, y: 25 },
   10: { x: 65, y: 15 },
   11: { x: 79, y: 30 },
   12: { x: 82, y: 65 },
@@ -35,7 +35,7 @@ export default function CampusMap({ onBuildingClick }) {
   };
 
   return (
-    <div className="bg-black border-4 border-red-600 shadow-[8px_8px_0px_#facc15] overflow-hidden">
+    <div className="bg-black border-4 border-red-600 shadow-[8px_8px_0px_#facc15]  overflow-hidden mt-17 w-[870px]">
       {/* ── Header ── */}
       <div className="flex items-center justify-between px-4 py-3 bg-red-600 border-b-4 border-black">
         <div className="flex items-center gap-3">
@@ -80,8 +80,10 @@ export default function CampusMap({ onBuildingClick }) {
         <img
           src={mapa}
           alt="Mapa del Campus"
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ filter: "contrast(1.05) brightness(0.9)" }}
+          className="absolute inset-0 w-full h-full object-cover bg-emerald-950"
+          style={{
+            filter: "contrast(1.05) brightness(0.9) saturate(2)",
+          }}
         />
 
         {/* Overlay suave para contraste de marcadores */}
@@ -170,11 +172,15 @@ export default function CampusMap({ onBuildingClick }) {
         <div className="absolute bottom-3 right-3 bg-black/80 border-2 border-white/30 px-3 py-2 flex flex-col gap-1">
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 bg-red-600 border border-white" />
-            <span className="text-white text-[9px] font-bold uppercase tracking-widest">Normal</span>
+            <span className="text-white text-[9px] font-bold uppercase tracking-widest">
+              Normal
+            </span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 bg-yellow-400 border border-black" />
-            <span className="text-white text-[9px] font-bold uppercase tracking-widest">Seleccionado</span>
+            <span className="text-white text-[9px] font-bold uppercase tracking-widest">
+              Seleccionado
+            </span>
           </div>
         </div>
       </div>

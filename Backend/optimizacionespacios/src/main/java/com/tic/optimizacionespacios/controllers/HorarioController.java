@@ -1,22 +1,26 @@
 package com.tic.optimizacionespacios.controllers;
 
-import com.tic.optimizacionespacios.dto.AulaRequestDTO;
-import com.tic.optimizacionespacios.dto.AulaResponseDTO;
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.tic.optimizacionespacios.dto.HorarioAsignacionRequestDTO;
 import com.tic.optimizacionespacios.dto.HorarioAsignacionResponseDTO;
 import com.tic.optimizacionespacios.models.entities.Aula;
 import com.tic.optimizacionespacios.models.entities.HorarioAsignacion;
 import com.tic.optimizacionespacios.models.entities.Profesor;
-import com.tic.optimizacionespacios.models.entities.Ubicacion;
-import com.tic.optimizacionespacios.models.mappers.AulaMapper;
 import com.tic.optimizacionespacios.models.mappers.HorarioAsignacionMapper;
 import com.tic.optimizacionespacios.services.interfaces.AulaService;
 import com.tic.optimizacionespacios.services.interfaces.HorarioAsignacionService;
 import com.tic.optimizacionespacios.services.interfaces.ProfesorService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/horarios")

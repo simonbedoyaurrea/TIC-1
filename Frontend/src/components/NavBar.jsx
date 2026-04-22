@@ -1,11 +1,5 @@
 import { useState, useEffect } from "react";
-
-const NAV_LINKS = [
-  { label: "Inicio", href: "#" },
-  { label: "Salones", href: "#" },
-  { label: "Reportes", href: "#" },
-  { label: "Historial", href: "#" },
-];
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -46,7 +40,7 @@ export default function Navbar() {
               scrolled ? "text-white" : "text-white"
             }`}
           >
-            Optim
+            Opti
             <span
               className={`transition-colors duration-300 ${
                 scrolled ? "text-yellow-400" : "text-black"
@@ -66,35 +60,10 @@ export default function Navbar() {
           </span>
         </a>
 
-        {/* Desktop Links */}
-        <ul className="hidden md:flex items-center gap-1">
-          {NAV_LINKS.map(({ label, href }) => {
-            const isActive = active === label;
-            return (
-              <li key={label}>
-                <a
-                  href={href}
-                  onClick={() => setActive(label)}
-                  className={`relative px-4 py-1.5 text-xs font-black uppercase tracking-widest border-2 transition-all duration-150 cursor-pointer ${
-                    isActive
-                      ? scrolled
-                        ? "bg-yellow-400 text-black border-yellow-400"
-                        : "bg-black text-yellow-400 border-black"
-                      : scrolled
-                        ? "text-gray-300 border-transparent hover:text-yellow-400 hover:border-yellow-400"
-                        : "text-white border-transparent hover:text-black hover:bg-white hover:border-white"
-                  }`}
-                >
-                  {label}
-                </a>
-              </li>
-            );
-          })}
-        </ul>
-
         {/* CTA Button */}
         <div className="hidden md:flex items-center gap-3">
-          <button
+          <Link
+            to="/alert"
             className={`text-xs font-black uppercase tracking-widest px-4 py-2 border-2 transition-all duration-150 cursor-pointer shadow-[3px_3px_0px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none ${
               scrolled
                 ? "bg-red-600 text-white border-red-600 shadow-yellow-400 hover:bg-yellow-400 hover:text-black hover:border-yellow-400"
@@ -102,70 +71,7 @@ export default function Navbar() {
             }`}
           >
             Nuevo Reporte
-          </button>
-        </div>
-
-        {/* Mobile Hamburger */}
-        <button
-          onClick={() => setMenuOpen((o) => !o)}
-          aria-label="Menú"
-          className={`md:hidden flex flex-col gap-1.5 p-1 cursor-pointer group`}
-        >
-          {[0, 1, 2].map((i) => (
-            <span
-              key={i}
-              className={`block h-0.5 w-6 transition-all duration-200 ${
-                scrolled ? "bg-white" : "bg-black"
-              } ${menuOpen && i === 0 ? "translate-y-2 rotate-45" : ""} ${
-                menuOpen && i === 1 ? "opacity-0" : ""
-              } ${menuOpen && i === 2 ? "-translate-y-2 -rotate-45" : ""}`}
-            />
-          ))}
-        </button>
-      </div>
-
-      {/* Mobile Menu */}
-      <div
-        className={`md:hidden overflow-hidden transition-all duration-300 ${
-          menuOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
-        }`}
-      >
-        <div
-          className={`border-t-2 ${scrolled ? "border-yellow-400" : "border-black"} px-4 py-3 flex flex-col gap-1`}
-        >
-          {NAV_LINKS.map(({ label, href }) => {
-            const isActive = active === label;
-            return (
-              <a
-                key={label}
-                href={href}
-                onClick={() => {
-                  setActive(label);
-                  setMenuOpen(false);
-                }}
-                className={`px-3 py-2 text-xs font-black uppercase tracking-widest border-2 transition-colors duration-150 cursor-pointer ${
-                  isActive
-                    ? scrolled
-                      ? "bg-yellow-400 text-black border-yellow-400"
-                      : "bg-black text-yellow-400 border-black"
-                    : scrolled
-                      ? "text-white border-transparent hover:border-yellow-400 hover:text-yellow-400"
-                      : "text-white border-transparent hover:bg-black hover:text-yellow-400 hover:border-black"
-                }`}
-              >
-                {label}
-              </a>
-            );
-          })}
-          <button
-            className={`mt-1 text-xs font-black uppercase tracking-widest px-4 py-2 border-2 cursor-pointer ${
-              scrolled
-                ? "bg-red-600 text-white border-red-600"
-                : "bg-yellow-400 text-black border-black"
-            }`}
-          >
-            Nuevo Reporte
-          </button>
+          </Link>
         </div>
       </div>
     </nav>

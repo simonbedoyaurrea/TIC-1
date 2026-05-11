@@ -59,16 +59,16 @@ public class SecurityConfig {
                             .requestMatchers("/h2-console").permitAll()
                             .requestMatchers("/error").permitAll()
                             .requestMatchers("/api/**").permitAll()
+                            .requestMatchers("/api/simulacion/**").permitAll()
+                            .requestMatchers("/api/simulacion/estado/**").permitAll()
+                            .requestMatchers("/api/simulacion/resultados/{jobId}").permitAll()
                             .requestMatchers("/api/materias/simulacion").permitAll()
                             .requestMatchers(HttpMethod.POST, "/api/reportes").permitAll()
                             .requestMatchers(HttpMethod.POST, "/api/materias/simulacion/carga").permitAll()
                             .requestMatchers(HttpMethod.GET, "/api/reportes/**").permitAll()
 
-                            
-                            // Public species endpoints (allow all users to view species)
-                            .requestMatchers(HttpMethod.GET, "/api/especies/**").permitAll()
-
-                          
+                        
+                                               
 
                             // Any other request must be authenticated
                             .anyRequest().authenticated()

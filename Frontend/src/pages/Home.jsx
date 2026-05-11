@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../components/NavBar";
 import CampusMap from "../components/CampusMap";
 import BuildingModal from "../components/BuildingModal";
@@ -8,6 +9,11 @@ export default function Home() {
   const [selectedBuilding, setSelectedBuilding] = useState(null);
   const [showReport, setShowReport] = useState(false);
   const [currentRole, setCurrentRole] = useState(null);
+  const navigate = useNavigate();
+
+  const handleClick = (id) => {
+    navigate(`/bloque/${id}`);
+  };
 
   // ESC key to close modals
   useEffect(() => {
@@ -30,18 +36,19 @@ export default function Home() {
         <div className="content-grid">
           <div className="left-content">
             {/* Map */}
-            <CampusMap onBuildingClick={setSelectedBuilding} />
+            <CampusMap onBuildingClick={handleClick} />
           </div>
         </div>
       </div>
 
-      {/* Modals */}
+      {/* Modals
       {selectedBuilding !== null && (
-        <BuildingModal
+
+        <BuildingModals
           buildingId={selectedBuilding}
           onClose={() => setSelectedBuilding(null)}
         />
-      )}
+      )} */}
       {showReport && <ReportModal onClose={() => setShowReport(false)} />}
     </>
   );

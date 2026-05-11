@@ -1,5 +1,9 @@
 package com.tic.optimizacionespacios.services.implementations;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.tic.optimizacionespacios.models.entities.Aula;
 import com.tic.optimizacionespacios.models.entities.Recurso;
 import com.tic.optimizacionespacios.models.entities.Ubicacion;
@@ -7,10 +11,8 @@ import com.tic.optimizacionespacios.repositories.AulaRepository;
 import com.tic.optimizacionespacios.services.interfaces.AulaService;
 import com.tic.optimizacionespacios.services.interfaces.RecursoService;
 import com.tic.optimizacionespacios.services.interfaces.UbicacionService;
-import jakarta.transaction.Transactional;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
+import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
@@ -65,7 +67,7 @@ public class AulaServiceImpl implements AulaService {
     // OBTENER POR ID
     @Override
     public Aula obtenerPorId(Long id) {
-        return aulaRepo.findById(id).orElseThrow(() -> new RuntimeException("Aula no encontrada"));
+         return aulaRepo.findByIdWithRecursos(id);
     }
 
     // LISTAR

@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tic.optimizacionespacios.dto.AulaRequestDTO;
-import com.tic.optimizacionespacios.dto.AulaResponseDTO;
+import com.tic.optimizacionespacios.dto.aula.AulaRequestDTO;
+import com.tic.optimizacionespacios.dto.aula.AulaResponseDTO;
 import com.tic.optimizacionespacios.models.entities.Aula;
 import com.tic.optimizacionespacios.models.entities.Ubicacion;
 import com.tic.optimizacionespacios.models.mappers.AulaMapper;

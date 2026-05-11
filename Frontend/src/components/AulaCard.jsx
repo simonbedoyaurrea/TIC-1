@@ -1,10 +1,20 @@
 import { Circle, UserPen, ClipboardList } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 function AulaCard({ aula }) {
   const disponible = aula.estado === "DISPONIBLE";
+  const navigate = useNavigate();
+
+  const handleClick = (id) => {
+    console.log("CLICK REAL", aula.id);
+    navigate(`/aula/${id}`);
+  };
 
   return (
-    <div className="bg-white rounded-xl shadow-md flex flex-col items-center text-center transition-transform duration-300 hover:scale-105 gap-2">
+    <div
+      className="bg-white rounded-xl shadow-md flex flex-col items-center text-center transition-transform duration-300 hover:scale-105 gap-2 cursor-pointer"
+      onClick={() => handleClick(aula.id)}
+    >
       <div className="w-full flex flex-row p-3 gap-2">
         <div className="bg-black w-11 flex justify-center items-center rounded">
           <span className="text-white">

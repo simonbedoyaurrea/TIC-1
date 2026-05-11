@@ -62,6 +62,14 @@ public class HorarioController {
         );
     }
 
+    @GetMapping("/aula/{id}")
+    public ResponseEntity<List<HorarioAsignacionResponseDTO>> obtenerHorariosAula(@PathVariable Long id){
+        List<HorarioAsignacion> horario = horarioService.obtenerHorariosAula(id);
+        return ResponseEntity.ok(
+                horario.stream().map(HorarioAsignacionMapper::toResponse).toList()
+        );
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<HorarioAsignacionResponseDTO> actualizar(
             @PathVariable Long id,
@@ -107,4 +115,3 @@ public class HorarioController {
     }
 
 }
-

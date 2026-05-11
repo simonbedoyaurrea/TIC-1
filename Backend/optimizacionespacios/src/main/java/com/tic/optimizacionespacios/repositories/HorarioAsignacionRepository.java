@@ -1,15 +1,16 @@
 package com.tic.optimizacionespacios.repositories;
 
-import com.tic.optimizacionespacios.models.entities.HorarioAsignacion;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.List;
+import com.tic.optimizacionespacios.models.entities.HorarioAsignacion;
 
 @Repository
 public interface HorarioAsignacionRepository extends JpaRepository<HorarioAsignacion, Long> {
@@ -23,6 +24,12 @@ public interface HorarioAsignacionRepository extends JpaRepository<HorarioAsigna
         LocalDate fecha,
         LocalDate fecha2
     );
+     @Query("""
+        SELECT h FROM HorarioAsignacion h
+        LEFT JOIN FETCH h.dias
+        WHERE h.aula.id = :aulaId
+    """)
+    List<HorarioAsignacion> obtenerPorAula(@Param("aulaId") Long aulaId);
 
     // Validar conflicto de horario
     @Query("""

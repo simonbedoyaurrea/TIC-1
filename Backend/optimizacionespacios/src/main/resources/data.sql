@@ -1,7 +1,24 @@
 -- UBICACIONES (Bloques)
-INSERT INTO ubicaciones (id, bloque, nombre, pisos, referencia) VALUES(1, 11, 'Escuela de Ingenierías', 8, '');
-INSERT INTO ubicaciones (id, bloque, nombre, pisos, referencia) VALUES(2, 9, 'Formación Avanzada', 5, '');
-INSERT INTO ubicaciones (id, bloque, nombre, pisos, referencia) VALUES(3, 10, 'Escuela de Arquitectura', 5, '');
+INSERT INTO ubicaciones (bloque, nombre, pisos, referencia) VALUES(1, 'Templo Universitario', 5, '');
+INSERT INTO ubicaciones (bloque, nombre, pisos, referencia) VALUES(2, 'Aula Magna Mons', 5, '');
+INSERT INTO ubicaciones (bloque, nombre, pisos, referencia) VALUES(3, 'Bloque Rectoral Mons', 5, '');
+INSERT INTO ubicaciones (bloque, nombre, pisos, referencia) VALUES(4, 'Colegio UPB Primaria y Preescolar', 5, '');
+INSERT INTO ubicaciones (bloque, nombre, pisos, referencia) VALUES(5, 'Colegio UPB Bachillerato', 5, '');
+INSERT INTO ubicaciones (bloque, nombre, pisos, referencia) VALUES(6, 'Escuela de Economía, Administración y Negocios', 5, '');
+INSERT INTO ubicaciones (bloque, nombre, pisos, referencia) VALUES(7, 'Escuela de Ciencias Sociales', 5, '');
+INSERT INTO ubicaciones (bloque, nombre, pisos, referencia) VALUES(8, 'Escuela de Arquitectura', 5, '');
+INSERT INTO ubicaciones (bloque, nombre, pisos, referencia) VALUES(9, 'Formación Avanzada', 5, '');
+INSERT INTO ubicaciones (bloque, nombre, pisos, referencia) VALUES(10, 'Escuela de Arquitectura', 5, '');
+INSERT INTO ubicaciones (bloque, nombre, pisos, referencia) VALUES(11, 'Escuela de Ingenierías', 8, '');
+INSERT INTO ubicaciones (bloque, nombre, pisos, referencia) VALUES(12, 'Escuela de Derecho y Ciencias Políticas', 5, '');
+INSERT INTO ubicaciones (bloque, nombre, pisos, referencia) VALUES(13, 'Jardín de las Leyes', 5, '');
+INSERT INTO ubicaciones (bloque, nombre, pisos, referencia) VALUES(14, 'Centro de Atención Psicológica y enfermería de Bienestar Institucional', 5, '');
+INSERT INTO ubicaciones (bloque, nombre, pisos, referencia) VALUES(15, 'Biblioteca Central Mons', 5, '');
+INSERT INTO ubicaciones (bloque, nombre, pisos, referencia) VALUES(16, 'Canchas de fútbol sintéticas', 5, '');
+INSERT INTO ubicaciones (bloque, nombre, pisos, referencia) VALUES(17, 'Polideportivo UPB Mons', 5, '');
+INSERT INTO ubicaciones (bloque, nombre, pisos, referencia) VALUES(18, 'Bloque de Parqueaderos', 5, '');
+INSERT INTO ubicaciones (bloque, nombre, pisos, referencia) VALUES(19, 'Puestos de Estudio Bulevar', 5, '');
+
 
 -- RECURSOS
 INSERT INTO recursos (id, nombre, descripcion, activo) VALUES (1, 'PROYECTOR', 'Proyector multimedia', true);
@@ -81,35 +98,35 @@ INSERT INTO materia_recursos (materia_id, recurso_id) VALUES (12,1);
 
 -- BLOQUE 11
 INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
-VALUES (1, 1, 01,30, 1, 'AULA', 'DISPONIBLE', 'Aula estandar', true);
+VALUES (1, 1, 01,30, 11, 'AULA', 'DISPONIBLE', 'Aula estandar', true);
 
 INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
-VALUES (2, 1, 02,25, 1, 'LABORATORIO', 'DISPONIBLE', 'Laboratorio basico', true);
+VALUES (2, 1, 02,25, 11, 'LABORATORIO', 'DISPONIBLE', 'Laboratorio basico', true);
 
 INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
-VALUES (3, 1, 03,40, 1, 'AUDITORIO', 'DISPONIBLE', 'Auditorio pequeño', true);
+VALUES (3, 1, 03,40, 11, 'AUDITORIO', 'DISPONIBLE', 'Auditorio pequeño', true);
 
 
 -- BLOQUE 9
 INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
-VALUES (4, 1, 01,35, 2, 'AULA', 'DISPONIBLE', 'Aula con buena iluminacion', true);
+VALUES (4, 1, 01,35, 9, 'AULA', 'DISPONIBLE', 'Aula con buena iluminacion', true);
 
 INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
-VALUES (5, 1, 02,28, 2, 'LABORATORIO', 'DISPONIBLE', 'Laboratorio ciencias', true);
+VALUES (5, 1, 02,28, 9, 'LABORATORIO', 'DISPONIBLE', 'Laboratorio ciencias', true);
 
 INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
-VALUES (6, 1, 03,30, 2, 'SALA_COMPUTO', 'DISPONIBLE', 'Sala con computadores', true);
+VALUES (6, 1, 03,30, 9, 'SALA_COMPUTO', 'DISPONIBLE', 'Sala con computadores', true);
 
 
 -- BLOQUE 10
 INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
-VALUES (7, 1, 01,30, 3, 'AULA', 'DISPONIBLE', 'Aula estandar', true);
+VALUES (7, 1, 01,30, 10, 'AULA', 'DISPONIBLE', 'Aula estandar', true);
 
 INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
-VALUES (8, 1, 02,20, 3, 'SALA_COMPUTO', 'DISPONIBLE', 'Sala de computo secundaria', true);
+VALUES (8, 1, 02,20, 10, 'SALA_COMPUTO', 'DISPONIBLE', 'Sala de computo secundaria', true);
 
 INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
-VALUES (9, 1, 03,50, 3, 'AUDITORIO', 'DISPONIBLE', 'Auditorio grande', true);
+VALUES (9, 1, 03,50, 10, 'AUDITORIO', 'DISPONIBLE', 'Auditorio grande', true);
 
 
 -- RELACION AULA - RECURSOS
@@ -182,3 +199,143 @@ INSERT INTO disponibilidad_profesor (profesor_id, dia_semana, hora_inicio, hora_
 
                                                                                                                 (10, 'MONDAY', '14:00:00', '18:00:00', true, null),
                                                                                                                 (10, 'WEDNESDAY', '08:00:00', '12:00:00', true, null);
+
+-- PROGRAMACION I (Profesor 1 - Carlos)
+INSERT INTO horarios_asignacion
+(id, nrc, materia_id, aula_id, profesor_id,
+ fecha_inicio, fecha_fin,
+ hora_inicio, hora_fin,
+ duracion_minutos, tipo_sesion, estado, origen)
+VALUES
+    (1, 1001, 1, 2, 1,
+     '2026-02-01', '2026-06-01',
+     '08:00:00', '10:00:00',
+     120, 'LABORATORIO', 'APROBADO', 'MANUAL');
+
+-- PROGRAMACION II (Profesor 2 - Laura)
+INSERT INTO horarios_asignacion
+(id, nrc, materia_id, aula_id, profesor_id,
+ fecha_inicio, fecha_fin,
+ hora_inicio, hora_fin,
+ duracion_minutos, tipo_sesion, estado, origen)
+VALUES
+    (2, 1002, 2, 2, 2,
+     '2026-02-01', '2026-06-01',
+     '14:00:00', '16:00:00',
+     120, 'LABORATORIO', 'APROBADO', 'MANUAL');
+
+-- ESTRUCTURAS DE DATOS (Profesor 1)
+INSERT INTO horarios_asignacion
+(id, nrc, materia_id, aula_id, profesor_id,
+ fecha_inicio, fecha_fin,
+ hora_inicio, hora_fin,
+ duracion_minutos, tipo_sesion, estado, origen)
+VALUES
+    (3, 1003, 3, 1, 1,
+     '2026-02-01', '2026-06-01',
+     '10:00:00', '12:00:00',
+     120, 'CLASE', 'APROBADO', 'MANUAL');
+
+-- BASES DE DATOS (Profesor 3)
+INSERT INTO horarios_asignacion
+(id, nrc, materia_id, aula_id, profesor_id,
+ fecha_inicio, fecha_fin,
+ hora_inicio, hora_fin,
+ duracion_minutos, tipo_sesion, estado, origen)
+VALUES
+    (4, 1004, 4, 2, 3,
+     '2026-02-01', '2026-06-01',
+     '09:00:00', '11:00:00',
+     120, 'LABORATORIO', 'APROBADO', 'MANUAL');
+
+-- SISTEMAS OPERATIVOS (Profesor 9)
+INSERT INTO horarios_asignacion
+(id, nrc, materia_id, aula_id, profesor_id,
+ fecha_inicio, fecha_fin,
+ hora_inicio, hora_fin,
+ duracion_minutos, tipo_sesion, estado, origen)
+VALUES
+    (5, 1005, 5, 2, 9,
+     '2026-02-01', '2026-06-01',
+     '08:00:00', '10:00:00',
+     120, 'LABORATORIO', 'APROBADO', 'MANUAL');
+
+-- REDES (Profesor 7)
+INSERT INTO horarios_asignacion
+(id, nrc, materia_id, aula_id, profesor_id,
+ fecha_inicio, fecha_fin,
+ hora_inicio, hora_fin,
+ duracion_minutos, tipo_sesion, estado, origen)
+VALUES
+    (6, 1006, 6, 1, 7,
+     '2026-02-01', '2026-06-01',
+     '07:00:00', '09:00:00',
+     120, 'CLASE', 'APROBADO', 'MANUAL');
+
+-- INGENIERIA SOFTWARE (Profesor 6)
+INSERT INTO horarios_asignacion
+(id, nrc, materia_id, aula_id, profesor_id,
+ fecha_inicio, fecha_fin,
+ hora_inicio, hora_fin,
+ duracion_minutos, tipo_sesion, estado, origen)
+VALUES
+    (7, 1007, 7, 3, 6,
+     '2026-02-01', '2026-06-01',
+     '09:00:00', '11:00:00',
+     120, 'CLASE', 'APROBADO', 'MANUAL');
+
+-- IA (Profesor 3)
+INSERT INTO horarios_asignacion
+(id, nrc, materia_id, aula_id, profesor_id,
+ fecha_inicio, fecha_fin,
+ hora_inicio, hora_fin,
+ duracion_minutos, tipo_sesion, estado, origen)
+VALUES
+    (8, 1008, 9, 2, 3,
+     '2026-02-01', '2026-06-01',
+     '11:00:00', '13:00:00',
+     120, 'LABORATORIO', 'APROBADO', 'MANUAL');
+
+
+-- Dias Horario
+INSERT INTO dias_horario (horario_id, dia_semana)
+VALUES
+    (1, 'MONDAY'),
+    (1, 'WEDNESDAY'),
+    (1, 'FRIDAY');
+
+INSERT INTO dias_horario (horario_id, dia_semana)
+VALUES
+    (2, 'TUESDAY'),
+    (2, 'THURSDAY');
+
+INSERT INTO dias_horario (horario_id, dia_semana)
+VALUES
+    (3, 'MONDAY'),
+    (3, 'WEDNESDAY');
+
+INSERT INTO dias_horario (horario_id, dia_semana)
+VALUES
+    (4, 'MONDAY'),
+    (4, 'FRIDAY');
+
+INSERT INTO dias_horario (horario_id, dia_semana)
+VALUES
+    (5, 'TUESDAY'),
+    (5, 'THURSDAY');
+
+INSERT INTO dias_horario (horario_id, dia_semana)
+VALUES
+    (6, 'MONDAY'),
+    (6, 'WEDNESDAY'),
+    (6, 'FRIDAY');
+
+INSERT INTO dias_horario (horario_id, dia_semana)
+VALUES
+    (7, 'TUESDAY'),
+    (7, 'THURSDAY');
+
+INSERT INTO dias_horario (horario_id, dia_semana)
+VALUES
+    (8, 'MONDAY'),
+    (8, 'WEDNESDAY');

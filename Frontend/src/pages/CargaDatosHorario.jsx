@@ -121,15 +121,15 @@ export default function CargaDatosHorario() {
   const todosListos = Object.values(archivos).every(Boolean);
 
   return (
-    <div className="min-h-screen bg-black text-white font-sans">
+    <div className="min-h-screen bg-mauve-200 text-black font-sans">
       {/* HEADER */}
-      <header className="border-b border-zinc-800 bg-zinc-950 px-8 py-4 flex items-center justify-between sticky top-0 z-10">
+      <header className="border-b border-zinc-800 bg-mauve-200 px-8 py-4 flex items-center justify-between sticky top-0 z-10">
         <div className="flex items-center gap-3">
           <span className="font-black text-2xl tracking-widest text-red-500">
             OPTIU
           </span>
           <span className="w-px h-6 bg-zinc-700" />
-          <span className="text-sm font-semibold tracking-wide text-white uppercase">
+          <span className="text-sm font-semibold tracking-wide  uppercase">
             Carga de archivos
           </span>
         </div>
@@ -138,33 +138,19 @@ export default function CargaDatosHorario() {
       <main className="max-w-6xl mx-auto px-8 py-10">
         {/* TÍTULO */}
         <div className="mb-8">
-          <h1 className="text-4xl font-black uppercase tracking-tight text-white mb-1">
+          <h1 className="text-4xl font-black uppercase tracking-tight  mb-1">
             Carga de datos
           </h1>
-          <p className="text-zinc-400 text-sm">
+          <p className="text-blck text-sm">
             Sube los archivos Excel o CSV con la información requerida
           </p>
         </div>
 
         {/* AVISO */}
-        <div className="flex items-start gap-3 bg-zinc-900 border border-zinc-700 rounded px-4 py-3 mb-8">
-          <svg
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            className="w-4 h-4 text-yellow-400 mt-0.5 shrink-0"
-          >
-            <path
-              fillRule="evenodd"
-              d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z"
-              clipRule="evenodd"
-            />
-          </svg>
-          <p className="text-xs text-zinc-400 leading-relaxed">
-            Los{" "}
-            <span className="text-white font-semibold">
-              Dos archivos son obligatorios
-            </span>{" "}
-          </p>
+        <div className="flex items-start gap-3 bg-rose-600 border border-zinc-700 rounded px-4 py-3 mb-8">
+          <span className="text-white font-semibold">
+            Los dos archivos son obligatorios
+          </span>
         </div>
 
         {/* TARJETAS DE SECCIÓN */}
@@ -175,7 +161,7 @@ export default function CargaDatosHorario() {
             return (
               <div
                 key={sec.id}
-                className={`bg-zinc-950 border rounded-lg overflow-hidden transition-all ${
+                className={`bg-white text-black border rounded-lg overflow-hidden transition-all ${
                   archivoActual
                     ? `border-${sec.color === "blue" ? "blue" : sec.color === "red" ? "red" : "yellow"}-700`
                     : "border-zinc-800"
@@ -190,7 +176,7 @@ export default function CargaDatosHorario() {
                       {sec.icono}
                     </div>
                     <div>
-                      <p className="font-black text-base uppercase tracking-wide text-white">
+                      <p className="font-black text-base uppercase tracking-wide ">
                         {sec.titulo}
                       </p>
                       <p className="text-xs text-zinc-500">{sec.subtitulo}</p>
@@ -276,41 +262,13 @@ export default function CargaDatosHorario() {
                     </label>
                   )}
                 </div>
-
-                {/* Campos requeridos */}
-                <div className="px-5 pb-4">
-                  <p className="text-xs font-bold uppercase tracking-widest text-zinc-600 mb-2">
-                    Columnas esperadas
-                  </p>
-                  <div className="flex flex-col gap-1">
-                    {sec.campos.map((campo) => (
-                      <div
-                        key={campo.nombre}
-                        className="flex items-center justify-between py-1 border-b border-zinc-900 last:border-0"
-                      >
-                        <span className="text-xs text-zinc-300">
-                          {campo.nombre}
-                        </span>
-                        <span
-                          className={`text-xs px-2 py-0.5 rounded font-semibold ${
-                            campo.requerido
-                              ? "bg-red-950 text-red-400"
-                              : "bg-zinc-900 text-zinc-600"
-                          }`}
-                        >
-                          {campo.requerido ? "requerido" : "opcional"}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
               </div>
             );
           })}
         </div>
 
         {/* RESUMEN DE ESTADO */}
-        <div className="bg-zinc-950 border border-zinc-800 rounded-lg p-5 mb-8">
+        <div className=" border border-zinc-800 rounded-lg p-5 mb-8">
           <p className="text-xs font-bold uppercase tracking-widest text-zinc-500 mb-4">
             Estado de la carga
           </p>

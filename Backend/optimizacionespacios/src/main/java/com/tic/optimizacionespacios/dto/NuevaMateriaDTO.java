@@ -2,11 +2,9 @@ package com.tic.optimizacionespacios.dto;
 
 import java.util.List;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class NuevaMateriaDTO {
 
     private String id;

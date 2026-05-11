@@ -17,7 +17,7 @@ export default function Navbar() {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
           ? "bg-black border-b-4 border-yellow-400 shadow-[0_4px_0px_#facc15] py-2"
-          : "bg-red-600 border-b-4 border-black py-4"
+          : "bg-[#E01050] border-b-4 border-black py-4"
       }`}
     >
       <div className="max-w-5xl mx-auto px-4 flex items-center justify-between">
@@ -27,8 +27,8 @@ export default function Navbar() {
           <div
             className={`w-8 h-8 flex items-center justify-center font-black text-sm border-2 transition-all duration-300 ${
               scrolled
-                ? "bg-yellow-400 border-yellow-400 text-black group-hover:bg-white"
-                : "bg-black border-black text-yellow-400 group-hover:bg-yellow-400 group-hover:text-black"
+                ? "bg-blue-400 border-blue-400 text-black group-hover:bg-white"
+                : "bg-black border-black text-yellow-400 group-hover:bg-blue-400 group-hover:text-black"
             }`}
           >
             OU
@@ -43,7 +43,7 @@ export default function Navbar() {
             Opti
             <span
               className={`transition-colors duration-300 ${
-                scrolled ? "text-yellow-400" : "text-black"
+                scrolled ? "text-blue-400" : "text-black"
               }`}
             >
               U
@@ -51,13 +51,6 @@ export default function Navbar() {
           </span>
 
           {/* Pill tag */}
-          <span
-            className={`hidden sm:inline-block text-[10px] font-black uppercase px-1.5 py-0.5 tracking-widest transition-all duration-300 ${
-              scrolled ? "bg-red-600 text-white" : "bg-yellow-400 text-black"
-            }`}
-          >
-            Beta
-          </span>
         </a>
 
         {/* CTA Button */}
@@ -66,8 +59,8 @@ export default function Navbar() {
             to="/alert"
             className={`text-xs font-black uppercase tracking-widest px-4 py-2 border-2 transition-all duration-150 cursor-pointer shadow-[3px_3px_0px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none ${
               scrolled
-                ? "bg-red-600 text-white border-red-600 shadow-yellow-400 hover:bg-yellow-400 hover:text-black hover:border-yellow-400"
-                : "bg-yellow-400 text-black border-black shadow-black hover:bg-white hover:text-black"
+                ? "bg-blue-400 text-white border-blue-600 shadow-blue-400 hover:bg-blue-400 hover:text-black hover:border-blue-400"
+                : "bg-blue-400 text-black border-black shadow-black hover:bg-white hover:text-black"
             }`}
           >
             Nuevo Reporte

@@ -1,7 +1,7 @@
 package com.tic.optimizacionespacios.models.mappers;
 
-import com.tic.optimizacionespacios.dto.RecursoRequestDTO;
-import com.tic.optimizacionespacios.dto.RecursoResponseDTO;
+import com.tic.optimizacionespacios.dto.aula.RecursoRequestDTO;
+import com.tic.optimizacionespacios.dto.aula.RecursoResponseDTO;
 import com.tic.optimizacionespacios.models.entities.Recurso;
 
 public class RecursoMapper {

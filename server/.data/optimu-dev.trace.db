@@ -1,0 +1,10 @@
+2026-05-05 15:06:53.655963-05:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * FROM horarios_simulacion \000d\000aWHERE room_code =[*]= MELB07-612"; se esperaba "ALL (, ANY (, SOME ("
+Syntax error in SQL statement "SELECT * FROM horarios_simulacion \000d\000aWHERE room_code =[*]= MELB07-612"; expected "ALL (, ANY (, SOME ("; SQL statement:
+SELECT * FROM horarios_simulacion 
+WHERE room_code == MELB07-612 [42001-240]
+2026-05-05 15:06:56.530910-05:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * FROM horarios_simulacion \000d\000aWHERE room_code =[*]= MELB07-612"; se esperaba "ALL (, ANY (, SOME ("
+Syntax error in SQL statement "SELECT * FROM horarios_simulacion \000d\000aWHERE room_code =[*]= MELB07-612"; expected "ALL (, ANY (, SOME ("; SQL statement:
+SELECT * FROM horarios_simulacion 
+WHERE room_code == MELB07-612 [42001-240]

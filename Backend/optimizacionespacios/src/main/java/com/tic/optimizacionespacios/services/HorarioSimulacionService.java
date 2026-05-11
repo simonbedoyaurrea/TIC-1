@@ -99,7 +99,7 @@ public class HorarioSimulacionService {
         }
     }
 
-     private int getIntCellValue(org.apache.poi.ss.usermodel.Cell cell) {
+    private int getIntCellValue(org.apache.poi.ss.usermodel.Cell cell) {
 
         String value = getCellValue(cell);
 
@@ -115,7 +115,8 @@ public class HorarioSimulacionService {
     }
 
 
-      public String optimizarHorario(OptimizadorRequestDTO request) {
+    public String optimizarHorario(OptimizadorRequestDTO request) {
+
 
         try {
 
@@ -155,5 +156,9 @@ public class HorarioSimulacionService {
             log.error("Error optimizando horario", e);
             throw new RuntimeException("Error optimizando horario", e);
         }
+    }
+
+    public void agregarMateriaSimulacion(HorarioSimulacion horario) {
+        horarioSimulacionRepository.save(horario);
     }
 }

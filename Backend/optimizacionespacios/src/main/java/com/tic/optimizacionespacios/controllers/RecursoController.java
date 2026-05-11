@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tic.optimizacionespacios.dto.RecursoRequestDTO;
-import com.tic.optimizacionespacios.dto.RecursoResponseDTO;
+import com.tic.optimizacionespacios.dto.aula.RecursoRequestDTO;
+import com.tic.optimizacionespacios.dto.aula.RecursoResponseDTO;
 import com.tic.optimizacionespacios.models.entities.Recurso;
 import com.tic.optimizacionespacios.models.mappers.RecursoMapper;
 import com.tic.optimizacionespacios.services.interfaces.RecursoService;

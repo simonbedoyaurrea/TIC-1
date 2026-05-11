@@ -5,6 +5,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import lombok.Data;
+
+@Data
 public class HorarioAsignacionRequestDTO {
 
     private Long aulaId;
@@ -25,47 +28,5 @@ public class HorarioAsignacionRequestDTO {
 
     private String origen; // MANUAL | OPTIMIZADOR
 
-    public LocalDate getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public LocalDate getFechaFin() {
-        return fechaFin;
-    }
-
-    public Long getAulaId() {
-        return aulaId;
-    }
-
-    public Long getProfesorId() {
-        return profesorId;
-    }
-
-    public Long getMateriaId() {
-        return materiaId;
-    }
-
-    public LocalTime getHoraInicio() {
-        return horaInicio;
-    }
-
-    public LocalTime getHoraFin() {
-        return horaFin;
-    }
-
-    public Integer getDuracionMinutos() {
-        return duracionMinutos;
-    }
-
-    public List<DayOfWeek> getDiasSemana() {
-        return diasSemana;
-    }
-
-    public String getTipoSesion() {
-        return tipoSesion;
-    }
-
-    public String getOrigen() {
-        return origen;
-    }
+    
 }

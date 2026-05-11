@@ -1,21 +1,28 @@
 package com.tic.optimizacionespacios.services.implementations;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
+import java.util.Set;
+
+import org.springframework.stereotype.Service;
+
 import com.tic.optimizacionespacios.enums.EstadoMateria;
-import com.tic.optimizacionespacios.models.entities.*;
+import com.tic.optimizacionespacios.models.entities.Aula;
+import com.tic.optimizacionespacios.models.entities.DiaHorario;
+import com.tic.optimizacionespacios.models.entities.HorarioAsignacion;
+import com.tic.optimizacionespacios.models.entities.Materia;
+import com.tic.optimizacionespacios.models.entities.Profesor;
+import com.tic.optimizacionespacios.models.entities.Recurso;
 import com.tic.optimizacionespacios.repositories.AulaRepository;
 import com.tic.optimizacionespacios.repositories.HorarioAsignacionRepository;
 import com.tic.optimizacionespacios.repositories.ProfesorRepository;
 import com.tic.optimizacionespacios.services.interfaces.AulaService;
 import com.tic.optimizacionespacios.services.interfaces.HorarioAsignacionService;
 import com.tic.optimizacionespacios.services.interfaces.ProfesorService;
-import jakarta.transaction.Transactional;
-import org.springframework.stereotype.Service;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.List;
-import java.util.Set;
+import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
@@ -62,7 +69,10 @@ public class HorarioAsignacionServiceImpl implements HorarioAsignacionService {
         return horarioRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Horario no encontrado"));
     }
-
+    @Override
+    public List<HorarioAsignacion> obtenerHorariosAula(Long id){
+        return horarioRepo.obtenerPorAula(id);
+    }
     @Override
     public HorarioAsignacion actualizar(Long id, HorarioAsignacion horarioAsignacion){
         HorarioAsignacion existente = obtenerHorario(id);

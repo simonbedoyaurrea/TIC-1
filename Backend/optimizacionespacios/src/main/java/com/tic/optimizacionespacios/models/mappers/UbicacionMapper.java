@@ -1,8 +1,7 @@
 package com.tic.optimizacionespacios.models.mappers;
 
-import com.tic.optimizacionespacios.dto.RecursoResponseDTO;
-import com.tic.optimizacionespacios.dto.UbicacionRequestDTO;
-import com.tic.optimizacionespacios.dto.UbicacionResponseDTO;
+import com.tic.optimizacionespacios.dto.aula.UbicacionRequestDTO;
+import com.tic.optimizacionespacios.dto.aula.UbicacionResponseDTO;
 import com.tic.optimizacionespacios.models.entities.Aula;
 import com.tic.optimizacionespacios.models.entities.Ubicacion;
 

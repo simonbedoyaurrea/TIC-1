@@ -35,7 +35,7 @@ export default function CampusMap({ onBuildingClick }) {
   };
 
   return (
-    <div className="bg-black border-4 border-red-600 shadow-[8px_8px_0px_#facc15]  overflow-hidden mt-17 w-[870px]">
+    <div className="bg-mauve-200 border-4 border-red-600 shadow-[8px_8px_0px_#facc15]  overflow-hidden mt-17 w-[870px]">
       {/* ── Header ── */}
       <div className="flex items-center justify-between px-4 py-3 bg-red-600 border-b-4 border-black">
         <div className="flex items-center gap-3">

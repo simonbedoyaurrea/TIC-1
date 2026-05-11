@@ -1,14 +1,8 @@
-import apiClient from '../apis/apiClient'
+import apiClient from "../apis/apiClient";
 
 export const aulaService = {
-
   obtenerTodas: async () => {
     const response = await apiClient.get("/aulas");
-    return response.data;
-  },
-
-  obtenerPorBloque: async (bloque) => {
-    const response = await apiClient.get(`/aulas/bloque/${bloque}`);
     return response.data;
   },
 
@@ -20,7 +14,6 @@ export const aulaService = {
   //CUIDADO !!
   filtrarPorPiso: async (bloque, piso) => {
     const aulas = await aulaService.obtenerPorBloque(bloque);
-    return aulas.filter(aula => aula.piso === piso);
-  }
-
+    return aulas.filter((aula) => aula.piso === piso);
+  },
 };

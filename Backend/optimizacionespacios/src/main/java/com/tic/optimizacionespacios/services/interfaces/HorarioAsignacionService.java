@@ -14,6 +14,8 @@ public interface HorarioAsignacionService {
 
     HorarioAsignacion obtenerHorario(Long id);
 
+    List<HorarioAsignacion> obtenerHorariosAula(Long id);
+
     HorarioAsignacion actualizar(Long id, HorarioAsignacion horarioAsignacion);
 
     HorarioAsignacion cambiarAula(Long horarioId, Long aulaId);

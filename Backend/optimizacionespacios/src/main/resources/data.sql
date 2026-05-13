@@ -23,8 +23,9 @@ INSERT INTO ubicaciones (bloque, nombre, pisos, referencia) VALUES(19, 'Puestos 
 -- RECURSOS
 INSERT INTO recursos (id, nombre, descripcion, activo) VALUES (1, 'PROYECTOR', 'Proyector multimedia', true);
 INSERT INTO recursos (id, nombre, descripcion, activo) VALUES (2, 'COMPUTADORES', 'Computadores para estudiantes', true);
-INSERT INTO recursos (id, nombre, descripcion, activo) VALUES (3, 'TABLERO_DIGITAL', 'Pantalla interactiva', true);
-INSERT INTO recursos (id, nombre, descripcion, activo) VALUES (4, 'AIRE_ACONDICIONADO', 'Sistema de climatizacion', true);
+INSERT INTO recursos (id, nombre, descripcion, activo) VALUES (3, 'TV', 'Television con acceso a HDMI', true);
+INSERT INTO recursos (id, nombre, descripcion, activo) VALUES (4, 'TABLERO_DIGITAL', 'Pantalla interactiva', true);
+INSERT INTO recursos (id, nombre, descripcion, activo) VALUES (5, 'AIRE_ACONDICIONADO', 'Sistema de climatizacion', true);
 
 -- MATERIAS
 INSERT INTO materia (id, nombre, codigo, creditos, activo) VALUES
@@ -108,25 +109,114 @@ VALUES (3, 1, 03,40, 11, 'AUDITORIO', 'DISPONIBLE', 'Auditorio pequeño', true);
 
 
 -- BLOQUE 9
+
+-- Primer piso
 INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
-VALUES (4, 1, 01,35, 9, 'AULA', 'DISPONIBLE', 'Aula con buena iluminacion', true);
+VALUES (7, 1, 03,24, 9, 'SALA_COMPUTO', 'DISPONIBLE', 'Aula con buena iluminacion', true);
 
 INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
-VALUES (5, 1, 02,28, 9, 'LABORATORIO', 'DISPONIBLE', 'Laboratorio ciencias', true);
+VALUES (8, 1, 04,24, 9, 'SALA_COMPUTO', 'DISPONIBLE', 'Laboratorio ciencias', true);
 
 INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
-VALUES (6, 1, 03,30, 9, 'SALA_COMPUTO', 'DISPONIBLE', 'Sala con computadores', true);
+VALUES (9, 1, 05,24, 9, 'SALA_COMPUTO', 'DISPONIBLE', 'Sala con computadores', true);
+
+INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
+VALUES (10, 1, 06,30, 9, 'SALA_COMPUTO', 'DISPONIBLE', 'Sala con computadores', true);
+
+INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
+VALUES (11, 1, 07,29, 9, 'SALA_COMPUTO', 'DISPONIBLE', 'Sala con computadores', true);
+
+INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
+VALUES (12, 1, 12,28, 9, 'SALA_COMPUTO', 'DISPONIBLE', 'Sala con computadores', true);
+
+INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
+VALUES (13, 1, 13,33, 9, 'SALA_COMPUTO', 'DISPONIBLE', 'Sala con computadores', true);
+
+INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
+VALUES (14, 1, 14,31, 9, 'SALA_COMPUTO', 'DISPONIBLE', 'Sala con computadores', true);
+
+INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
+VALUES (15, 1, 15,24, 9, 'SALA_COMPUTO', 'DISPONIBLE', 'Sala con computadores', true);
+
+INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
+VALUES (16, 1, 16,24, 9, 'SALA_COMPUTO', 'DISPONIBLE', 'Sala con computadores', true);
+
+-- Piso 2
+INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
+VALUES (17, 2, 01,20, 9, 'SALA_COMPUTO', 'DISPONIBLE', 'Sala con computadores', true);
+
+INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
+VALUES (18, 2, 05,19, 9, 'SALA_COMPUTO', 'DISPONIBLE', 'Sala con computadores', true);
+
+INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
+VALUES (19, 2, 06,20, 9, 'SALA_COMPUTO', 'DISPONIBLE', 'Sala con computadores', true);
+
+INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
+VALUES (20, 2, 08,34, 9, 'SALA_COMPUTO', 'DISPONIBLE', 'Sala con computadores', true);
+
+INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
+VALUES (21, 2, 9,19, 9, 'SALA_COMPUTO', 'DISPONIBLE', 'Sala con computadores', true);
+
+INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
+VALUES (22, 2, 10,18, 9, 'LABORATORIO_COMPUTO', 'DISPONIBLE', 'Sala con computadores', true);
+
+INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
+VALUES (23, 2, 11,20, 9, 'SALA_COMPUTO', 'DISPONIBLE', 'Sala con computadores', true);
+
+INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
+VALUES (24, 3, 04,24, 9, 'SALA_COMPUTO', 'DISPONIBLE', 'Sala con computadores', true);
+
+INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
+VALUES (25, 3, 05,24, 9, 'SALA_COMPUTO', 'DISPONIBLE', 'Sala con computadores', true);
+
+INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
+VALUES (26, 3, 06,20, 9, 'SALA_COMPUTO', 'DISPONIBLE', 'Sala con computadores', true);
+
+INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
+VALUES (27, 3, 09,30, 9, 'SALA_COMPUTO', 'DISPONIBLE', 'Sala con computadores', true);
+
+INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
+VALUES (28, 3, 11,36, 9, 'SALA_COMPUTO', 'DISPONIBLE', 'Sala con computadores', true);
+
+INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
+VALUES (29, 3, 12,20, 9, 'LABORATORIO_COMPUTO', 'DISPONIBLE', 'Sala con computadores', true);
+
+INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
+VALUES (30, 3, 13,17, 9, 'SALA_COMPUTO', 'DISPONIBLE', 'Sala con computadores', true);
+
+INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
+VALUES (31, 3, 14,20, 9, 'LABORATORIO_COMPUTO', 'DISPONIBLE', 'Sala con computadores', true);
+
+INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
+VALUES (32, 3, 16,24, 9, 'SALA_COMPUTO', 'DISPONIBLE', 'Sala con computadores', true);
+
+INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
+VALUES (33, 3, 17,30, 9, 'SALA_COMPUTO', 'DISPONIBLE', 'Sala con computadores', true);
+
+INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
+VALUES (34, 3, 19,20, 9, 'SALA_COMPUTO', 'DISPONIBLE', 'Sala con computadores', true);
+
+INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
+VALUES (35, 3, 20,25, 9, 'SALA_COMPUTO', 'DISPONIBLE', 'Sala con computadores', true);
+
+-- Piso 4
+INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
+VALUES (36, 4, 06,34, 9, 'SALA_COMPUTO', 'DISPONIBLE', 'Sala con computadores', true);
+
+--Piso 5
+INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
+VALUES (37, 5, 06,28, 9, 'SALA_COMPUTO', 'DISPONIBLE', 'Sala con computadores', true);
 
 
 -- BLOQUE 10
 INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
-VALUES (7, 1, 01,30, 10, 'AULA', 'DISPONIBLE', 'Aula estandar', true);
+VALUES (4, 1, 01,30, 10, 'AULA', 'DISPONIBLE', 'Aula estandar', true);
 
 INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
-VALUES (8, 1, 02,20, 10, 'SALA_COMPUTO', 'DISPONIBLE', 'Sala de computo secundaria', true);
+VALUES (5, 1, 02,20, 10, 'SALA_COMPUTO', 'DISPONIBLE', 'Sala de computo secundaria', true);
 
 INSERT INTO aulas (id, piso, numero_aula, capacidad_maxima, ubicacion_id, tipo_de_aula, estado_aula, observaciones, activo)
-VALUES (9, 1, 03,50, 10, 'AUDITORIO', 'DISPONIBLE', 'Auditorio grande', true);
+VALUES (6, 1, 03,50, 10, 'AUDITORIO', 'DISPONIBLE', 'Auditorio grande', true);
 
 
 -- RELACION AULA - RECURSOS
@@ -140,8 +230,98 @@ INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (3, 4);
 INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (6, 2);
 INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (6, 1);
 
+-- BLOQUE 9
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (7, 1);
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (7, 2);
+
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (8, 1);
 INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (8, 2);
+
 INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (9, 1);
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (9, 2);
+
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (10, 1);
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (10, 2);
+
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (11, 1);
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (11, 2);
+
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (12, 1);
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (12, 2);
+
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (13, 1);
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (13, 2);
+
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (14, 1);
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (14, 2);
+
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (15, 1);
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (15, 2);
+
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (16, 1);
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (16, 2);
+
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (17, 3);
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (17, 2);
+
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (18, 3);
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (18, 2);
+
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (19, 3);
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (19, 2);
+
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (20, 1);
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (20, 2);
+
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (21, 3);
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (21, 2);
+
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (22, 1);
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (22, 2);
+
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (23, 1);
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (23, 2);
+
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (24, 3);
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (24, 2);
+
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (25, 3);
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (25, 2);
+
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (26, 3);
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (26, 2);
+
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (27, 3);
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (27, 2);
+
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (28, 1);
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (28, 2);
+
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (29, 2);
+
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (30, 3);
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (30, 2);
+
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (31, 2);
+
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (32, 3);
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (32, 2);
+
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (33, 3);
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (33, 2);
+
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (34, 3);
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (34, 2);
+
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (35, 3);
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (35, 2);
+
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (36, 3);
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (36, 2);
+
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (37, 1);
+INSERT INTO aula_recursos (aula_id, recurso_id) VALUES (37, 2);
+
 
 
 -- PROFESORES

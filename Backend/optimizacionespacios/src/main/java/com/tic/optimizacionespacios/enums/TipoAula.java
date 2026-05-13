@@ -4,6 +4,7 @@ package com.tic.optimizacionespacios.enums;
 public enum TipoAula {
     AULA,
     LABORATORIO,
+    LABORATORIO_COMPUTO,
     SALA_COMPUTO,
     AUDITORIO
 }

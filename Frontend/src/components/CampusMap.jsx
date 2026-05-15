@@ -1,8 +1,7 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import mapa from "../assets/MapaUPB.png";
 
-// ── Posiciones calibradas con el mapa real del campus UPB ─────
-// x = porcentaje desde la izquierda, y = porcentaje desde arriba
 const buildingPositions = {
   1: { x: 58, y: 78 },
   2: { x: 63, y: 80 },
@@ -35,158 +34,175 @@ export default function CampusMap({ onBuildingClick }) {
   };
 
   return (
-    <div className="bg-mauve-200 border-4 border-red-600 shadow-[8px_8px_0px_#facc15]  overflow-hidden mt-17 w-[870px]">
-      {/* ── Header ── */}
-      <div className="flex items-center justify-between px-4 py-3 bg-red-600 border-b-4 border-black">
-        <div className="flex items-center gap-3">
-          <div className="w-2 h-8 bg-yellow-400" />
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: 0.2 }}
+      className="relative rounded-xl overflow-hidden w-full max-w-5xl glassmorphism border border-neon-cyan/30"
+    >
+      {/* Header */}
+      <div className="flex items-center justify-between px-6 py-4 bg-gradient-to-r from-dark-card to-dark-secondary border-b border-neon-cyan/20">
+        <div className="flex items-center gap-4">
+          <div className="w-1 h-8 bg-gradient-to-b from-neon-cyan to-neon-blue rounded-full" />
           <div>
-            <p className="text-yellow-400 text-[10px] font-black uppercase tracking-[0.3em] leading-none">
-              OptimU
+            <p className="text-neon-cyan text-xs font-orbitron font-bold tracking-widest leading-none mb-1">
+              CAMPUS MAP
             </p>
-            <h2 className="text-white text-lg font-black uppercase tracking-tight leading-none">
+            <h2 className="text-white text-xl font-orbitron font-black tracking-tight leading-none">
               Mapa del Campus
             </h2>
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           {selected && (
-            <div className="flex items-center gap-1.5 bg-black border-2 border-yellow-400 px-3 py-1">
-              <span className="text-yellow-400 text-[10px] font-black uppercase tracking-widest">
-                Seleccionado:
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              className="flex items-center gap-2 glassmorphism px-4 py-2 rounded-lg border border-neon-cyan/30"
+            >
+              <span className="text-neon-cyan text-xs font-orbitron font-bold tracking-widest">
+                BLOQUE:
               </span>
-              <span className="text-white text-xs font-black">
-                Bloque {selected}
+              <span className="text-white text-sm font-bold font-inter">
+                {selected}
               </span>
               <button
                 onClick={() => setSelected(null)}
-                className="text-gray-500 hover:text-red-400 ml-1 text-xs font-black cursor-pointer"
+                className="text-gray-400 hover:text-neon-cyan ml-2 text-lg cursor-pointer transition-colors"
               >
                 ✕
               </button>
-            </div>
+            </motion.div>
           )}
-          <div className="bg-black border-2 border-white px-3 py-1">
-            <span className="text-white text-[10px] font-black uppercase tracking-widest">
-              {Object.keys(buildingPositions).length} Bloques
+          <div className="glassmorphism px-4 py-2 rounded-lg border border-neon-cyan/20">
+            <span className="text-neon-cyan text-xs font-orbitron font-bold tracking-widest">
+              {Object.keys(buildingPositions).length} BLOQUES
             </span>
           </div>
         </div>
       </div>
 
-      {/* ── Map area ── */}
-      <div className="relative w-full" style={{ paddingBottom: "62%" }}>
+      {/* Map area */}
+      <div className="relative w-full bg-dark-bg" style={{ paddingBottom: "62%" }}>
         <img
           src={mapa}
           alt="Mapa del Campus"
-          className="absolute inset-0 w-full h-full object-cover bg-emerald-950"
+          className="absolute inset-0 w-full h-full object-cover"
           style={{
-            filter: "contrast(1.05) brightness(0.9) saturate(2)",
+            filter: "contrast(1.1) brightness(0.85) saturate(1.2) hue-rotate(-5deg)",
           }}
         />
 
-        {/* Overlay suave para contraste de marcadores */}
-        <div className="absolute inset-0 bg-black/10" />
+        {/* Overlay oscuro sutil */}
+        <div className="absolute inset-0 bg-gradient-to-b from-dark-bg/30 via-transparent to-dark-bg/40" />
 
-        {/* ── Marcadores ── */}
+        {/* Grid futurista sutil */}
+        <div className="absolute inset-0 opacity-[0.02]" style={{
+          backgroundImage: `
+            linear-gradient(0deg, transparent 24%, rgba(0, 217, 255, 0.05) 25%, rgba(0, 217, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 217, 255, 0.05) 75%, rgba(0, 217, 255, 0.05) 76%, transparent 77%, transparent),
+            linear-gradient(90deg, transparent 24%, rgba(0, 217, 255, 0.05) 25%, rgba(0, 217, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 217, 255, 0.05) 75%, rgba(0, 217, 255, 0.05) 76%, transparent 77%, transparent)
+          `,
+          backgroundSize: '80px 80px'
+        }} />
+
+        {/* Marcadores */}
         {Object.entries(buildingPositions).map(([id, pos]) => {
           const isHovered = hovered === id;
           const isSelected = selected === Number(id);
 
           return (
-            <div
+            <motion.div
               key={id}
-              className="absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer group"
+              className="absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer"
               style={{ left: `${pos.x}%`, top: `${pos.y}%` }}
               onMouseEnter={() => setHovered(id)}
               onMouseLeave={() => setHovered(null)}
               onClick={() => handleClick(Number(id))}
+              whileHover={{ scale: 1.3 }}
+              transition={{ duration: 0.2 }}
             >
-              {/* Pulse ring */}
+              {/* Aura de glow */}
               {(isHovered || isSelected) && (
-                <span
-                  className={`absolute inset-0 -m-2 rounded-full animate-ping opacity-60 ${
-                    isSelected ? "bg-yellow-400" : "bg-red-500"
+                <motion.div
+                  className={`absolute inset-0 -m-3 rounded-full ${
+                    isSelected ? "neon-glow-cyan" : "neon-glow-cyan"
                   }`}
-                  style={{ animationDuration: "1s" }}
+                  animate={{
+                    opacity: isSelected ? [0.6, 0.3, 0.6] : [0.4, 0.2, 0.4],
+                  }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                  style={{ boxShadow: isSelected ? '0 0 30px rgba(0, 217, 255, 0.8)' : '0 0 20px rgba(0, 217, 255, 0.5)' }}
                 />
               )}
 
-              {/* Marcador */}
-              <div
+              {/* Marcador principal */}
+              <motion.div
                 className={`
                   relative z-10 flex items-center justify-center
-                  w-6 h-6 border-2 font-black text-[10px]
+                  w-8 h-8 rounded-lg font-orbitron font-bold text-xs
                   transition-all duration-150
                   ${
                     isSelected
-                      ? "bg-yellow-400 border-black text-black scale-125 shadow-[2px_2px_0px_#000]"
+                      ? "bg-gradient-to-br from-neon-cyan to-neon-blue text-dark-bg neon-glow-cyan shadow-lg scale-110"
                       : isHovered
-                        ? "bg-white border-black text-black scale-110 shadow-[2px_2px_0px_#dc2626]"
-                        : "bg-red-600 border-white text-white shadow-[1px_1px_0px_#000]"
+                        ? "bg-neon-cyan/80 text-dark-bg neon-glow-cyan"
+                        : "bg-neon-cyan/40 text-neon-cyan border border-neon-cyan/50 backdrop-blur"
                   }
                 `}
+                animate={isSelected ? { y: [0, -5, 0] } : {}}
+                transition={{ duration: 0.5, repeat: isSelected ? Infinity : 0 }}
               >
                 {id}
-              </div>
+              </motion.div>
 
-              {/* Tooltip */}
-              <div
+              {/* Tooltip elegante */}
+              <motion.div
                 className={`
-                  absolute bottom-full left-1/2 -translate-x-1/2 mb-2
-                  whitespace-nowrap px-2 py-1
-                  text-[10px] font-black uppercase tracking-wider
-                  border-2 pointer-events-none z-20
-                  transition-all duration-100
-                  ${
-                    isSelected
-                      ? "bg-yellow-400 text-black border-black opacity-100 translate-y-0"
-                      : isHovered
-                        ? "bg-black text-white border-red-600 opacity-100 translate-y-0"
-                        : "opacity-0 translate-y-1"
-                  }
+                  absolute -bottom-10 left-1/2 -translate-x-1/2 whitespace-nowrap
+                  px-3 py-1.5 rounded-lg text-xs font-orbitron font-bold tracking-widest
+                  pointer-events-none z-20 glassmorphism border border-neon-cyan/40
+                  ${isHovered || isSelected ? "opacity-100" : "opacity-0 pointer-events-none"}
                 `}
+                animate={{
+                  y: isHovered || isSelected ? 0 : 5,
+                  opacity: isHovered || isSelected ? 1 : 0,
+                }}
+                transition={{ duration: 0.2 }}
               >
-                Bloque {id}
-                <span
-                  className={`absolute top-full left-1/2 -translate-x-1/2 w-0 h-0
-                    border-l-4 border-r-4 border-t-4
-                    border-l-transparent border-r-transparent
-                    ${isSelected ? "border-t-black" : "border-t-red-600"}
-                  `}
-                />
-              </div>
-            </div>
+                <span className="text-neon-cyan">Bloque {id}</span>
+              </motion.div>
+            </motion.div>
           );
         })}
 
-        {/* Corner tag */}
-        <div className="absolute bottom-3 left-3 bg-black/80 border-2 border-yellow-400 px-2 py-1">
-          <p className="text-yellow-400 text-[9px] font-black uppercase tracking-widest">
-            ● Selecciona un bloque
+        {/* Info bottom-left */}
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="absolute bottom-4 left-4 glassmorphism px-4 py-2 rounded-lg border border-neon-cyan/20"
+        >
+          <p className="text-neon-cyan text-xs font-orbitron font-bold tracking-widest">
+            ● SELECCIONA UN BLOQUE
           </p>
-        </div>
+        </motion.div>
 
-        {/* Leyenda */}
-        <div className="absolute bottom-3 right-3 bg-black/80 border-2 border-white/30 px-3 py-2 flex flex-col gap-1">
+        {/* Leyenda bottom-right */}
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="absolute bottom-4 right-4 glassmorphism px-4 py-3 rounded-lg border border-neon-cyan/20 flex flex-col gap-2"
+        >
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-red-600 border border-white" />
-            <span className="text-white text-[9px] font-bold uppercase tracking-widest">
-              Normal
-            </span>
+            <div className="w-3 h-3 rounded bg-neon-cyan/40 border border-neon-cyan/60" />
+            <span className="text-gray-300 text-xs font-inter font-medium">Normal</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-yellow-400 border border-black" />
-            <span className="text-white text-[9px] font-bold uppercase tracking-widest">
-              Seleccionado
-            </span>
+            <div className="w-3 h-3 rounded bg-neon-cyan border border-neon-cyan shadow-lg" style={{ boxShadow: '0 0 10px rgba(0, 217, 255, 0.8)' }} />
+            <span className="text-neon-cyan text-xs font-inter font-medium">Seleccionado</span>
           </div>
-        </div>
+        </motion.div>
       </div>
-
-      {/* ── Footer ── */}
-      <div className="h-2 bg-yellow-400" />
-    </div>
+    </motion.div>
   );
 }

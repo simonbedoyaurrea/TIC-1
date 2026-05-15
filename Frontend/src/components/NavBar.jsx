@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [active, setActive] = useState("Inicio");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -13,60 +12,84 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-black border-b-4 border-yellow-400 shadow-[0_4px_0px_#facc15] py-2"
-          : "bg-[#E01050] border-b-4 border-black py-4"
-      }`}
+    <motion.nav
+      className="fixed top-0 left-0 right-0 z-50 glassmorphism border-b border-neon-cyan/20 backdrop-blur-md"
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
     >
-      <div className="max-w-5xl mx-auto px-4 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo / Brand */}
-        <a href="#" className="flex items-center gap-2 group select-none">
-          {/* Icon mark */}
-          <div
-            className={`w-8 h-8 flex items-center justify-center font-black text-sm border-2 transition-all duration-300 ${
-              scrolled
-                ? "bg-blue-400 border-blue-400 text-black group-hover:bg-white"
-                : "bg-black border-black text-yellow-400 group-hover:bg-blue-400 group-hover:text-black"
-            }`}
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          className="flex items-center gap-3 cursor-pointer group"
+        >
+          {/* Icon mark con glow */}
+          <motion.div
+            className="relative w-10 h-10 flex items-center justify-center font-orbitron font-black text-lg text-neon-cyan"
+            whileHover={{
+              boxShadow: '0 0 20px rgba(0, 217, 255, 0.8)',
+            }}
           >
-            OU
-          </div>
+            <div className="absolute inset-0 bg-gradient-to-br from-neon-cyan/20 to-neon-blue/10 rounded-lg blur-sm" />
+            <span className="relative">◆</span>
+          </motion.div>
 
-          {/* Name */}
-          <span
-            className={`font-black uppercase tracking-widest text-xl leading-none transition-colors duration-300 ${
-              scrolled ? "text-white" : "text-white"
-            }`}
-          >
-            Opti
-            <span
-              className={`transition-colors duration-300 ${
-                scrolled ? "text-blue-400" : "text-black"
-              }`}
-            >
+          {/* Logo text */}
+          <div className="flex items-center gap-0">
+            <span className="font-orbitron font-black text-xl text-white tracking-widest group-hover:text-neon-cyan transition-colors">
+              OPTI
+            </span>
+            <span className="font-orbitron font-black text-xl text-neon-cyan tracking-widest">
               U
             </span>
-          </span>
+          </div>
+        </motion.div>
 
-          {/* Pill tag */}
-        </a>
+        {/* Nav items (opcional para futuro) */}
+        <div className="hidden md:flex items-center gap-8">
+          <motion.a
+            href="#"
+            whileHover={{ color: '#00D9FF' }}
+            className="text-sm font-inter text-gray-300 font-medium tracking-wide transition-colors"
+          >
+            Mapa
+          </motion.a>
+          <motion.a
+            href="#"
+            whileHover={{ color: '#00D9FF' }}
+            className="text-sm font-inter text-gray-300 font-medium tracking-wide transition-colors"
+          >
+            Rutas
+          </motion.a>
+          <motion.a
+            href="#"
+            whileHover={{ color: '#00D9FF' }}
+            className="text-sm font-inter text-gray-300 font-medium tracking-wide transition-colors"
+          >
+            Reportes
+          </motion.a>
+        </div>
 
         {/* CTA Button */}
-        <div className="hidden md:flex items-center gap-3">
-          <Link
-            to="/alert"
-            className={`text-xs font-black uppercase tracking-widest px-4 py-2 border-2 transition-all duration-150 cursor-pointer shadow-[3px_3px_0px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none ${
-              scrolled
-                ? "bg-blue-400 text-white border-blue-600 shadow-blue-400 hover:bg-blue-400 hover:text-black hover:border-blue-400"
-                : "bg-blue-400 text-black border-black shadow-black hover:bg-white hover:text-black"
-            }`}
+        <div className="flex items-center gap-3">
+          <motion.button
+            whileHover={{
+              scale: 1.05,
+              boxShadow: '0 0 30px rgba(0, 217, 255, 0.8)',
+            }}
+            whileTap={{ scale: 0.95 }}
+            asChild
           >
-            Nuevo Reporte
-          </Link>
+            <Link
+              to="/alertas/nueva"
+              className="px-6 py-2 rounded-lg bg-gradient-to-r from-neon-cyan to-neon-blue text-dark-bg font-orbitron font-bold text-xs tracking-widest uppercase cursor-pointer transition-all neon-glow-cyan hover:shadow-lg"
+            >
+              Nuevo Reporte
+            </Link>
+          </motion.button>
         </div>
       </div>
-    </nav>
+    </motion.nav>
   );
 }

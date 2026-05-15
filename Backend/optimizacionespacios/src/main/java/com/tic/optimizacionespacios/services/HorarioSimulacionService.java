@@ -1,5 +1,7 @@
 package com.tic.optimizacionespacios.services;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +10,7 @@ import java.util.Map;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
@@ -160,5 +163,75 @@ public class HorarioSimulacionService {
 
     public void agregarMateriaSimulacion(HorarioSimulacion horario) {
         horarioSimulacionRepository.save(horario);
+    }
+
+     public ByteArrayInputStream exportarExcel() {
+
+        List<HorarioSimulacion> horarios = horarioSimulacionRepository.findAll();
+
+        try (Workbook workbook = new XSSFWorkbook();
+             ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+
+            Sheet sheet = workbook.createSheet("horarios");
+
+           
+            Row headerRow = sheet.createRow(0);
+
+            headerRow.createCell(0).setCellValue("TERM_CODE");
+            headerRow.createCell(1).setCellValue("CRN");
+            headerRow.createCell(2).setCellValue("COURSE_NAME");
+            headerRow.createCell(3).setCellValue("SESSION_VACANCIES");
+            headerRow.createCell(4).setCellValue("ROOM_CODE");
+            headerRow.createCell(5).setCellValue("BLOQUE");
+            headerRow.createCell(6).setCellValue("SALON");
+            headerRow.createCell(7).setCellValue("ROOM_VACANCIES");
+            headerRow.createCell(8).setCellValue("INSTRUCTOR_CODE");
+            headerRow.createCell(9).setCellValue("START_HOUR");
+            headerRow.createCell(10).setCellValue("END_HOUR");
+            headerRow.createCell(11).setCellValue("START_DATE");
+            headerRow.createCell(12).setCellValue("END_DATE");
+            headerRow.createCell(13).setCellValue("MONDAY");
+            headerRow.createCell(14).setCellValue("TUESDAY");
+            headerRow.createCell(15).setCellValue("WEDNESDAY");
+            headerRow.createCell(16).setCellValue("THURSDAY");
+            headerRow.createCell(17).setCellValue("FRIDAY");
+            headerRow.createCell(18).setCellValue("SATURDAY");
+            headerRow.createCell(19).setCellValue("SUNDAY");
+            // datos
+            int rowIdx = 1;
+
+            for (HorarioSimulacion horario : horarios) {
+
+                Row row = sheet.createRow(rowIdx++);
+
+                row.createCell(0).setCellValue(2026);
+                row.createCell(1).setCellValue(horario.getCrn());
+                row.createCell(2).setCellValue(horario.getCourseName());
+                row.createCell(3).setCellValue(horario.getSessionVacancies());
+                row.createCell(4).setCellValue(horario.getRoomCode());
+                row.createCell(5).setCellValue(horario.getBloque());
+                row.createCell(6).setCellValue(horario.getSalon());
+                row.createCell(7).setCellValue(horario.getRoomVacancies());
+                row.createCell(8).setCellValue(horario.getInstructorCode());
+                row.createCell(9).setCellValue(horario.getStartHour());
+                row.createCell(10).setCellValue(horario.getEndHour());
+                row.createCell(11).setCellValue("");
+                row.createCell(12).setCellValue("");
+                row.createCell(13).setCellValue(horario.getMonday());
+                row.createCell(14).setCellValue(horario.getTuesday());
+                row.createCell(15).setCellValue(horario.getWednesday());
+                row.createCell(16).setCellValue(horario.getThursday());
+                row.createCell(17).setCellValue(horario.getFriday());
+                row.createCell(18).setCellValue(horario.getSaturday());
+                row.createCell(19).setCellValue(horario.getSunday());
+            }
+
+            workbook.write(out);
+
+            return new ByteArrayInputStream(out.toByteArray());
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error generando excel", e);
+        }
     }
 }

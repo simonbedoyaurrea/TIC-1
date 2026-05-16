@@ -5,7 +5,7 @@ import FuturisticBackground from "../components/FuturisticBackground";
 import HeroSection from "../components/HeroSection";
 import CampusMap from "../components/CampusMap";
 import InteractiveSidebar from "../components/InteractiveSidebar";
-import AIChat from "../components/AIChat";
+// import AIChat from "../components/AIChat";
 import HolographicRadar from "../components/HolographicRadar";
 import BuildingModal from "../components/BuildingModal";
 import { useState, useEffect } from "react";

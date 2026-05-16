@@ -13,10 +13,12 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import PlaneacionHome from "./pages/PlaneacionHome";
 import CargaDatosSimulador from "./pages/CargaDatosSimulador";
 import SimuladorHorario from "./pages/SimuladorHorario";
+import HomeNavbar from "./components/HomeNavbar";
 
 export default function App() {
   return (
     <div>
+      <HomeNavbar />
       <Routes>
         <Route path="/login" element={<Login />} />
 

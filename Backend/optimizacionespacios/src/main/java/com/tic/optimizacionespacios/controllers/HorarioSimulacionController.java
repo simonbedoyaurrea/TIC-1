@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.tic.optimizacionespacios.dto.OptimizadorRequestDTO;
+import com.tic.optimizacionespacios.dto.optimizador.OptimizadorRequestDTO;
 import com.tic.optimizacionespacios.models.entities.HorarioSimulacion;
 import com.tic.optimizacionespacios.services.HorarioSimulacionService;
 

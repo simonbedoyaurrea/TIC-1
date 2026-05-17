@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.tic.optimizacionespacios.dto.SimuladorResponseDTO;
+import com.tic.optimizacionespacios.dto.simulador.SimuladorResponseDTO;
 import com.tic.optimizacionespacios.services.SimuladorService;
 
 import tools.jackson.databind.ObjectMapper;

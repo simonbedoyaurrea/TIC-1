@@ -1,4 +1,4 @@
-package com.tic.optimizacionespacios.dto;
+package com.tic.optimizacionespacios.dto.materia;
 
 import java.util.List;
 

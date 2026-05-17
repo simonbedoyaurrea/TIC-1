@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tic.optimizacionespacios.dto.HorarioAsignacionRequestDTO;
-import com.tic.optimizacionespacios.dto.HorarioAsignacionResponseDTO;
+import com.tic.optimizacionespacios.dto.horario.HorarioAsignacionRequestDTO;
+import com.tic.optimizacionespacios.dto.horario.HorarioAsignacionResponseDTO;
 import com.tic.optimizacionespacios.models.entities.Aula;
 import com.tic.optimizacionespacios.models.entities.HorarioAsignacion;
 import com.tic.optimizacionespacios.models.entities.Profesor;

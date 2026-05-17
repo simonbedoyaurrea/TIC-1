@@ -1,4 +1,4 @@
-package com.tic.optimizacionespacios.dto;
+package com.tic.optimizacionespacios.dto.profesor;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;

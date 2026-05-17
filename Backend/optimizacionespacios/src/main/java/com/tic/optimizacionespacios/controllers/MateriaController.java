@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tic.optimizacionespacios.dto.MateriaRequestDTO;
-import com.tic.optimizacionespacios.dto.MateriaResponseDTO;
+import com.tic.optimizacionespacios.dto.materia.MateriaRequestDTO;
+import com.tic.optimizacionespacios.dto.materia.MateriaResponseDTO;
 import com.tic.optimizacionespacios.models.entities.Materia;
 import com.tic.optimizacionespacios.models.entities.Recurso;
 import com.tic.optimizacionespacios.models.mappers.MateriaMapper;

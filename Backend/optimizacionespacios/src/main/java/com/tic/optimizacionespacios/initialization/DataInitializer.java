@@ -47,7 +47,7 @@
                          .build();
 
                  userRepo.saveAll(List.of(admin, docente, estudiante));
-                 System.out.println("Usuarios iniciales creados");
+                
              }
          };
      }

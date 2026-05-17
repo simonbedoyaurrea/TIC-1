@@ -1,4 +1,4 @@
-package com.tic.optimizacionespacios.dto;
+package com.tic.optimizacionespacios.dto.simulador;
 
 import lombok.Builder;
 import lombok.Data;

@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.tic.optimizacionespacios.dto.OptimizadorRequestDTO;
+import com.tic.optimizacionespacios.dto.optimizador.OptimizadorRequestDTO;
 import com.tic.optimizacionespacios.models.entities.HorarioSimulacion;
 import com.tic.optimizacionespacios.repositories.HorarioSimulacionRepository;
 
@@ -36,15 +36,80 @@ public class HorarioSimulacionService {
 
 
     public void cargarExcelHorarios(MultipartFile file){
-        try (Workbook workbook = new org.apache.poi.xssf.usermodel.XSSFWorkbook(file.getInputStream())){
-            
+
+        validarArchivo(file);
+
+        Workbook workbook;
+
+        try {
+            workbook = new org.apache.poi.xssf.usermodel.XSSFWorkbook(file.getInputStream());
+        } catch (Exception e){
+            log.error("archivo excel invalido",e);
+            throw new RuntimeException(
+                "El archivo no es un Excel válido o está corrupto"
+        );
+        }
+
+        try(workbook){
             Sheet sheet = workbook.getSheetAt(1);
+
+            Row headerRow = sheet.getRow(0);
+
+        if (headerRow == null) {
+
+            throw new RuntimeException(
+                    "El Excel no contiene encabezados"
+            );
+        }
+
+              Map<String, Integer> columnas = new HashMap<>();
+
+        for (org.apache.poi.ss.usermodel.Cell cell : headerRow) {
+
+            columnas.put(
+                    getCellValue(cell),
+                    cell.getColumnIndex()
+            );
+        }
+
+        // columnas requeridas
+        List<String> columnasRequeridas = List.of(
+                "CRN",
+                "COURSE_NAME",
+                "SESSION_VACANCIES",
+                "ROOM_CODE",
+                "BLOQUE",
+                "SALON",
+                "ROOM_VACANCIES",
+                "INSTRUCTOR_CODE",
+                "START_HOUR",
+                "END_HOUR",
+                "MONDAY",
+                "TUESDAY",
+                "WEDNESDAY",
+                "THURSDAY",
+                "FRIDAY",
+                "SATURDAY",
+                "SUNDAY"
+        );
+
+        List<String> faltantes = columnasRequeridas
+                .stream()
+                .filter(c -> !columnas.containsKey(c))
+                .toList();
+
+        if (!faltantes.isEmpty()) {
+
+            throw new RuntimeException(
+                    "Faltan columnas obligatorias: " + faltantes
+            );
+        }
 
             List<HorarioSimulacion> horarios = new ArrayList<>();
 
             for (Row row : sheet) {
 
-                if (row.getRowNum() == 0) continue; // saltar header
+                if (row.getRowNum() == 0) continue; 
 
                 HorarioSimulacion horario = new HorarioSimulacion();
 
@@ -72,11 +137,35 @@ public class HorarioSimulacionService {
             
             horarioSimulacionRepository.saveAll(horarios);
 
-            System.out.println("Horarios cargados: " + horarios.size());
-        }
+           log.info("Horarios cargados: " + horarios.size());  
+        }      
         catch (Exception e) {
+            log.error("Error cargando excel", e);
+
+            throw new RuntimeException(
+                    e.getMessage()
+            );
         }
 
+    }
+
+    private void validarArchivo(MultipartFile file){
+
+        if (file == null || file.isEmpty()){
+             throw new RuntimeException(
+                "Debe enviar un archivo Excel"
+             );
+        }
+
+        String fileName = file.getOriginalFilename();
+
+        if(fileName == null || (!fileName.endsWith(".xlsx") 
+            && !fileName.endsWith(".xls"))){
+         
+                throw new RuntimeException(
+                    "El archivo debe tener extension .xlsx o .xls"
+                );
+        }
     }
 
      private String getCellValue(org.apache.poi.ss.usermodel.Cell cell) {

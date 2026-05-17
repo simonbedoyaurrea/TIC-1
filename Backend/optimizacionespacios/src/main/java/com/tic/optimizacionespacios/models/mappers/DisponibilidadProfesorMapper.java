@@ -1,6 +1,6 @@
 package com.tic.optimizacionespacios.models.mappers;
 
-import com.tic.optimizacionespacios.dto.DisponibilidadProfesorDTO;
+import com.tic.optimizacionespacios.dto.profesor.DisponibilidadProfesorDTO;
 import com.tic.optimizacionespacios.models.entities.DisponibilidadProfesor;
 
 public class DisponibilidadProfesorMapper {

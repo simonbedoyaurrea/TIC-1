@@ -1,7 +1,9 @@
-package com.tic.optimizacionespacios.dto;
+package com.tic.optimizacionespacios.dto.optimizador;
 
 import java.util.List;
 import java.util.Map;
+
+import com.tic.optimizacionespacios.dto.materia.NuevaMateriaDTO;
 
 import lombok.Data;
 

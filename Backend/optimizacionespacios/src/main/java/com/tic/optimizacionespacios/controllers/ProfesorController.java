@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tic.optimizacionespacios.dto.DisponibilidadProfesorDTO;
-import com.tic.optimizacionespacios.dto.ProfesorRequestDTO;
-import com.tic.optimizacionespacios.dto.ProfesorResponseDTO;
+import com.tic.optimizacionespacios.dto.profesor.DisponibilidadProfesorDTO;
+import com.tic.optimizacionespacios.dto.profesor.ProfesorRequestDTO;
+import com.tic.optimizacionespacios.dto.profesor.ProfesorResponseDTO;
 import com.tic.optimizacionespacios.models.entities.Profesor;
 import com.tic.optimizacionespacios.models.mappers.DisponibilidadProfesorMapper;
 import com.tic.optimizacionespacios.models.mappers.ProfesorMapper;

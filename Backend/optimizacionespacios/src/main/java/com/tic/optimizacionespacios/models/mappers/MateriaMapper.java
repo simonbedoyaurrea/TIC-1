@@ -1,11 +1,11 @@
 package com.tic.optimizacionespacios.models.mappers;
 
-import com.tic.optimizacionespacios.dto.MateriaRequestDTO;
-import com.tic.optimizacionespacios.dto.MateriaResponseDTO;
+import java.util.Set;
+
+import com.tic.optimizacionespacios.dto.materia.MateriaRequestDTO;
+import com.tic.optimizacionespacios.dto.materia.MateriaResponseDTO;
 import com.tic.optimizacionespacios.models.entities.Materia;
 import com.tic.optimizacionespacios.models.entities.Recurso;
-
-import java.util.Set;
 
 public class MateriaMapper {
     private MateriaMapper(){}

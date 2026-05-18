@@ -39,12 +39,6 @@ export default function HomeNavbar() {
                 href="#simulador"
                 className="text-gray-300 hover:text-neon-cyan transition"
               >
-                Simulador
-              </a>
-              <a
-                href="#campus"
-                className="text-gray-300 hover:text-neon-cyan transition"
-              >
                 Mapa Campus
               </a>
               <a
@@ -53,12 +47,7 @@ export default function HomeNavbar() {
               >
                 Características
               </a>
-              <a
-                href="#team"
-                className="text-gray-300 hover:text-neon-cyan transition"
-              >
-                Nosotros
-              </a>
+              
             </div>
 
             {/* Buttons */}

@@ -3,6 +3,7 @@ import FeaturesSection from "../components/FeaturesSection";
 import CampusMapSection from "../components/CampusMapSection";
 import FooterHome from "../components/FooterHome";
 import HomeNavbar from "../components/HomeNavbar";
+import TeamSection from "../components/TeamSection";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <FeaturesSection />
       <CampusMapSection />
       <FooterHome />
+      <TeamSection />
     </div>
   );
 }

@@ -80,22 +80,13 @@ export default function HeroSectionHome() {
           variants={itemVariants}
           className="text-lg sm:text-xl text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed"
         >
-          OPTIU es una plataforma inteligente desarrollada para optimizar
-          automáticamente la asignación de aulas y horarios académicos en la
-          Universidad Pontificia Bolivariana, reduciendo conflictos y mejorando
-          el uso eficiente de los espacios.
+          OPTIU optimiza la asignación de aulas y horarios académicos en la Universidad Pontificia Bolivariana, reduciendo conflictos y mejorando el uso de los espacios.
         </motion.p>
 
         <motion.div
           variants={itemVariants}
           className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
         >
-          <button
-            onClick={() => navigate("/planeacion/simulador")}
-            className="px-8 py-3 bg-neon-cyan text-dark-bg font-semibold rounded-lg hover:shadow-xl hover:shadow-neon-cyan/50 transition duration-300"
-          >
-            Simular Horarios
-          </button>
           <button
             onClick={() => {
               const element = document.getElementById("campus");

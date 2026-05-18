@@ -1,6 +1,6 @@
 import { useState } from "react";
-
-const API = "http://localhost:8080/api/simulacion/carga";
+import Navbar from "../components/NavBar";
+import { cargaDatosSimuladorService } from "../services/CargaDatos";
 
 const ARCHIVOS = [
   {
@@ -8,85 +8,42 @@ const ARCHIVOS = [
     numero: 0,
     titulo: "Programación sin docentes",
     subtitulo: "Estructura curricular por programa",
-    campos: [
-      { nombre: "Código programa", requerido: true },
-      { nombre: "Nombre programa", requerido: true },
-      { nombre: "Semestres", requerido: true },
-      { nombre: "Facultad", requerido: false },
-    ],
   },
   {
     id: "asignaturas",
     numero: 1,
     titulo: "Asignaturas",
     subtitulo: "Catálogo de materias del periodo",
-    campos: [
-      { nombre: "Código materia", requerido: true },
-      { nombre: "Nombre materia", requerido: true },
-      { nombre: "Créditos", requerido: true },
-      { nombre: "Semestre", requerido: true },
-      { nombre: "Tipo", requerido: false },
-    ],
   },
   {
     id: "restricciones-edificio",
     numero: 2,
     titulo: "Restricciones Edificio",
     subtitulo: "Restricciones de aulas por asignatura",
-    campos: [
-      { nombre: "Código materia", requerido: true },
-      { nombre: "Edificio", requerido: true },
-      { nombre: "Tipo aula", requerido: true },
-      { nombre: "Observaciones", requerido: false },
-    ],
   },
   {
     id: "demandas",
     numero: 3,
     titulo: "Demandas",
     subtitulo: "Demanda esperada por asignatura",
-    campos: [
-      { nombre: "Código materia", requerido: true },
-      { nombre: "Grupos", requerido: true },
-      { nombre: "Estudiantes", requerido: true },
-      { nombre: "Periodo", requerido: false },
-    ],
   },
   {
     id: "docentes-catalogo",
     numero: 4,
     titulo: "Docentes Catálogo",
     subtitulo: "Información base de docentes",
-    campos: [
-      { nombre: "Código docente", requerido: true },
-      { nombre: "Nombre completo", requerido: true },
-      { nombre: "Email", requerido: true },
-      { nombre: "Tipo", requerido: true },
-      { nombre: "Departamento", requerido: false },
-    ],
   },
   {
     id: "docentes-disponibilidad",
     numero: 5,
     titulo: "Docentes Disponibilidad",
     subtitulo: "Franjas horarias disponibles",
-    campos: [
-      { nombre: "Código docente", requerido: true },
-      { nombre: "Día semana", requerido: true },
-      { nombre: "Hora inicio", requerido: true },
-      { nombre: "Hora fin", requerido: true },
-    ],
   },
   {
     id: "docentes-asignaturas",
     numero: 6,
     titulo: "Docentes Asignaturas",
     subtitulo: "Relación docente y materia",
-    campos: [
-      { nombre: "Código docente", requerido: true },
-      { nombre: "Código materia", requerido: true },
-      { nombre: "Habilitado", requerido: false },
-    ],
   },
 ];
 
@@ -116,7 +73,7 @@ export default function CargaDatosSimulador() {
 
     try {
       setCargando(true);
-      const res = await fetch(API, { method: "POST", body: formData });
+      const res = await cargaDatosSimuladorService(formData);
       const data = await res.json();
       setJobId(data.jobId);
       localStorage.setItem("jobId", data.jobId);
@@ -146,30 +103,13 @@ export default function CargaDatosSimulador() {
 
   return (
     <div className="min-h-screen bg-black text-white font-sans">
-      {/* HEADER */}
-      <header className="border-b border-zinc-800 bg-zinc-950 px-8 py-4 flex items-center justify-between sticky top-0 z-10">
-        <div className="flex items-center gap-3">
-          <span className="font-black text-2xl tracking-widest text-red-500">
-            UPB
-          </span>
-          <span className="w-px h-6 bg-zinc-700" />
-          <span className="text-sm font-semibold tracking-wide text-white uppercase">
-            Generador de Horarios
-          </span>
-          <span className="text-xs font-mono text-red-400 border border-red-800 px-2 py-0.5 rounded">
-            ADMIN
-          </span>
-        </div>
-        <span className="text-xs font-mono text-zinc-500 border border-zinc-700 px-3 py-1 rounded">
-          Periodo 2026-1
-        </span>
-      </header>
+      <Navbar />
 
       <main className="max-w-7xl mx-auto px-8 py-10">
         {/* TÍTULO */}
         <div className="mb-8">
           <h1 className="text-4xl font-black uppercase tracking-tight text-white mb-1">
-            Carga masiva de archivos
+            Carga de archivos - SIMULADOR
           </h1>
           <p className="text-zinc-400 text-sm">
             Sube los 7 archivos Excel requeridos para generar el horario
@@ -265,32 +205,6 @@ export default function CargaDatosSimulador() {
                       />
                     </label>
                   )}
-                </div>
-
-                {/* Columnas */}
-                <div className="px-4 pb-4 flex-1">
-                  <p className="text-xs font-bold uppercase tracking-widest text-zinc-600 mb-1">
-                    Columnas
-                  </p>
-                  {sec.campos.map((campo) => (
-                    <div
-                      key={campo.nombre}
-                      className="flex items-center justify-between py-0.5"
-                    >
-                      <span className="text-xs text-zinc-400">
-                        {campo.nombre}
-                      </span>
-                      <span
-                        className={`text-xs px-1.5 py-0.5 rounded font-semibold ${
-                          campo.requerido
-                            ? "bg-red-950 text-red-400"
-                            : "bg-zinc-900 text-zinc-600"
-                        }`}
-                      >
-                        {campo.requerido ? "req" : "opt"}
-                      </span>
-                    </div>
-                  ))}
                 </div>
               </div>
             );

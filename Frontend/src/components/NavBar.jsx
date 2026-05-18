@@ -13,7 +13,7 @@ export default function Navbar() {
 
   return (
     <motion.nav
-      className="fixed top-0 left-0 right-0 z-50 glassmorphism border-b border-neon-cyan/20 backdrop-blur-md"
+      className=" top-0 left-0 right-0 z-50 glassmorphism border-b border-neon-cyan/20 backdrop-blur-md "
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
@@ -28,11 +28,15 @@ export default function Navbar() {
           <motion.div
             className="relative w-10 h-10 flex items-center justify-center font-orbitron font-black text-lg text-neon-cyan"
             whileHover={{
-              boxShadow: '0 0 20px rgba(0, 217, 255, 0.8)',
+              boxShadow: "0 0 20px rgba(0, 217, 255, 0.8)",
             }}
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-neon-cyan/20 to-neon-blue/10 rounded-lg blur-sm" />
-            <span className="relative">◆</span>
+            <div
+              className={`w-8 h-8 flex items-center justify-center font-black text-sm border-2 transition-all duration-300 bg-yellow-400 border-yellow-400 text-black group-hover:bg-white"            
+              `}
+            >
+              OU
+            </div>
           </motion.div>
 
           {/* Logo text */}
@@ -47,43 +51,20 @@ export default function Navbar() {
         </motion.div>
 
         {/* Nav items (opcional para futuro) */}
-        <div className="hidden md:flex items-center gap-8">
-          <motion.a
-            href="#"
-            whileHover={{ color: '#00D9FF' }}
-            className="text-sm font-inter text-gray-300 font-medium tracking-wide transition-colors"
-          >
-            Mapa
-          </motion.a>
-          <motion.a
-            href="#"
-            whileHover={{ color: '#00D9FF' }}
-            className="text-sm font-inter text-gray-300 font-medium tracking-wide transition-colors"
-          >
-            Rutas
-          </motion.a>
-          <motion.a
-            href="#"
-            whileHover={{ color: '#00D9FF' }}
-            className="text-sm font-inter text-gray-300 font-medium tracking-wide transition-colors"
-          >
-            Reportes
-          </motion.a>
-        </div>
+        <div className="hidden md:flex items-center gap-8"></div>
 
         {/* CTA Button */}
         <div className="flex items-center gap-3">
           <motion.button
             whileHover={{
               scale: 1.05,
-              boxShadow: '0 0 30px rgba(0, 217, 255, 0.8)',
             }}
             whileTap={{ scale: 0.95 }}
             asChild
           >
             <Link
               to="/alertas/nueva"
-              className="px-6 py-2 rounded-lg bg-gradient-to-r from-neon-cyan to-neon-blue text-dark-bg font-orbitron font-bold text-xs tracking-widest uppercase cursor-pointer transition-all neon-glow-cyan hover:shadow-lg"
+              className="px-6 py-2 rounded-lg  text-dark-bg font-orbitron font-bold text-xs tracking-widest uppercase cursor-pointer transition-all border border-amber-300 hover:shadow-lg"
             >
               Nuevo Reporte
             </Link>

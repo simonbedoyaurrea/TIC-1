@@ -588,31 +588,7 @@ export default function Login() {
                 justifyContent: "flex-end",
                 marginTop: -8,
               }}
-            >
-              <button
-                type="button"
-                style={{
-                  background: "none",
-                  border: "none",
-                  cursor: "pointer",
-                  fontSize: 11,
-                  color: "#dc2626",
-                  fontFamily: "DM Mono",
-                  letterSpacing: 1,
-                  textDecoration: "underline",
-                  textDecorationColor: "transparent",
-                  transition: "text-decoration-color 0.2s",
-                }}
-                onMouseOver={(e) =>
-                  (e.target.style.textDecorationColor = "#dc2626")
-                }
-                onMouseOut={(e) =>
-                  (e.target.style.textDecorationColor = "transparent")
-                }
-              >
-                ¿Olvidaste tu contraseña?
-              </button>
-            </div>
+            ></div>
 
             <button
               type="submit"
@@ -631,29 +607,6 @@ export default function Login() {
               )}
             </button>
           </form>
-
-          {/* Footer note */}
-          <div
-            style={{
-              marginTop: 32,
-              padding: "12px 16px",
-              background: "#fef9c3",
-              borderLeft: "3px solid #facc15",
-            }}
-          >
-            <p
-              style={{
-                fontSize: 10,
-                color: "#713f12",
-                letterSpacing: 0.5,
-                lineHeight: 1.6,
-                fontFamily: "DM Mono",
-              }}
-            >
-              Solo usuarios autorizados. Accesos no autorizados están sujetos a
-              sanciones institucionales.
-            </p>
-          </div>
         </div>
       </div>
     </div>

@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import Navbar from "../components/NavBar";
 import ModalNuevaMateria from "../components/ModalNuevaMateria";
 import apiClient from "../apis/apiClient";
+import {
+  agregarHorarioService,
+  BuscarHorariosService,
+} from "../services/AlgoritmoService";
 
 // Días de la semana usados en el grid del calendario (solo lunes-viernes+sábado)
 const DAYS = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
@@ -100,15 +104,12 @@ export default function OptimizadorCalendario() {
     };
 
     try {
-      const response = await apiClient.post(
-        "simulacion/horarios/agregar",
-        payload,
-      );
+      const response = await agregarHorarioService(payload);
       console.log("Horario guardado:", response.data);
       alert("✅ Horario guardado correctamente");
     } catch (err) {
       console.error("Error al guardar:", err);
-      alert("❌ Error al guardar el horario");
+      alert(" Error al guardar el horario");
     }
   };
 
@@ -180,10 +181,7 @@ export default function OptimizadorCalendario() {
 
     console.log(payload);
 
-    const response = await apiClient.post(
-      "simulacion/horarios/horario",
-      payload,
-    );
+    const response = await BuscarHorariosService(payload);
 
     console.log("Respuesta del backend:", response.data);
 
@@ -203,14 +201,20 @@ export default function OptimizadorCalendario() {
 
   // Efecto para cargar materias al iniciar el componente (una sola vez)
   useEffect(() => {
-    fetch("http://localhost:8080/api/simulacion/materias")
-      .then((res) => res.json())
-      .then((data) => {
-        setMaterias(data);
-        console.log(data);
-      });
-  }, []);
+    const cargarMaterias = async () => {
+      try {
+        const data = await obtenerMateriasService();
 
+        setMaterias(data);
+
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    cargarMaterias();
+  }, []);
   // Estado para buscar materia por texto
   const [search, setSearch] = useState("");
   // Materia actualmente seleccionada para colocar en el calendario
@@ -301,7 +305,7 @@ export default function OptimizadorCalendario() {
 
       {/* ── MAIN LAYOUT ── */}
       <div
-        className="flex overflow-hidden mt-17 bg-black"
+        className="flex overflow-hidden  bg-black"
         style={{
           height: "calc(100vh - 70px)",
         }}
@@ -564,7 +568,7 @@ export default function OptimizadorCalendario() {
                 {DAYS.map((d, i) => (
                   <div
                     key={d}
-                    className={`py-2 text-center bg-blue-400 text-[11px] font-bold tracking-[0.08em] border-l border-[#1e293b] text-black`}
+                    className={`py-2 text-center bg-yellow-300 text-[11px] font-bold tracking-[0.08em] border-l border-[#1e293b] text-black`}
                   >
                     {d}
                   </div>
@@ -575,7 +579,7 @@ export default function OptimizadorCalendario() {
                 return (
                   <div
                     key={hour}
-                    className="grid bg-blue-400 font-bold text-black grid-cols-[52px_repeat(6,1fr)] border-b border-black/20"
+                    className="grid bg-yellow-300 font-bold text-black grid-cols-[52px_repeat(6,1fr)] border-b border-black/20"
                   >
                     <div
                       className={`px-2.5 flex items-center justify-end text-[10px] border-r border-[#1e293b] h-9 ext-[#334155]`}
@@ -594,7 +598,7 @@ export default function OptimizadorCalendario() {
                             !existingCls && handleCalendarClick(di, hi)
                           }
                           onMouseLeave={() => setPreviewSlot(null)}
-                          className={`h-9 box-border relative transition-colors bg-mauve-200 outline outline-1 outline-black/20 outline-offset-[-1]`}
+                          className={`h-9 box-border relative transition-colors bg-mauve-100 outline outline-1 outline-black/20 outline-offset-[-1]`}
                           style={{
                             cursor: existingCls
                               ? "default"

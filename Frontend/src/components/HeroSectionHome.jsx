@@ -1,9 +1,9 @@
-import { useNavigate } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import { ChevronDown } from 'lucide-react'
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { ChevronDown } from "lucide-react";
 
 export default function HeroSectionHome() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -14,16 +14,16 @@ export default function HeroSectionHome() {
         delayChildren: 0.3,
       },
     },
-  }
+  };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: 'easeOut' },
+      transition: { duration: 0.8, ease: "easeOut" },
     },
-  }
+  };
 
   return (
     <section
@@ -47,7 +47,7 @@ export default function HeroSectionHome() {
             transition={{
               duration: 15 + Math.random() * 10,
               repeat: Infinity,
-              ease: 'linear',
+              ease: "linear",
             }}
             className="absolute w-1 h-1 bg-neon-cyan rounded-full blur-sm"
             style={{
@@ -65,15 +65,9 @@ export default function HeroSectionHome() {
         animate="visible"
         className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
       >
-        <motion.div variants={itemVariants} className="mb-6">
-          <span className="inline-block px-4 py-2 bg-neon-cyan/10 border border-neon-cyan/30 rounded-full text-neon-cyan text-sm font-light">
-            Optimización Inteligente de Campus
-          </span>
-        </motion.div>
-
         <motion.h1
           variants={itemVariants}
-          className="text-5xl sm:text-6xl lg:text-7xl font-orbitron font-bold mb-6 text-white leading-tight"
+          className="text-5xl sm:text-6xl lg:text-7xl  font-bold mb-6 text-white leading-tight"
         >
           Simula, optimiza y visualiza
           <br />
@@ -86,9 +80,10 @@ export default function HeroSectionHome() {
           variants={itemVariants}
           className="text-lg sm:text-xl text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed"
         >
-          OPTIU es una plataforma inteligente desarrollada para optimizar automáticamente
-          la asignación de aulas y horarios académicos en la Universidad Pontificia Bolivariana,
-          reduciendo conflictos y mejorando el uso eficiente de los espacios.
+          OPTIU es una plataforma inteligente desarrollada para optimizar
+          automáticamente la asignación de aulas y horarios académicos en la
+          Universidad Pontificia Bolivariana, reduciendo conflictos y mejorando
+          el uso eficiente de los espacios.
         </motion.p>
 
         <motion.div
@@ -96,15 +91,15 @@ export default function HeroSectionHome() {
           className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
         >
           <button
-            onClick={() => navigate('/planeacion/simulador')}
+            onClick={() => navigate("/planeacion/simulador")}
             className="px-8 py-3 bg-neon-cyan text-dark-bg font-semibold rounded-lg hover:shadow-xl hover:shadow-neon-cyan/50 transition duration-300"
           >
             Simular Horarios
           </button>
           <button
             onClick={() => {
-              const element = document.getElementById('campus')
-              element?.scrollIntoView({ behavior: 'smooth' })
+              const element = document.getElementById("campus");
+              element?.scrollIntoView({ behavior: "smooth" });
             }}
             className="px-8 py-3 border border-neon-cyan text-neon-cyan font-semibold rounded-lg hover:bg-neon-cyan/10 transition duration-300"
           >
@@ -122,5 +117,5 @@ export default function HeroSectionHome() {
         </motion.div>
       </motion.div>
     </section>
-  )
+  );
 }

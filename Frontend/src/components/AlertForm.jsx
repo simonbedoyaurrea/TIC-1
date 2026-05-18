@@ -604,13 +604,6 @@ export default function AlertForm() {
 
         <div className="h-2 bg-yellow-400 w-full" />
       </div>
-
-      <p className="text-center text-gray-600 text-xs mt-5">
-        Los reportes son atendidos en un plazo de{" "}
-        <span className="text-gray-400 font-bold">24 a 72 horas hábiles</span>.
-      </p>
     </div>
   );
 }
-
-//para mandar alertas de daños

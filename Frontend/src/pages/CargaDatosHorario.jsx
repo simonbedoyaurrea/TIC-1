@@ -1,5 +1,6 @@
 import { useState } from "react";
 import apiClient from "../apis/apiClient";
+import Navbar from "../components/NavBar";
 
 // ── Configuración de secciones ────────────────────────────────
 const SECCIONES = [
@@ -121,25 +122,14 @@ export default function CargaDatosHorario() {
   const todosListos = Object.values(archivos).every(Boolean);
 
   return (
-    <div className="min-h-screen bg-mauve-200 text-black font-sans">
-      {/* HEADER */}
-      <header className="border-b border-zinc-800 bg-mauve-200 px-8 py-4 flex items-center justify-between sticky top-0 z-10">
-        <div className="flex items-center gap-3">
-          <span className="font-black text-2xl tracking-widest text-red-500">
-            OPTIU
-          </span>
-          <span className="w-px h-6 bg-zinc-700" />
-          <span className="text-sm font-semibold tracking-wide  uppercase">
-            Carga de archivos
-          </span>
-        </div>
-      </header>
+    <div className="min-h-screen bg-black text-mauve-200 font-sans">
+      <Navbar />
 
       <main className="max-w-6xl mx-auto px-8 py-10">
         {/* TÍTULO */}
         <div className="mb-8">
           <h1 className="text-4xl font-black uppercase tracking-tight  mb-1">
-            Carga de datos
+            Carga de datos - OPTIMIZADOR
           </h1>
           <p className="text-blck text-sm">
             Sube los archivos Excel o CSV con la información requerida
@@ -147,7 +137,7 @@ export default function CargaDatosHorario() {
         </div>
 
         {/* AVISO */}
-        <div className="flex items-start gap-3 bg-rose-600 border border-zinc-700 rounded px-4 py-3 mb-8">
+        <div className="flex items-start gap-3 bg-black border border-zinc-700 rounded px-4 py-3 mb-8">
           <span className="text-white font-semibold">
             Los dos archivos son obligatorios
           </span>
@@ -161,7 +151,7 @@ export default function CargaDatosHorario() {
             return (
               <div
                 key={sec.id}
-                className={`bg-white text-black border rounded-lg overflow-hidden transition-all ${
+                className={`bg-black text-mauve-200 border rounded-lg overflow-hidden transition-all ${
                   archivoActual
                     ? `border-${sec.color === "blue" ? "blue" : sec.color === "red" ? "red" : "yellow"}-700`
                     : "border-zinc-800"
@@ -246,10 +236,10 @@ export default function CargaDatosHorario() {
                         <polyline points="17 8 12 3 7 8" />
                         <line x1="12" y1="3" x2="12" y2="15" />
                       </svg>
-                      <p className="text-xs text-zinc-400 text-center mb-1">
+                      <p className="text-xs text-white text-center mb-1">
                         Arrastra tu archivo aquí
                       </p>
-                      <p className="text-xs text-zinc-600 text-center">
+                      <p className="text-xs text-white text-center">
                         .xlsx o .csv · máx. 10 MB
                       </p>
                       <input

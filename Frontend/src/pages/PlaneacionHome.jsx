@@ -19,7 +19,7 @@ const cards = [
         <path d="M3 12c0 1.657 4.03 3 9 3s9-1.343 9-3" />
       </svg>
     ),
-    title: "Carga de Datos nueva clase",
+    title: "Carga de datos de nueva clase",
     subtitle: "Nueva Clase",
     desc: "Carga las plantillas necesarias para asignar una nueva clase al sistema.",
     link: "/planeacion/carga/optimizador",
@@ -62,7 +62,7 @@ const cards = [
     title: "Simulación",
     subtitle: "Ejecutar",
     desc: "Corre el algoritmo de horarios con los datos actuales del sistema.",
-    link: "/planeacion/simulacion",
+    link: "/planeacion/simulador",
   },
   {
     tag: "módulo 04",
@@ -86,67 +86,14 @@ const cards = [
 ];
 
 export default function PlaneacionHome() {
-  const [dataLoaded, setDataLoaded] = useState(true);
   const [confirming, setConfirming] = useState(false);
-
-  const handleDelete = () => {
-    if (confirming) {
-      setDataLoaded(false);
-      setConfirming(false);
-    } else {
-      setConfirming(true);
-      setTimeout(() => setConfirming(false), 3000);
-    }
-  };
 
   return (
     <div className="min-h-screen bg-[#080808] bg-[radial-gradient(circle,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[length:24px_24px]">
       {/* Navbar */}
       <Navbar />
 
-      <div className="max-w-5xl mx-auto mt-16 px-6 py-10">
-        {/* Page header */}
-
-        {/* Status bar */}
-        <div className="mb-8 flex items-center justify-between bg-white/2 border border-white/6 rounded-[14px] p-4 px-5">
-          <div className="flex items-center gap-3">
-            <div
-              className={`w-2 h-2 rounded-full flex-shrink-0 ${dataLoaded ? "bg-green-400 shadow-[0_0_8px_#4ade80] animate-pulse" : "bg-red-400 shadow-[0_0_8px_#f87171]"}`}
-            />
-            <div>
-              <p className="text-xs font-bold tracking-[0.03em] text-white">
-                Estado del Sistema
-              </p>
-              <p
-                className={`text-[11px] mt-1 font-mono ${dataLoaded ? "text-green-400" : "text-red-400"}`}
-              >
-                {dataLoaded
-                  ? "● datos cargados y listos"
-                  : "○ sin datos — carga un archivo para comenzar"}
-              </p>
-            </div>
-          </div>
-
-          {dataLoaded && (
-            <button
-              onClick={handleDelete}
-              className={`flex items-center gap-2 rounded-lg transition-all duration-200 bg-transparent border border-red-400/40 px-4 py-2 text-xs tracking-[0.05em] font-mono cursor-pointer ${confirming ? "text-red-500" : "text-red-400"}`}
-            >
-              <svg
-                width="14"
-                height="14"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                viewBox="0 0 24 24"
-              >
-                <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6M8 6V4h8v2" />
-              </svg>
-              {confirming ? "¿Confirmar?" : "Eliminar datos"}
-            </button>
-          )}
-        </div>
-
+      <div className="max-w-5xl mx-auto mt-5 px-6 ">
         {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {cards.map((card, i) => (
@@ -169,10 +116,10 @@ export default function PlaneacionHome() {
                 <p className="text-[10px] text-yellow-400 tracking-[0.12em] uppercase mb-1 font-mono">
                   {card.subtitle}
                 </p>
-                <h3 className="text-lg font-extrabold tracking-[-0.01em] mb-2 text-white">
+                <h2 className="text-2xl font-extrabold tracking-[-0.01em] mb-2 text-white">
                   {card.title}
-                </h3>
-                <p className="text-xs text-gray-600 leading-relaxed">
+                </h2>
+                <p className="text-xs text-gray-300 leading-relaxed">
                   {card.desc}
                 </p>
               </div>

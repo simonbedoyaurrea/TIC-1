@@ -18,7 +18,7 @@ import HomeNavbar from "./components/HomeNavbar";
 export default function App() {
   return (
     <div>
-      <HomeNavbar />
+      {/* <HomeNavbar /> */}
       <Routes>
         <Route path="/login" element={<Login />} />
 
@@ -30,17 +30,17 @@ export default function App() {
         <Route
           path="/alertas/nueva"
           element={
-            <ProtectedRoute rolesPermitidos={["ESTUDIANTE", "DOCENTE"]}>
-              <AlertForm />
-            </ProtectedRoute>
+            // <ProtectedRoute rolesPermitidos={["ESTUDIANTE", "DOCENTE"]}>
+            <AlertForm />
+            // </ProtectedRoute>
           }
         />
         <Route
-          path="/alertas/dashboard"
+          path="/alertas"
           element={
-            <ProtectedRoute rolesPermitidos={["ADMINISTRATIVO"]}>
-              <AdminDashboard />
-            </ProtectedRoute>
+            // <ProtectedRoute rolesPermitidos={["ADMINISTRATIVO"]}>
+            <AdminDashboard />
+            // </ProtectedRoute>
           }
         />
 

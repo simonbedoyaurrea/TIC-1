@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-
-// ── Config ────────────────────────────────────────────────────
-const BASE_URL = "http://localhost:8080"; // Apunta al controller Java
+import Navbar from "../components/NavBar";
+import { obtenerEstado, obtenerResultado } from "../services/AlgoritmoService";
 
 // ── Estados del simulador ─────────────────────────────────────
 const ESTADO = {
@@ -118,7 +117,7 @@ export default function SimuladorHorario({ archivosListos = false }) {
 
     pollingRef.current = setInterval(async () => {
       try {
-        const res = await fetch(`${BASE_URL}/api/simulacion/estado/${id}`);
+        const res = await obtenerEstado(id);
 
         if (!res.ok) {
           agregarLog(`Error HTTP ${res.status} consultando estado`, "error");
@@ -174,7 +173,7 @@ export default function SimuladorHorario({ archivosListos = false }) {
       } catch (err) {
         agregarLog(`Error de red: ${err.message}`, "error");
       }
-    }, 3000); // Polling cada 3 segundos
+    }, 1000 * 60); // Polling cada 1min
   }, []);
 
   // ── Iniciar simulación (cuando el jobId ya existe en localStorage) ──
@@ -203,7 +202,7 @@ export default function SimuladorHorario({ archivosListos = false }) {
     if (!id) return;
     try {
       agregarLog("Descargando archivo Excel...", "info");
-      const res = await fetch(`${BASE_URL}/api/simulacion/resultado/${id}`);
+      const res = await obtenerResultado(id);
       if (!res.ok) {
         agregarLog(`Error al descargar: HTTP ${res.status}`, "error");
         return;
@@ -242,6 +241,7 @@ export default function SimuladorHorario({ archivosListos = false }) {
 
   return (
     <div className="bg-zinc-950 border border-zinc-800 rounded-lg overflow-hidden">
+      <Navbar />
       {/* ── Cabecera ── */}
       <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-800 bg-black">
         <div className="flex items-center gap-3">

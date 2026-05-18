@@ -52,15 +52,13 @@ export default function CargaDatosSimulador() {
   const [cargando, setCargando] = useState(false);
   const [dragging, setDragging] = useState(null);
   const [jobId, setJobId] = useState(null);
+  const [feedback, setFeedback] = useState(null);
 
   const totalCargados = Object.keys(archivos).length;
   const todosListos = totalCargados === ARCHIVOS.length;
 
   const subirTodos = async () => {
-    if (!todosListos) {
-      alert("Debes subir los 7 archivos");
-      return;
-    }
+    if (!todosListos) return;
 
     const formData = new FormData();
     formData.append("asignaturas", archivos["asignaturas"]);
@@ -73,19 +71,23 @@ export default function CargaDatosSimulador() {
 
     try {
       setCargando(true);
+      setFeedback(null);
       const res = await cargaDatosSimuladorService(formData);
       const data = await res.json();
-      setJobId(data.jobId);
       localStorage.setItem("jobId", data.jobId);
-      alert("Simulación iniciada ");
+      setFeedback({
+        tipo: "exito",
+        mensaje: "Simulación iniciada correctamente. El proceso está en cola.",
+      });
     } catch (error) {
-      console.error(error);
-      alert("Error al enviar archivos");
+      const detalle =
+        error?.response?.data?.message ||
+        "No se pudo enviar los archivos. Verifica tu conexión e intenta de nuevo.";
+      setFeedback({ tipo: "error", mensaje: detalle });
     } finally {
       setCargando(false);
     }
   };
-
   const seleccionarArchivo = (id, file) => {
     if (!file) return;
     setArchivos((prev) => ({ ...prev, [id]: file }));
@@ -99,7 +101,10 @@ export default function CargaDatosSimulador() {
     });
   };
 
-  const limpiarTodo = () => setArchivos({});
+  const limpiarTodo = () => {
+    setArchivos({});
+    setFeedback(null);
+  };
 
   return (
     <div className="min-h-screen bg-black text-white font-sans">
@@ -259,6 +264,45 @@ export default function CargaDatosSimulador() {
             ))}
           </div>
         </div>
+        {feedback && (
+          <div
+            className={`flex items-start gap-3 rounded border px-4 py-3 mb-6 text-sm ${
+              feedback.tipo === "error"
+                ? "bg-red-950/30 border-red-800 text-red-400"
+                : "bg-green-950/30 border-green-800 text-green-400"
+            }`}
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={1.5}
+              className="w-5 h-5 shrink-0 mt-0.5"
+            >
+              {feedback.tipo === "error" ? (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
+                />
+              ) : (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              )}
+            </svg>
+            <div>
+              <p className="font-bold mb-0.5">
+                {feedback.tipo === "error"
+                  ? "Error al subir los archivos"
+                  : "Archivos enviados correctamente"}
+              </p>
+              <p className="text-xs opacity-80">{feedback.mensaje}</p>
+            </div>
+          </div>
+        )}
 
         {/* ACCIONES */}
         <div className="flex items-center justify-between">

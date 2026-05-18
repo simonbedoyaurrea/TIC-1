@@ -79,7 +79,7 @@ public class HorarioSimulacionService {
                 "SESSION_VACANCIES",
                 "ROOM_CODE",
                 "BLOQUE",
-                "SALON",
+                "SALÓN",
                 "ROOM_VACANCIES",
                 "INSTRUCTOR_CODE",
                 "START_HOUR",

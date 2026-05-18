@@ -58,16 +58,13 @@ public class SecurityConfig {
                             .requestMatchers("/h2-console/**").permitAll()
                             .requestMatchers("/h2-console").permitAll()
                             .requestMatchers("/error").permitAll()
-                            .requestMatchers("/api/**").permitAll()
                             .requestMatchers("/api/simulacion/**").hasRole("ADMINISTRATIVO")
-                            .requestMatchers("/api/simulacion/estado/**").hasRole("ADMINISTRATIVO")
-                            .requestMatchers("/api/simulacion/resultados/{jobId}").hasRole("ADMINISTRATIVO")
                             .requestMatchers("/api/materias/simulacion").hasRole("ADMINISTRATIVO")
                             .requestMatchers( "/api/materias/simulacion/carga").hasRole("ADMINISTRATIVO")
                             .requestMatchers(HttpMethod.POST, "/api/reportes").permitAll()
                             .requestMatchers(HttpMethod.GET, "/api/reportes/**").permitAll()
 
-                            
+
                                                                        
                             // Any other request must be authenticated
                             .anyRequest().authenticated()

@@ -59,8 +59,6 @@ public class SecurityConfig {
                             .requestMatchers("/h2-console").permitAll()
                             .requestMatchers("/error").permitAll()
                             .requestMatchers("/api/simulacion/**").hasRole("ADMINISTRATIVO")
-                            .requestMatchers("/api/materias/simulacion").hasRole("ADMINISTRATIVO")
-                            .requestMatchers( "/api/materias/simulacion/carga").hasRole("ADMINISTRATIVO")
                             .requestMatchers(HttpMethod.POST, "/api/reportes").permitAll()
                             .requestMatchers(HttpMethod.GET, "/api/reportes/**").permitAll()
 

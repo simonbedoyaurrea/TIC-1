@@ -25,33 +25,7 @@ public class HorarioSimulacionController {
     
     private final HorarioSimulacionService horarioSimulacionService;
 
-    @PostMapping("/agregar")
-    public ResponseEntity<String> agregarMateriaSimulacion(@RequestBody HorarioSimulacion horario ) {
-
-        
-
-        horarioSimulacionService.agregarMateriaSimulacion(horario);
-
-        return ResponseEntity.ok("Materia agregada correctamente");
-    }  
-
-    @PostMapping("/carga")
-    public ResponseEntity<String> cargarHorarios(@RequestParam("fileHorario") MultipartFile fileHorario) {
-        horarioSimulacionService.cargarExcelHorarios(fileHorario);
-        return ResponseEntity.ok("Archivo cargado correctamente");
-    }
-
-    @PostMapping("/horario")
-    public ResponseEntity<String> optimizarHorario(
-            @RequestBody OptimizadorRequestDTO request
-    ) {
-
-        String resultado = horarioSimulacionService.optimizarHorario(request);
-
-        return ResponseEntity.ok(resultado);
-    }
-
-     @GetMapping("/exportar")
+    @GetMapping()
     public ResponseEntity<InputStreamResource> descargarExcel() {
 
         InputStreamResource file =
@@ -65,6 +39,32 @@ public class HorarioSimulacionController {
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .body(file);
     }
+
+    @PostMapping("/agregar")
+    public ResponseEntity<String> agregarMateriaSimulacion(@RequestBody HorarioSimulacion horario ) {
+        
+        horarioSimulacionService.agregarMateriaSimulacion(horario);
+
+        return ResponseEntity.ok("Materia agregada correctamente");
+    }  
+
+    @PostMapping("/carga")
+    public ResponseEntity<String> cargarHorarios(@RequestParam("fileHorario") MultipartFile fileHorario) {
+        horarioSimulacionService.cargarExcelHorarios(fileHorario);
+        return ResponseEntity.ok("Archivo cargado correctamente");
+    }
+
+    @PostMapping("/optimizador")
+    public ResponseEntity<String> optimizarHorario(
+            @RequestBody OptimizadorRequestDTO request
+    ) {
+
+        String resultado = horarioSimulacionService.optimizarHorario(request);
+
+        return ResponseEntity.ok(resultado);
+    }
+
+    
     
 
 }

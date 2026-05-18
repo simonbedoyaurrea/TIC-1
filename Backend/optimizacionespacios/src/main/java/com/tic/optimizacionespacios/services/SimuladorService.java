@@ -17,16 +17,23 @@ public class SimuladorService {
         this.webClient = builder.baseUrl("http://localhost:8000").build();
     }
 
-    
-
+     
     public String simular(
-            MultipartFile asignaturas,
-            MultipartFile docentesCat,
-            MultipartFile disponibilidad,
-            MultipartFile docAsignaturas,
-            MultipartFile restriccionesEd,
-            MultipartFile programacion,
-            MultipartFile demandas){
+        MultipartFile asignaturas,
+        MultipartFile docentesCat,
+        MultipartFile disponibilidad,
+        MultipartFile docAsignaturas,
+        MultipartFile restriccionesEd,
+        MultipartFile programacion,
+        MultipartFile demandas){
+
+        validarArchivo(asignaturas,      "asignaturas");
+        validarArchivo(docentesCat,      "docentes_cat");
+        validarArchivo(disponibilidad,   "disponibilidad");
+        validarArchivo(docAsignaturas,   "doc_asignaturas");
+        validarArchivo(restriccionesEd,  "restricciones_ed");
+        validarArchivo(programacion,     "programacion");
+        validarArchivo(demandas,         "demandas");
 
         MultipartBodyBuilder body = new MultipartBodyBuilder();
 
@@ -62,4 +69,20 @@ public class SimuladorService {
                     .bodyToMono(byte[].class)
                     .block();       
     }
+
+    private void validarArchivo(MultipartFile file, String nombreCampo) {
+    if (file == null || file.isEmpty()) {
+        throw new RuntimeException(
+            "El archivo '" + nombreCampo + "' es obligatorio"
+        );
+    }
+
+    String fileName = file.getOriginalFilename();
+    if (fileName == null || (!fileName.endsWith(".xlsx") 
+            && !fileName.endsWith(".xls"))) {
+        throw new RuntimeException(
+            "El archivo '" + nombreCampo + "' debe tener extensión .xlsx o .xls"
+        );
+    }
+}
 }

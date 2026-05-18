@@ -24,7 +24,6 @@ export default function Navbar() {
           whileHover={{ scale: 1.05 }}
           className="flex items-center gap-3 cursor-pointer group"
         >
-          {/* Icon mark con glow */}
           <motion.div
             className="relative w-10 h-10 flex items-center justify-center font-orbitron font-black text-lg text-neon-cyan"
             whileHover={{

@@ -5,6 +5,7 @@ import apiClient from "../apis/apiClient";
 import {
   agregarHorarioService,
   BuscarHorariosService,
+  obtenerMateriasService,
 } from "../services/AlgoritmoService";
 
 // Días de la semana usados en el grid del calendario (solo lunes-viernes+sábado)
@@ -34,12 +35,10 @@ const HOURS = [
 // ── COMPONENTE PRINCIPAL ────────────────────────────────────────────────────
 // Renders the calendar optimization UI and maneja la lógica de selección.
 export default function OptimizadorCalendario() {
-  // Estado de materias traídas del backend
   const [materias, setMaterias] = useState([]);
-
   const [opcionesUbicacion, setOpcionesUbicacion] = useState([]);
   const [selectedUbicacionId, setSelectedUbicacionId] = useState(null);
-
+  const [mostrarModal, setMostrarModal] = useState(false);
   const [restricciones, setRestricciones] = useState({
     materia: {
       id: false,
@@ -51,6 +50,17 @@ export default function OptimizadorCalendario() {
     },
     disponibilidad: false,
   });
+  // Estado para buscar materia por texto
+  const [search, setSearch] = useState("");
+  // Materia actualmente seleccionada para colocar en el calendario
+  const [selectedSubject, setSelectedSubject] = useState(null);
+  // Slot final confirmado (día + hora) del usuario
+  const [selectedSlot, setSelectedSlot] = useState(null);
+  // Slot de vista previa al pasar el mouse
+  const [previewSlot, setPreviewSlot] = useState(null);
+  // Duración de la franja seleccionada en horas (1/2/3)
+  const [duration, setDuration] = useState(2);
+  // Identificador de opción de sala seleccionada
 
   const RESTRICCIONES_PREVIEW = {
     Materia: restricciones.materia.id,
@@ -179,8 +189,6 @@ export default function OptimizadorCalendario() {
       disponibilidad,
     };
 
-    console.log(payload);
-
     const response = await BuscarHorariosService(payload);
 
     console.log("Respuesta del backend:", response.data);
@@ -191,13 +199,6 @@ export default function OptimizadorCalendario() {
   const handleGuardarRestricciones = (payload) => {
     setRestricciones(payload);
   };
-
-  const [mostrarModal, setMostrarModal] = useState(false);
-
-  // Debug: muestra cambios en restricciones en consola
-  useEffect(() => {
-    console.log("Restricciones actuales:", restricciones);
-  }, [restricciones]);
 
   // Efecto para cargar materias al iniciar el componente (una sola vez)
   useEffect(() => {
@@ -212,20 +213,8 @@ export default function OptimizadorCalendario() {
         console.error(error);
       }
     };
-
     cargarMaterias();
   }, []);
-  // Estado para buscar materia por texto
-  const [search, setSearch] = useState("");
-  // Materia actualmente seleccionada para colocar en el calendario
-  const [selectedSubject, setSelectedSubject] = useState(null);
-  // Slot final confirmado (día + hora) del usuario
-  const [selectedSlot, setSelectedSlot] = useState(null);
-  // Slot de vista previa al pasar el mouse
-  const [previewSlot, setPreviewSlot] = useState(null);
-  // Duración de la franja seleccionada en horas (1/2/3)
-  const [duration, setDuration] = useState(2);
-  // Identificador de opción de sala seleccionada
 
   // Genera un ID único para un bloque de opción de horario (usado en el mapeo)
   const getOptionId = (r) =>
@@ -435,7 +424,7 @@ export default function OptimizadorCalendario() {
 
               <button
                 onClick={() => setMostrarModal(true)}
-                className="flex items-center justify-between w-full bg-yellow-400 border border-yellow-400/25 rounded-lg px-3.5 py-2.5 text-black text-[11px] font-bold tracking-wide cursor-pointer transition-all hover:bg-yellow-400/[0.14] hover:border-yellow-400/50 mt-1"
+                className="flex items-center justify-between w-full bg-yellow-600 border border-yellow-400/25 rounded-lg px-3.5 py-2.5 text-black text-[11px] font-bold tracking-wide cursor-pointer transition-all hover:bg-yellow-400/[0.14] hover:border-yellow-400/50 mt-1"
               >
                 <div className="flex items-center gap-2">
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -568,7 +557,7 @@ export default function OptimizadorCalendario() {
                 {DAYS.map((d, i) => (
                   <div
                     key={d}
-                    className={`py-2 text-center bg-yellow-300 text-[11px] font-bold tracking-[0.08em] border-l border-[#1e293b] text-black`}
+                    className={`py-2 text-center bg-yellow-500 text-[11px] font-bold tracking-[0.08em] border-l border-[#1e293b] text-black`}
                   >
                     {d}
                   </div>
@@ -579,7 +568,7 @@ export default function OptimizadorCalendario() {
                 return (
                   <div
                     key={hour}
-                    className="grid bg-yellow-300 font-bold text-black grid-cols-[52px_repeat(6,1fr)] border-b border-black/20"
+                    className="grid bg-yellow-500 font-bold text-black grid-cols-[52px_repeat(6,1fr)] border-b border-black/20"
                   >
                     <div
                       className={`px-2.5 flex items-center justify-end text-[10px] border-r border-[#1e293b] h-9 ext-[#334155]`}

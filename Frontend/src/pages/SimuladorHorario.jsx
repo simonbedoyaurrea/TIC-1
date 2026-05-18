@@ -117,44 +117,25 @@ export default function SimuladorHorario({ archivosListos = false }) {
 
     pollingRef.current = setInterval(async () => {
       try {
-        const res = await obtenerEstado(id);
+        const data = await obtenerEstado(id);
 
-        if (!res.ok) {
-          agregarLog(`Error HTTP ${res.status} consultando estado`, "error");
-          return;
-        }
+        const { estado: estadoJob, mensaje } = data; // ← renombra a estadoJob
 
-        // El controller devuelve el JSON del FastAPI como String
-        const raw = await res.text();
-        let data;
-        try {
-          data = JSON.parse(raw);
-        } catch {
-          agregarLog(`Respuesta inesperada del servidor: ${raw}`, "error");
-          return;
-        }
-
-        const { estado: estadoBackend, mensaje } = data;
         const faseIdx = mensajeAFase(mensaje);
-
         setFaseActual(faseIdx);
         setProgreso(Math.round(((faseIdx + 1) / FASES.length) * 100));
         agregarLog(mensaje, "fase");
 
-        if (estadoBackend === "listo") {
+        if (estadoJob === "listo") {
           clearInterval(pollingRef.current);
           setProgreso(100);
           setFaseActual(-1);
           setEstado(ESTADO.COMPLETADO);
-          agregarLog(" Optimización completada exitosamente.", "exito");
-
-          // Construir resultado desde la respuesta del backend
+          agregarLog("Optimización completada exitosamente.", "exito");
           setResultado({
             totalClases: data.confirmados + (data.pendientes ?? 0),
             clasesAsignadas: data.confirmados ?? "—",
             conflictos: data.pendientes ?? 0,
-            docentesUsados: "—",
-            aulasUsadas: "—",
             satisfaccion:
               data.gap != null
                 ? Math.max(0, Math.round((1 - data.gap) * 100))
@@ -165,15 +146,15 @@ export default function SimuladorHorario({ archivosListos = false }) {
                 : [],
             gap: data.gap,
           });
-        } else if (estadoBackend === "error") {
+        } else if (estadoJob === "error") {
           clearInterval(pollingRef.current);
           setEstado(ESTADO.ERROR);
-          agregarLog(`❌ Error del servidor: ${mensaje}`, "error");
+          agregarLog(`Error del servidor: ${mensaje}`, "error");
         }
       } catch (err) {
         agregarLog(`Error de red: ${err.message}`, "error");
       }
-    }, 1000 * 60); // Polling cada 1min
+    }, 1000 * 4);
   }, []);
 
   // ── Iniciar simulación (cuando el jobId ya existe en localStorage) ──
@@ -202,12 +183,10 @@ export default function SimuladorHorario({ archivosListos = false }) {
     if (!id) return;
     try {
       agregarLog("Descargando archivo Excel...", "info");
-      const res = await obtenerResultado(id);
-      if (!res.ok) {
-        agregarLog(`Error al descargar: HTTP ${res.status}`, "error");
-        return;
-      }
-      const blob = await res.blob();
+
+      const blob = await obtenerResultado(id); // ya es res.data (blob)
+
+      // Elimina res.ok y res.blob() — no existen en axios
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;

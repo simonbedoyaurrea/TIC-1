@@ -13,13 +13,11 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import com.tic.optimizacionespacios.dto.optimizador.OptimizadorRequestDTO;
 import com.tic.optimizacionespacios.models.entities.HorarioSimulacion;
@@ -33,6 +31,7 @@ public class HorarioSimulacionService {
     
     private final HorarioSimulacionRepository horarioSimulacionRepository;
     private static final Logger log = LoggerFactory.getLogger(HorarioSimulacionService.class);
+    private final WebClient.Builder webClientBuilder;
 
 
     public void cargarExcelHorarios(MultipartFile file){
@@ -207,48 +206,29 @@ public class HorarioSimulacionService {
     }
 
 
-    public String optimizarHorario(OptimizadorRequestDTO request) {
+   public String optimizarHorario(OptimizadorRequestDTO request) {
+    List<HorarioSimulacion> horarios = horarioSimulacionRepository.findAll();
 
+    Map<String, Object> body = Map.of(
+        "df", horarios,
+        "materia", request.getMateria(),
+        "disponibilidad", request.getDisponibilidad()
+    );
 
-        try {
-
-            // 1️⃣ Obtener horarios actuales de la BD
-            List<HorarioSimulacion> horarios = horarioSimulacionRepository.findAll();
-
-            // 2️⃣ Construir JSON para FastAPI
-            Map<String, Object> body = new HashMap<>();
-
-            body.put("df", horarios);
-            body.put("materia", request.getMateria());
-            body.put("disponibilidad", request.getDisponibilidad());
-
-            // 3️⃣ Crear cliente HTTP
-            RestTemplate restTemplate = new RestTemplate();
-
-            String url = "http://localhost:8000/optimizar";
-
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-
-            HttpEntity<Map<String, Object>> requestEntity =
-                    new HttpEntity<>(body, headers);
-
-            // 4️⃣ Llamar a FastAPI
-            ResponseEntity<String> response =
-                    restTemplate.postForEntity(
-                            url,
-                            requestEntity,
-                            String.class
-                    );
-
-            // 5️⃣ devolver resultado
-            return response.getBody();
-
-        } catch (Exception e) {
-            log.error("Error optimizando horario", e);
-            throw new RuntimeException("Error optimizando horario", e);
-        }
-    }
+    return webClientBuilder.build()
+            .post()
+            .uri("http://localhost:8000/optimizar")
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(body)
+            .retrieve()
+            .onStatus(HttpStatusCode::isError, clientResponse ->
+                clientResponse.bodyToMono(String.class)
+                    .map(err -> new RuntimeException("Error del servidor: " + err))
+            )
+            .bodyToMono(String.class)
+            .doOnError(e -> log.error("Error optimizando horario", e))
+            .block();
+}
 
     public void agregarMateriaSimulacion(HorarioSimulacion horario) {
         horarioSimulacionRepository.save(horario);

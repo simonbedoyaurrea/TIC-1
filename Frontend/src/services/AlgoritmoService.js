@@ -2,12 +2,14 @@ import apiClient from "../apis/apiClient";
 
 export const obtenerEstado = async (id) => {
   const res = await apiClient.get(`/simulacion/estado/${id}`);
-  return res;
+  return res.data;
 };
 
 export const obtenerResultado = async (id) => {
-  const res = await apiClient.get(`/simulacion/resultado/${id}`);
-  return res;
+  const res = await apiClient.get(`/simulacion/resultado/${id}`, {
+    responseType: "blob", // ← obligatorio para descargar Excel
+  });
+  return res.data;
 };
 
 export const agregarHorarioService = async (payload) => {
@@ -21,11 +23,11 @@ export const agregarHorarioService = async (payload) => {
 
 export const BuscarHorariosService = async (payload) => {
   const response = await apiClient.post(
-    "/simulacion/horarios/horario",
+    "/simulacion/horarios/optimizador",
     payload,
   );
 
-  return response.data;
+  return response;
 };
 
 export const obtenerMateriasService = async () => {

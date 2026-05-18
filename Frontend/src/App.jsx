@@ -6,7 +6,6 @@ import Bloque from "./pages/Bloque";
 import Aula from "./pages/Aula";
 import { FormularioPage } from "./pages/HorarioPrueba";
 import CargaDatosHorario from "./pages/CargaDatosHorario";
-import AdminDashboard from "./pages/AdminDashboard";
 import OptimizadorCalendario from "./pages/OptimizadorCalendario";
 import ModalNuevaMateria from "./components/ModalNuevaMateria";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -14,6 +13,7 @@ import PlaneacionHome from "./pages/PlaneacionHome";
 import CargaDatosSimulador from "./pages/CargaDatosSimulador";
 import SimuladorHorario from "./pages/SimuladorHorario";
 import HomeNavbar from "./components/HomeNavbar";
+import ReportesDashboard from "./pages/ReportesDashboard";
 
 export default function App() {
   return (
@@ -39,7 +39,7 @@ export default function App() {
           path="/alertas"
           element={
             // <ProtectedRoute rolesPermitidos={["ADMINISTRATIVO"]}>
-            <AdminDashboard />
+            <ReportesDashboard />
             // </ProtectedRoute>
           }
         />

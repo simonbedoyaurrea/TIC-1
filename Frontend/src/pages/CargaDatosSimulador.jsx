@@ -72,8 +72,10 @@ export default function CargaDatosSimulador() {
     try {
       setCargando(true);
       setFeedback(null);
-      const res = await cargaDatosSimuladorService(formData);
-      const data = await res.json();
+
+      const data = await cargaDatosSimuladorService(formData);
+      console.log(data);
+
       localStorage.setItem("jobId", data.jobId);
       setFeedback({
         tipo: "exito",
@@ -88,6 +90,7 @@ export default function CargaDatosSimulador() {
       setCargando(false);
     }
   };
+
   const seleccionarArchivo = (id, file) => {
     if (!file) return;
     setArchivos((prev) => ({ ...prev, [id]: file }));
@@ -135,7 +138,7 @@ export default function CargaDatosSimulador() {
                 {/* Cabecera */}
                 <div className="px-4 pt-4 pb-3 border-b border-zinc-800">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="w-6 h-6 bg-red-600 text-white text-xs font-black flex items-center justify-center shrink-0">
+                    <span className="w-6 h-6 bg-yellow-600 text-white text-xs font-black flex items-center justify-center shrink-0">
                       {sec.numero}
                     </span>
                     <p className="font-black text-sm uppercase tracking-wide text-white truncate">
@@ -196,9 +199,7 @@ export default function CargaDatosSimulador() {
                         <polyline points="17 8 12 3 7 8" />
                         <line x1="12" y1="3" x2="12" y2="15" />
                       </svg>
-                      <p className="text-xs text-zinc-400">
-                        .xlsx · máx. 10 MB
-                      </p>
+                      <p className="text-xs text-gray-100">.xlsx o .xls</p>
                       <input
                         id={`file-${sec.id}`}
                         type="file"

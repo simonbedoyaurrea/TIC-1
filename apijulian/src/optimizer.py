@@ -495,7 +495,7 @@ def formatear_banner(grupos, horarios, asignaciones, catalogo_docentes):
 # MAIN
 # ─────────────────────────────────────────────
 if __name__ == '__main__':
-    from src.data_loader import (cargar_todos, construir_catalogo_salones,
+    from data_loader import (cargar_todos, construir_catalogo_salones,
                               construir_catalogo_docentes, construir_catalogo_asignaturas)
 
     dfs          = cargar_todos()
@@ -511,7 +511,7 @@ if __name__ == '__main__':
         print("No se encontro solucion de horarios.")
         exit(1)
 
-    horarios, df_sal = resultado
+    horarios, df_sal, gap = resultado
     horarios     = reparar_horarios(grupos, horarios, df_sal, cat_docentes)
     asignaciones = asignar_docentes(grupos, horarios, cat_docentes, dfs['docentes_cat'])
     df_banner    = formatear_banner(grupos, horarios, asignaciones, cat_docentes)

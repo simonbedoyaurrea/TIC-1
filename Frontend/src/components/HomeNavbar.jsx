@@ -22,6 +22,19 @@ export default function HomeNavbar() {
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
             <div className="flex items-center gap-2">
+              <motion.div
+                className="relative w-10 h-10 flex items-center justify-center font-orbitron font-black text-lg text-neon-cyan"
+                whileHover={{
+                  boxShadow: "0 0 20px rgba(0, 217, 255, 0.8)",
+                }}
+              >
+                <div
+                  className={`w-8 h-8 flex items-center justify-center font-black text-sm border-2 transition-all duration-300 bg-yellow-400 border-yellow-400 text-black group-hover:bg-white"            
+              `}
+                >
+                  OU
+                </div>
+              </motion.div>
               <div className="text-2xl font-orbitron font-bold">
                 <span className="text-neon-cyan">OPTIU</span>
               </div>

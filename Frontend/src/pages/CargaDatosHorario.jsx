@@ -2,7 +2,6 @@ import { useState } from "react";
 import apiClient from "../apis/apiClient";
 import Navbar from "../components/NavBar";
 
-// ── Configuración de secciones ────────────────────────────────
 const SECCIONES = [
   {
     id: "materias",
@@ -23,18 +22,11 @@ const SECCIONES = [
         <path d="M2 12l10 5 10-5" />
       </svg>
     ),
-    campos: [
-      { nombre: "Nombre materia", requerido: true },
-      { nombre: "Código materia", requerido: true },
-      { nombre: "Créditos / horas", requerido: true },
-      { nombre: "Semestre", requerido: true },
-      { nombre: "Docente asignado", requerido: false },
-    ],
   },
   {
     id: "simulacion",
     titulo: "Simulación",
-    subtitulo: "Simulación de horarios paara cada materia",
+    subtitulo: "Simulación de horarios para cada materia",
     color: "yellow",
     icono: (
       <svg
@@ -49,33 +41,34 @@ const SECCIONES = [
         <path d="M3 9h18M9 21V9" />
       </svg>
     ),
-    campos: [
-      { nombre: "Código aula", requerido: true },
-      { nombre: "Edificio / bloque", requerido: true },
-      { nombre: "Capacidad", requerido: true },
-      { nombre: "Tipo de aula", requerido: true },
-      { nombre: "Equipamiento", requerido: false },
-    ],
   },
 ];
 
-// ── Colores por sección ───────────────────────────────────────
 const COLOR_MAP = {
   red: {
-    icon: "bg-red-950 text-red-400",
-    border: "border-red-800",
-    badge: "bg-red-950 text-red-400",
+    icon: "bg-red-100 dark:bg-red-950/40 text-red-500",
+    border: "border-red-500/40",
   },
   yellow: {
-    icon: "bg-yellow-950 text-yellow-400",
-    border: "border-yellow-700",
-    badge: "bg-yellow-950 text-yellow-400",
+    icon: "bg-yellow-100 dark:bg-yellow-950/40 text-yellow-500",
+    border: "border-yellow-500/40",
   },
 };
 
 export default function CargaDatosHorario() {
+  const [archivos, setArchivos] = useState({
+    materias: null,
+    simulacion: null,
+  });
+
+  const [dragging, setDragging] = useState(null);
+  const [feedback, setFeedback] = useState(null);
+
+  const todosListos = Object.values(archivos).every(Boolean);
+
   const enviarArchivos = async () => {
     setFeedback(null);
+
     try {
       const formDataMaterias = new FormData();
       formDataMaterias.append("file", archivos.materias);
@@ -99,99 +92,135 @@ export default function CargaDatosHorario() {
     } catch (error) {
       const detalle =
         error?.response?.data?.message ||
-        "No se pudo conectar con el servidor. Verifica tu conexión e intenta de nuevo.";
-      setFeedback({ tipo: "error", mensaje: detalle });
+        "No se pudo conectar con el servidor.";
+
+      setFeedback({
+        tipo: "error",
+        mensaje: detalle,
+      });
     }
   };
-
-  const [archivos, setArchivos] = useState({
-    materias: null,
-    simulacion: null,
-  });
-  const [dragging, setDragging] = useState(null);
-  const [pasoActivo] = useState(0);
-  const [feedback, setFeedback] = useState(null);
 
   const handleDrop = (e, id) => {
     e.preventDefault();
     setDragging(null);
+
     const file = e.dataTransfer.files[0];
-    if (file) setArchivos((prev) => ({ ...prev, [id]: file }));
+
+    if (file) {
+      setArchivos((prev) => ({
+        ...prev,
+        [id]: file,
+      }));
+    }
   };
 
   const handleFile = (e, id) => {
     const file = e.target.files[0];
-    if (file) setArchivos((prev) => ({ ...prev, [id]: file }));
+
+    if (file) {
+      setArchivos((prev) => ({
+        ...prev,
+        [id]: file,
+      }));
+    }
   };
 
-  const removeFile = (id) => setArchivos((prev) => ({ ...prev, [id]: null }));
-
-  const todosListos = Object.values(archivos).every(Boolean);
+  const removeFile = (id) => {
+    setArchivos((prev) => ({
+      ...prev,
+      [id]: null,
+    }));
+  };
 
   return (
-    <div className="min-h-screen bg-black text-mauve-200 font-sans">
+    <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
       <Navbar />
 
-      <main className="max-w-6xl mx-auto px-8 py-10">
-        {/* TÍTULO */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-black uppercase tracking-tight  mb-1">
-            Carga de datos - OPTIMIZADOR
+      <main className="max-w-6xl mx-auto px-6 pt-28 pb-10">
+        {/* HEADER */}
+        <div className="mb-10">
+          <h1 className="text-4xl font-black uppercase tracking-tight mb-2">
+            Carga de datos · Optimizador
           </h1>
-          <p className="text-blck text-sm">
-            Sube los archivos Excel o CSV con la información requerida
+
+          <p className="text-sm text-[var(--text-secondary)]">
+            Sube los archivos Excel o CSV requeridos para generar el horario
+            académico.
           </p>
         </div>
 
-        {/* AVISO */}
-        <div className="flex items-start gap-3 bg-black border border-zinc-700 rounded px-4 py-3 mb-8">
-          <span className="text-white font-semibold">
-            Los dos archivos son obligatorios
-          </span>
+        {/* ALERT */}
+        <div className="mb-8 rounded-xl border border-[var(--accent-yellow)]/30 bg-[var(--accent-yellow-dim)] px-5 py-4">
+          <p className="text-sm font-semibold text-[var(--text-primary)]">
+            Los dos archivos son obligatorios para continuar.
+          </p>
         </div>
 
-        {/* TARJETAS DE SECCIÓN */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
+        {/* GRID */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
           {SECCIONES.map((sec) => {
             const c = COLOR_MAP[sec.color];
             const archivoActual = archivos[sec.id];
+
             return (
               <div
                 key={sec.id}
-                className={`bg-black text-mauve-200 border rounded-lg overflow-hidden transition-all ${
-                  archivoActual
-                    ? `border-${sec.color === "blue" ? "blue" : sec.color === "red" ? "red" : "yellow"}-700`
-                    : "border-zinc-800"
-                }`}
+                className={`
+                  rounded-2xl
+                  border
+                  bg-[var(--bg-card)]
+                  border-[var(--border-subtle)]
+                  overflow-hidden
+                  transition-all
+                  duration-300
+                  ${
+                    archivoActual
+                      ? c.border
+                      : "hover:border-[var(--border-medium)]"
+                  }
+                `}
               >
-                {/* Cabecera tarjeta */}
-                <div className="px-5 pt-5 pb-4 border-b border-zinc-800">
-                  <div className="flex items-center gap-3 mb-1">
+                {/* TOP */}
+                <div className="px-5 pt-5 pb-4 border-b border-[var(--border-subtle)]">
+                  <div className="flex items-center gap-3">
                     <div
-                      className={`w-9 h-9 rounded flex items-center justify-center shrink-0 ${c.icon}`}
+                      className={`
+                        w-10
+                        h-10
+                        rounded-xl
+                        flex
+                        items-center
+                        justify-center
+                        ${c.icon}
+                      `}
                     >
                       {sec.icono}
                     </div>
+
                     <div>
-                      <p className="font-black text-base uppercase tracking-wide ">
+                      <h2 className="font-black uppercase tracking-wide text-sm">
                         {sec.titulo}
+                      </h2>
+
+                      <p className="text-xs text-[var(--text-secondary)] mt-0.5">
+                        {sec.subtitulo}
                       </p>
-                      <p className="text-xs text-zinc-500">{sec.subtitulo}</p>
                     </div>
                   </div>
                 </div>
 
-                {/* Zona de arrastre */}
-                <div className="px-5 py-4">
+                {/* CONTENT */}
+                <div className="p-5">
                   {archivoActual ? (
-                    <div className="border border-zinc-700 rounded bg-zinc-900 px-4 py-3 flex items-center justify-between">
+                    <div className="flex items-center justify-between rounded-xl border border-emerald-400/30 bg-emerald-100 dark:bg-emerald-950/30 px-4 py-3">
                       <div className="flex items-center gap-2 min-w-0">
                         <svg
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="currentColor"
                           strokeWidth={1.5}
-                          className="w-4 h-4 text-green-400 shrink-0"
+                          className="w-4 h-4 text-emerald-500 shrink-0"
                         >
                           <path
                             strokeLinecap="round"
@@ -199,21 +228,17 @@ export default function CargaDatosHorario() {
                             d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                           />
                         </svg>
-                        <span className="text-xs text-zinc-300 truncate font-mono">
+
+                        <span className="text-xs truncate font-mono text-[var(--text-primary)]">
                           {archivoActual.name}
                         </span>
                       </div>
+
                       <button
                         onClick={() => removeFile(sec.id)}
-                        className="text-zinc-600 hover:text-red-400 transition-colors ml-2 shrink-0"
+                        className="text-[var(--text-muted)] hover:text-red-400 transition-colors"
                       >
-                        <svg
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                          className="w-4 h-4"
-                        >
-                          <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
-                        </svg>
+                        ✕
                       </button>
                     </div>
                   ) : (
@@ -225,11 +250,25 @@ export default function CargaDatosHorario() {
                       }}
                       onDragLeave={() => setDragging(null)}
                       onDrop={(e) => handleDrop(e, sec.id)}
-                      className={`flex flex-col items-center justify-center border border-dashed rounded cursor-pointer py-6 px-4 transition-all ${
-                        dragging === sec.id
-                          ? "border-red-500 bg-red-950/20"
-                          : "border-zinc-700 hover:border-zinc-500 bg-zinc-900"
-                      }`}
+                      className={`
+                        flex
+                        flex-col
+                        items-center
+                        justify-center
+                        rounded-xl
+                        border
+                        border-dashed
+                        px-5
+                        py-10
+                        cursor-pointer
+                        transition-all
+                        duration-300
+                        ${
+                          dragging === sec.id
+                            ? "border-[var(--accent-red)] bg-[var(--accent-red-dim)]"
+                            : "border-[var(--border-medium)] bg-[var(--bg-secondary)] hover:border-[var(--accent-yellow)] hover:bg-[var(--bg-tertiary)]"
+                        }
+                      `}
                     >
                       <svg
                         viewBox="0 0 24 24"
@@ -237,18 +276,21 @@ export default function CargaDatosHorario() {
                         stroke="currentColor"
                         strokeWidth={1.5}
                         strokeLinecap="round"
-                        className="w-7 h-7 text-zinc-600 mb-2"
+                        className="w-8 h-8 text-[var(--text-muted)] mb-3"
                       >
                         <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
                         <polyline points="17 8 12 3 7 8" />
                         <line x1="12" y1="3" x2="12" y2="15" />
                       </svg>
-                      <p className="text-xs text-white text-center mb-1">
+
+                      <p className="text-sm font-semibold text-[var(--text-primary)] mb-1">
                         Arrastra tu archivo aquí
                       </p>
-                      <p className="text-xs text-white text-center">
-                        .xlsx o .csv · máx. 10 MB
+
+                      <p className="text-xs text-[var(--text-secondary)]">
+                        .xlsx o .csv · máximo 10 MB
                       </p>
+
                       <input
                         id={`file-${sec.id}`}
                         type="file"
@@ -264,30 +306,54 @@ export default function CargaDatosHorario() {
           })}
         </div>
 
-        {/* RESUMEN DE ESTADO */}
-        <div className=" border border-zinc-800 rounded-lg p-5 mb-8">
-          <p className="text-xs font-bold uppercase tracking-widest text-zinc-500 mb-4">
-            Estado de la carga
+        {/* STATUS */}
+        <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] p-5 mb-8">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--text-secondary)] mb-4">
+            Estado de carga
           </p>
-          <div className="grid grid-cols-3 gap-4">
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {SECCIONES.map((sec) => {
               const cargado = !!archivos[sec.id];
+
               return (
                 <div
                   key={sec.id}
-                  className={`rounded border px-4 py-3 flex items-center gap-3 transition-all ${
-                    cargado
-                      ? "border-green-800 bg-green-950/30"
-                      : "border-zinc-800 bg-zinc-900"
-                  }`}
+                  className={`
+                    rounded-xl
+                    border
+                    px-4
+                    py-3
+                    flex
+                    items-center
+                    gap-3
+                    ${
+                      cargado
+                        ? "border-emerald-400/30 bg-emerald-100 dark:bg-emerald-950/20"
+                        : "border-[var(--border-subtle)] bg-[var(--bg-secondary)]"
+                    }
+                  `}
                 >
                   <div
-                    className={`w-2.5 h-2.5 rounded-full shrink-0 ${cargado ? "bg-green-400" : "bg-zinc-700"}`}
+                    className={`
+                      w-2.5
+                      h-2.5
+                      rounded-full
+                      ${
+                        cargado
+                          ? "bg-emerald-500"
+                          : "bg-[var(--text-muted)]"
+                      }
+                    `}
                   />
+
                   <div>
-                    <p className="text-sm font-bold text-white">{sec.titulo}</p>
-                    <p className="text-xs text-zinc-500">
-                      {cargado ? archivos[sec.id].name : "Sin archivo"}
+                    <p className="text-sm font-bold">{sec.titulo}</p>
+
+                    <p className="text-xs text-[var(--text-secondary)]">
+                      {cargado
+                        ? archivos[sec.id].name
+                        : "Sin archivo seleccionado"}
                     </p>
                   </div>
                 </div>
@@ -295,64 +361,85 @@ export default function CargaDatosHorario() {
             })}
           </div>
         </div>
+
+        {/* FEEDBACK */}
         {feedback && (
           <div
-            className={`flex items-start gap-3 rounded border px-4 py-3 mb-6 text-sm ${
-              feedback.tipo === "error"
-                ? "bg-red-950/30 border-red-800 text-red-400"
-                : "bg-green-950/30 border-green-800 text-green-400"
-            }`}
+            className={`
+              mb-6
+              rounded-xl
+              border
+              px-5
+              py-4
+              text-sm
+              ${
+                feedback.tipo === "error"
+                  ? "border-red-500/30 bg-red-500/10 text-red-400"
+                  : "border-emerald-500/30 bg-emerald-500/10 text-emerald-400"
+              }
+            `}
           >
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={1.5}
-              className="w-5 h-5 shrink-0 mt-0.5"
-            >
-              {feedback.tipo === "error" ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              )}
-            </svg>
-            <div>
-              <p className="font-bold mb-0.5">
-                {feedback.tipo === "error"
-                  ? "Error al subir los archivos"
-                  : "Archivos enviados correctamente"}
-              </p>
-              <p className="text-xs opacity-80">{feedback.mensaje}</p>
-            </div>
+            <p className="font-bold mb-1">
+              {feedback.tipo === "error"
+                ? "Error al subir archivos"
+                : "Archivos enviados correctamente"}
+            </p>
+
+            <p className="opacity-80">{feedback.mensaje}</p>
           </div>
         )}
 
-        {/* ACCIONES */}
+        {/* ACTIONS */}
         <div className="flex items-center justify-between">
           <button
-            onClick={() => setArchivos({ materias: null, aulas: null })}
-            className="text-sm text-zinc-500 hover:text-white border border-zinc-800 hover:border-zinc-600 px-5 py-2.5 rounded transition-all uppercase tracking-wide font-bold"
+            onClick={() =>
+              setArchivos({
+                materias: null,
+                simulacion: null,
+              })
+            }
+            className="
+              px-5
+              py-3
+              rounded-xl
+              border
+              border-[var(--border-subtle)]
+              text-sm
+              font-bold
+              uppercase
+              tracking-wide
+              text-[var(--text-secondary)]
+              hover:text-[var(--text-primary)]
+              hover:border-[var(--border-medium)]
+              transition-all
+            "
           >
             Limpiar todo
           </button>
+
           <button
             disabled={!todosListos}
             onClick={enviarArchivos}
-            className={`text-sm font-black uppercase tracking-widest px-8 py-2.5 rounded transition-all ${
-              todosListos
-                ? "bg-red-600 hover:bg-red-500 text-white cursor-pointer"
-                : "bg-zinc-800 text-zinc-600 cursor-not-allowed"
-            }`}
+            className={`
+              px-8
+              py-3
+              rounded-xl
+              text-sm
+              font-black
+              uppercase
+              tracking-[0.15em]
+              transition-all
+              border
+              ${
+                todosListos
+                  ? "bg-[var(--accent-red)] text-white border-red-700 hover:brightness-110 hover:border-yellow-500/60 shadow-lg shadow-red-950/20"
+                  : "bg-[var(--bg-secondary)] border-[var(--border-subtle)] text-[var(--text-muted)] cursor-not-allowed"
+              }
+            `}
           >
-            {todosListos ? "CARGAR ARCHIVOS →" : "Faltan archivos"}
+            {todosListos
+              ? "Continuar a validación →"
+              : "Faltan archivos"}
           </button>
         </div>
       </main>

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { loginUser } from "../services/AuthService";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/Auth";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -7,21 +9,24 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [focused, setFocused] = useState(null);
+  const [error, setError] = useState(null);
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
     loginUser(email, password)
-      .then(() => {
-        setLoading(false);
-        window.location.href = "/dashboard";
+      .then((data) => {
+        login(data); // <- contexto actualiza user
+        navigate("/planeacion"); // <- sin recargar la app
       })
-      .catch((error) => {
-        setLoading(false);
-        console.error("Error al iniciar sesión:", error);
-      });
+      .catch((err) => {
+        setError(err.message);
+      })
+      .finally(() => setLoading(false));
   };
-
   return (
     <div
       className="bg-black flex overflow-hidden relative "

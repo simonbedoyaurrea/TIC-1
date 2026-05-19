@@ -22,64 +22,84 @@ export default function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
 
-        <Route path="/planeacion" element={<PlaneacionHome />} />
         <Route
-          path="/planeacion/carga/simulador"
-          element={<CargaDatosSimulador />}
+          path="/planeacion"
+          element={
+            <ProtectedRoute rolesPermitidos={["ADMINISTRATIVO"]}>
+              <PlaneacionHome />
+            </ProtectedRoute>
+          }
         />
+
         <Route
           path="/alertas/nueva"
           element={
-            // <ProtectedRoute rolesPermitidos={["ESTUDIANTE", "DOCENTE"]}>
-            <AlertForm />
-            // </ProtectedRoute>
+            <ProtectedRoute
+              rolesPermitidos={["ESTUDIANTE", "DOCENTE", "ADMINISTRATIVO"]}
+            >
+              <AlertForm />
+            </ProtectedRoute>
           }
         />
         <Route
           path="/alertas"
           element={
-            // <ProtectedRoute rolesPermitidos={["ADMINISTRATIVO"]}>
-            <ReportesDashboard />
-            // </ProtectedRoute>
+            <ProtectedRoute rolesPermitidos={["ADMINISTRATIVO"]}>
+              <ReportesDashboard />
+            </ProtectedRoute>
           }
         />
 
-        {/* <Route
+        <Route
           path="/"
           element={
             <ProtectedRoute rolesPermitidos={["ESTUDIANTE", "DOCENTE"]}>
               <Home />
             </ProtectedRoute>
           }
-        /> */}
+        />
+        <Route
+          path="/planeacion"
+          element={
+            <ProtectedRoute rolesPermitidos={["ADMINISTRATIVO"]}>
+              <PlaneacionHome />
+            </ProtectedRoute>
+          }
+        />
+
         <Route path="/" element={<Home />} />
-        {/* <Route
+        <Route
           path="/planeacion/carga/optimizador"
           element={
             <ProtectedRoute rolesPermitidos={["ADMINISTRATIVO"]}>
               <CargaDatosHorario />
             </ProtectedRoute>
           }
-        /> */}
-
-        <Route
-          path="/planeacion/carga/optimizador"
-          element={<CargaDatosHorario />}
         />
-
-        <Route path="/planeacion/simulador" element={<SimuladorHorario />} />
-
-        {/* <Route
+        <Route
           path="/planeacion/optimizador"
           element={
             <ProtectedRoute rolesPermitidos={["ADMINISTRATIVO"]}>
               <OptimizadorCalendario />
             </ProtectedRoute>
           }
-        /> */}
+        />
+
         <Route
-          path="/planeacion/optimizador"
-          element={<OptimizadorCalendario />}
+          path="/planeacion/simulador"
+          element={
+            <ProtectedRoute rolesPermitidos={["ADMINISTRATIVO"]}>
+              <SimuladorHorario />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/planeacion/carga/simulador"
+          element={
+            <ProtectedRoute rolesPermitidos={["ADMINISTRATIVO"]}>
+              <CargaDatosHorario />
+            </ProtectedRoute>
+          }
         />
 
         <Route path="/bloque/:idBloque" element={<Bloque />} />

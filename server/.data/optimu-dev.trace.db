@@ -8,3 +8,7 @@ org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SEL
 Syntax error in SQL statement "SELECT * FROM horarios_simulacion \000d\000aWHERE room_code =[*]= MELB07-612"; expected "ALL (, ANY (, SOME ("; SQL statement:
 SELECT * FROM horarios_simulacion 
 WHERE room_code == MELB07-612 [42001-240]
+2026-05-18 18:11:22.385961-05:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * FROM horarios_simulacion where crn =[*]= 25000"; se esperaba "ALL (, ANY (, SOME ("
+Syntax error in SQL statement "SELECT * FROM horarios_simulacion where crn =[*]= 25000"; expected "ALL (, ANY (, SOME ("; SQL statement:
+SELECT * FROM horarios_simulacion where crn == 25000 [42001-240]

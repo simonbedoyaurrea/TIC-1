@@ -37,7 +37,7 @@ function RmSelect({ className = "", children, ...props }) {
 
 function RmLabel({ children }) {
   return (
-    <label className="block text-[9px] tracking-widest text-slate-600 mb-1 uppercase">
+    <label className="block text-[9px] tracking-widest text-white mb-1 uppercase">
       {children}
     </label>
   );
@@ -258,7 +258,7 @@ export default function ModalNuevaMateria({ onClose, onSave, initialData }) {
                         ${
                           active
                             ? "bg-yellow-400/15 border-yellow-400/50 text-yellow-400"
-                            : "bg-transparent border-slate-800 text-slate-600 hover:border-slate-700 hover:text-slate-400"
+                            : "bg-transparent border-slate-800 text-white/80 hover:border-slate-700 hover:text-slate-400"
                         }`}
                     >
                       {d.label}
@@ -307,7 +307,7 @@ export default function ModalNuevaMateria({ onClose, onSave, initialData }) {
                 >
                   {/* Docente ID row */}
                   <div className="flex items-center gap-2 mb-3">
-                    <span className="text-[10px] text-slate-600 shrink-0">
+                    <span className="text-[10px] text-white shrink-0">
                       ID Docente
                     </span>
                     <RmInput
@@ -326,7 +326,7 @@ export default function ModalNuevaMateria({ onClose, onSave, initialData }) {
                     )}
                   </div>
 
-                  <p className="text-[9px] tracking-[0.08em] text-slate-700 mb-2">
+                  <p className="text-[9px] tracking-[0.08em] text-yellow-600 mb-2">
                     FRANJAS HORARIAS · [día, inicio, fin]
                   </p>
 
@@ -401,7 +401,7 @@ export default function ModalNuevaMateria({ onClose, onSave, initialData }) {
 
                   <button
                     onClick={() => addFranja(di)}
-                    className="mt-2 flex items-center gap-1.5 text-[10px] text-slate-600 hover:text-slate-400 border border-slate-800 hover:border-slate-700 rounded-md px-2.5 py-1 cursor-pointer transition-all bg-transparent"
+                    className="mt-2 flex items-center gap-1.5 text-[10px] text-yellow-500 hover:text-slate-400 border border-slate-800 hover:border-slate-700 rounded-md px-2.5 py-1 cursor-pointer transition-all bg-transparent"
                   >
                     <span className="text-sm leading-none">+</span>
                     Agregar franja
@@ -412,7 +412,7 @@ export default function ModalNuevaMateria({ onClose, onSave, initialData }) {
 
             <button
               onClick={addDocente}
-              className="mt-2 w-full flex items-center justify-center gap-1.5 text-[10px] text-slate-600 hover:text-slate-400 border border-slate-800 hover:border-slate-700 rounded-lg py-2 cursor-pointer transition-all bg-transparent"
+              className="mt-2 w-full flex items-center justify-center gap-1.5 text-[10px] text-slate-300 hover:text-white border border-slate-800 hover:border-slate-700 rounded-lg py-2 cursor-pointer transition-all bg-transparent"
             >
               <span className="text-sm leading-none">+</span>
               Agregar otro docente

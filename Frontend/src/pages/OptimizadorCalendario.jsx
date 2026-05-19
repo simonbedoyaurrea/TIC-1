@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import Navbar from "../components/NavBar";
 import ModalNuevaMateria from "../components/ModalNuevaMateria";
 import apiClient from "../apis/apiClient";
+import Fuse from "fuse.js";
+import { useMemo } from "react";
 import {
   agregarHorarioService,
   BuscarHorariosService,
@@ -61,6 +63,21 @@ export default function OptimizadorCalendario() {
   // Duración de la franja seleccionada en horas (1/2/3)
   const [duration, setDuration] = useState(2);
   // Identificador de opción de sala seleccionada
+
+  const fuse = useMemo(
+    () =>
+      new Fuse(materias, {
+        keys: ["nombre", "subjectCourseCode", "crn"],
+        threshold: 0.3, // 0 = exacto, 1 = cualquier cosa
+        minMatchCharLength: 2,
+      }),
+    [materias],
+  );
+
+  const materiasFiltradas = useMemo(() => {
+    if (!search.trim()) return materias;
+    return fuse.search(search).map((r) => r.item);
+  }, [search, fuse, materias]);
 
   const RESTRICCIONES_PREVIEW = {
     Materia: restricciones.materia.id,
@@ -323,7 +340,7 @@ export default function OptimizadorCalendario() {
 
           {/*  lista materias */}
           <div className="flex-1 overflow-y-auto scrollbar scrollbar-thumb-red-600 scrollbar-w-[5px] px-2 py-2">
-            {materias.map((m) => {
+            {materiasFiltradas.map((m) => {
               const active = selectedSubject?.id === m.id;
 
               return (
@@ -502,42 +519,42 @@ export default function OptimizadorCalendario() {
                   className={`w-full rounded-2xl border mb-1 p-[9px] text-left transition-all
         ${
           active
-            ? "bg-yellow-500/20 border-yellow-400/40"
-            : "bg-transparent border-transparent hover:bg-[#12121f] hover:border-slate-800"
+            ? "bg-yellow-500 border-yellow-600"
+            : "bg-transparent border border-yellow-400 hover:bg-yellow-500/20 hover:border-slate-800"
         }`}
                 >
                   {/* Header */}
                   <div className="flex justify-between items-start">
                     <span
                       className={`text-[13px] font-bold ${
-                        active ? "text-yellow-400" : "text-slate-400"
+                        active ? "text-black" : "text-gray-800"
                       }`}
                     >
                       {r.salon}
                     </span>
 
-                    <span className="text-[9px] bg-yellow-500/10 text-yellow-400 rounded px-[5px] py-[1px] ml-1 flex-shrink-0">
+                    <span className="text-[9px] bg-mauve-700 text-white rounded px-[5px] py-[1px] ml-1 flex-shrink-0">
                       {getRoomType(r)}
                     </span>
                   </div>
 
                   {/* Materia */}
-                  <div className="text-[11px] text-slate-500 mt-[2px]">
+                  <div className="text-[11px] text-black mt-[2px]">
                     {r.materia}
                   </div>
 
                   {/* Días */}
-                  <div className="text-[10px] text-slate-600 mt-[3px]">
+                  <div className="text-[10px] text-black mt-[3px]">
                     {r.dias_nombre.join(" / ")}
                   </div>
 
                   {/* Horario */}
-                  <div className="text-[10px] text-slate-500">
+                  <div className="text-[10px] text-black">
                     {formatHora(r.hora_inicio)} - {formatHora(r.hora_fin)}
                   </div>
 
                   {active && (
-                    <div className="mt-[5px] text-[10px] text-yellow-400">
+                    <div className="mt-[5px] text-[10px] font-bold text-amber-900">
                       ✓ Seleccionado
                     </div>
                   )}

@@ -28,7 +28,7 @@ export default function HeroSectionHome() {
   return (
     <section
       id="inicio"
-      className="min-h-screen w-full flex items-center justify-center relative overflow-hidden pt-20"
+      className="min-h-screen font-bebas w-full flex items-center justify-center relative overflow-hidden pt-20"
     >
       {/* Animated Background Gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-dark-bg via-[#0a1128] to-dark-bg opacity-60" />

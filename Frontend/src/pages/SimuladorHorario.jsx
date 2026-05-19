@@ -154,7 +154,7 @@ export default function SimuladorHorario({ archivosListos = false }) {
       } catch (err) {
         agregarLog(`Error de red: ${err.message}`, "error");
       }
-    }, 1000 * 4);
+    }, 1000 * 60);
   }, []);
 
   // ── Iniciar simulación (cuando el jobId ya existe en localStorage) ──

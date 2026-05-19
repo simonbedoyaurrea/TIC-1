@@ -2,6 +2,8 @@ import { useState } from "react";
 import { enviarReporte } from "../services/ReporteService";
 import { Notebook, PenTool, ShieldUser } from "lucide-react";
 
+import { useTheme } from "../context/ThemeContext";
+
 // ---── Bloques UPB ──────────────────────────────────────────────
 const BLOQUES = [
   {
@@ -19,7 +21,7 @@ const BLOQUES = [
   { num: 7, nombre: "Ciencias Sociales" },
   {
     num: 8,
-    nombre: "Centro de Producción Audiovisual CPA / Talleres y Laboratorios",
+    nombre: "Centro de Production Audiovisual CPA / Talleres y Laboratorios",
   },
   { num: 9, nombre: "Postgrados" },
   {
@@ -40,7 +42,7 @@ const BLOQUES = [
   { num: 24, nombre: "Puestos de Estudio · Asesoría Integral" },
   { num: 50, nombre: "Centro de Familia · Carrera 73 No. C2-46" },
   { num: 51, nombre: "Casa de Institutos · Circular 1ª No. 73-30" },
-  { num: 52, nombre: "Circular 1ª No. 73-74 · Conciliación y Arbitraje" },
+  { num: 52, merge: "Circular 1ª No. 73-74 · Conciliación y Arbitraje" },
   { num: 53, nombre: "Casa de Transferencia · Circular 1ª No. 73-74" },
   { num: 54, nombre: "Casa Bioingeniería · Circular 1ª No. 73-80" },
   { num: 55, nombre: "Casa GIA · Grupo de Investigaciones Ambientales" },
@@ -142,7 +144,7 @@ const ROLES = [
 // ── Helpers ──────────────────────────────────────────────────
 const Field = ({ label, required, error, children }) => (
   <div className="flex flex-col gap-1.5">
-    <label className="text-[10px] font-black uppercase tracking-[0.18em] text-black">
+    <label className="text-[10px] font-black uppercase tracking-[0.18em] text-[var(--text-primary)]">
       {label} {required && <span className="text-red-600">*</span>}
     </label>
     {children}
@@ -169,6 +171,7 @@ export default function AlertForm() {
   const [loading, setLoading] = useState(false);
   const [serverError, setServerError] = useState("");
   const [dragging, setDragging] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   const set = (field, value) => {
     setForm((f) => ({ ...f, [field]: value }));
@@ -188,19 +191,6 @@ export default function AlertForm() {
     return e;
   };
 
-  const handleFiles = (incoming) => {
-    const arr = [...incoming].filter(
-      (f) => !form.files.find((x) => x.name === f.name),
-    );
-    set("files", [...form.files, ...arr]);
-  };
-
-  const removeFile = (i) =>
-    set(
-      "files",
-      form.files.filter((_, idx) => idx !== i),
-    );
-
   const handleSubmit = async () => {
     const errs = validate();
     if (Object.keys(errs).length) {
@@ -211,7 +201,6 @@ export default function AlertForm() {
     setServerError("");
     setLoading(true);
 
-    // Map frontend values to backend DTO/enums
     const rolMap = {
       Estudiante: "ESTUDIANTE",
       Docente: "DOCENTE",
@@ -238,7 +227,7 @@ export default function AlertForm() {
       console.error("Error al enviar reporte:", err);
       setServerError(err.message || "Error al enviar reporte");
     } finally {
-      setLoading(false);
+      loading(false);
     }
   };
 
@@ -266,15 +255,15 @@ export default function AlertForm() {
     const bloqueInfo = BLOQUES.find((b) => b.num === Number(form.bloque));
     return (
       <div
-        className="min-h-screen flex items-center justify-center p-6 bg-black"
+        className="min-h-screen flex items-center justify-center p-6 bg-[var(--bg-primary)]"
         style={{
           backgroundImage: `url("https://www.transparenttextures.com/patterns/dark-mosaic.png")`,
         }}
       >
-        <div className="bg-white border-4 border-yellow-400 max-w-md w-full p-8 text-center shadow-[8px_8px_0px_#facc15]">
+        <div className="bg-[var(--bg-card)] border-4 border-yellow-400 max-w-md w-full p-8 text-center shadow-[8px_8px_0px_#facc15]">
           <div className="w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center mx-auto mb-5">
             <svg
-              className="w-8 h-8 text-black"
+              className="w-8 h-8 text-[var(--text-primary)]"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -290,11 +279,11 @@ export default function AlertForm() {
           <p className="text-yellow-500 text-[10px] font-black uppercase tracking-[0.25em] mb-1">
             Reporte registrado
           </p>
-          <h2 className="text-2xl font-black text-black uppercase tracking-widest mb-5">
+          <h2 className="text-2xl font-black text-[var(--text-primary)] uppercase tracking-widest mb-5">
             ¡Enviado!
           </h2>
 
-          <div className="text-left border-2 border-black divide-y-2 divide-black mb-6">
+          <div className="text-left border-2 border-[var(--border-subtle)] divide-y-2 divide-black mb-6">
             {[
               ["Rol", form.rol],
               ["Bloque", `Bloque ${form.bloque} · ${bloqueInfo?.nombre}`],
@@ -303,21 +292,21 @@ export default function AlertForm() {
               ["Urgencia", urg?.label],
             ].map(([k, v]) => (
               <div key={k} className="flex gap-3 px-3 py-2">
-                <span className="text-[10px] font-black uppercase tracking-widest text-gray-400 w-20 shrink-0 pt-0.5">
+                <span className="text-[10px] font-black uppercase tracking-widest text-[var(--text-secondary)] w-20 shrink-0 pt-0.5">
                   {k}
                 </span>
-                <span className="text-sm font-bold text-black">{v}</span>
+                <span className="text-sm font-bold text-[var(--text-primary)]">{v}</span>
               </div>
             ))}
           </div>
 
-          <p className="text-gray-500 text-xs mb-6">
+          <p className="text-[var(--text-secondary)] text-xs mb-6">
             El equipo de mantenimiento fue notificado. Tiempo de respuesta:
             24-72 h hábiles.
           </p>
           <button
             onClick={reset}
-            className="bg-red-600 text-white font-black uppercase tracking-widest px-8 py-3 border-2 border-black hover:bg-yellow-400 hover:text-black transition-colors cursor-pointer"
+            className="bg-red-600 text-[var(--text-primary)] font-black uppercase tracking-widest px-8 py-3 border-2 border-[var(--border-subtle)] hover:bg-yellow-400 hover:text-[var(--text-primary)] transition-colors cursor-pointer"
           >
             Nuevo Reporte
           </button>
@@ -329,32 +318,73 @@ export default function AlertForm() {
   // ── Form ───────────────────────────────────────────────────
   return (
     <div
-      className="min-h-screen bg-black py-10 px-4"
+      className="min-h-screen bg-[var(--bg-primary)] py-10 px-4"
       style={{
         backgroundImage: `url("https://www.transparenttextures.com/patterns/dark-mosaic.png")`,
       }}
     >
-      {/* Header */}
-      <div className="max-w-2xl mx-auto mb-7">
+      {/* Botón de Cambiar Tema alineado arriba */}
+      <div className="max-w-2xl mx-auto flex justify-end mb-3">
+        <button
+          onClick={toggleTheme}
+          title={
+            theme === "dark"
+              ? "Cambiar a modo claro"
+              : "Cambiar a modo oscuro"
+          }
+          className="
+            w-10
+            h-10
+            flex
+            items-center
+            justify-center
+            rounded-lg
+            border
+            border-[var(--border-subtle)]
+            bg-[var(--bg-card)]
+            text-[var(--text-primary)]
+            hover:border-[var(--accent-yellow)]
+            hover:-translate-y-[1px]
+            transition-all
+            duration-200
+            cursor-pointer
+          "
+        >
+          {theme === "dark" ? "☀️" : "🌙"}
+        </button>
+      </div>
+
+      {/* Mini Contenedor del Header */}
+      <div className="max-w-2xl mx-auto mb-7 bg-[var(--bg-card)] border-2 border-[var(--border-subtle)] p-5 shadow-[4px_4px_0px_rgba(0,0,0,0.05)]">
         <div className="flex items-center gap-3 mb-1">
           <div className="w-2 h-12 bg-red-600 shrink-0" />
           <div>
-            <p className="text-yellow-400 text-[10px] font-black uppercase tracking-[0.3em]">
-              UPB · Gestión de Espacios
-            </p>
-            <h1 className="text-white text-3xl font-black uppercase leading-none tracking-tight">
+            <p 
+  className="text-yellow-400 text-[12px] font-black uppercase tracking-[0.3em]"
+  style={{
+    textShadow: `
+      1px 1px 0px #000, 
+     -1px 1px 0px #000, 
+      1px -1px 0px #000, 
+     -1px -1px 0px #000
+    `
+  }}
+>
+  UPB · Gestión de Espacios
+</p>
+            <h1 className="text-[var(--text-primary)] text-3xl font-black uppercase leading-none tracking-tight">
               Reporte de Daños
             </h1>
           </div>
         </div>
-        <p className="text-gray-500 text-sm mt-2 pl-5">
+        <p className="text-[var(--text-secondary)] text-sm mt-2 pl-5">
           Completa el formulario y el equipo de mantenimiento recibirá la
           notificación de inmediato.
         </p>
       </div>
 
-      {/* Card */}
-      <div className="max-w-2xl mx-auto bg-white border-4 border-red-600 shadow-[6px_6px_0px_#facc15]">
+      {/* Card Principal del Formulario */}
+      <div className="max-w-2xl mx-auto bg-[var(--bg-card)] border-4 border-red-600 shadow-[6px_6px_0px_#facc15]">
         <div className="h-2 bg-red-600 w-full" />
 
         <div className="p-6 space-y-6">
@@ -369,8 +399,8 @@ export default function AlertForm() {
                   className={`flex flex-col items-center gap-1.5 py-3 border-2 font-black text-xs uppercase tracking-wider transition-all cursor-pointer
                     ${
                       form.rol === r.key
-                        ? "bg-black text-yellow-400 border-black scale-[1.02] shadow-[3px_3px_0px_#facc15]"
-                        : "bg-white text-gray-500 border-gray-300 hover:border-black hover:text-black"
+                        ? "bg-[var(--bg-primary)] text-yellow-500 dark:text-yellow-400 border-[var(--border-subtle)] scale-[1.02] shadow-[3px_3px_0px_#facc15]"
+                        : "bg-[var(--bg-card)] text-[var(--text-secondary)] border-gray-300 hover:border-[var(--border-subtle)] hover:text-[var(--text-primary)]"
                     }`}
                 >
                   <span className="text-xl">{r.icon}</span>
@@ -381,8 +411,8 @@ export default function AlertForm() {
           </Field>
 
           {/* ② UBICACIÓN */}
-          <div className="border-2 border-gray-100 p-4 space-y-4">
-            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-gray-400">
+          <div className="border-2 border-[var(--border-subtle)] p-4 space-y-4">
+            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[var(--text-secondary)]">
               Ubicación
             </p>
 
@@ -391,7 +421,7 @@ export default function AlertForm() {
               <select
                 value={form.bloque}
                 onChange={(e) => set("bloque", e.target.value)}
-                className={`w-full border-2 px-3 py-2 text-sm bg-gray-50 focus:outline-none focus:border-red-600 cursor-pointer appearance-none ${errors.bloque ? "border-red-600 bg-red-50" : "border-black"}`}
+                className={`w-full border-2 px-3 py-2 text-sm bg-[var(--bg-tertiary)] focus:outline-none focus:border-red-600 cursor-pointer appearance-none ${errors.bloque ? "border-red-600 bg-red-50" : "border-[var(--border-subtle)]"}`}
                 style={{
                   backgroundImage:
                     "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23000' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E\")",
@@ -416,7 +446,7 @@ export default function AlertForm() {
                   placeholder="Ej: 301, Lab. 2, Baños"
                   value={form.salon}
                   onChange={(e) => set("salon", e.target.value)}
-                  className={`border-2 px-3 py-2 text-sm bg-gray-50 focus:outline-none focus:border-red-600 font-mono ${errors.salon ? "border-red-600 bg-red-50" : "border-black"}`}
+                  className={`border-2 px-3 py-2 text-sm bg-[var(--bg-tertiary)] focus:outline-none focus:border-red-600 font-mono ${errors.salon ? "border-red-600 bg-red-50" : "border-[var(--border-subtle)]"}`}
                 />
               </Field>
               <Field label="Piso">
@@ -425,7 +455,7 @@ export default function AlertForm() {
                   placeholder="Ej: 1, 2, Sótano"
                   value={form.piso || ""}
                   onChange={(e) => set("piso", e.target.value)}
-                  className="border-2 border-black px-3 py-2 text-sm bg-gray-50 focus:outline-none focus:border-red-600 font-mono"
+                  className="border-2 border-[var(--border-subtle)] px-3 py-2 text-sm bg-[var(--bg-tertiary)] focus:outline-none focus:border-red-600 font-mono"
                 />
               </Field>
             </div>
@@ -434,12 +464,12 @@ export default function AlertForm() {
             <label className="flex items-center gap-3 cursor-pointer group">
               <div
                 onClick={() => set("inhabilitado", !form.inhabilitado)}
-                className={`w-5 h-5 border-2 border-black flex items-center justify-center shrink-0 transition-colors cursor-pointer
-                  ${form.inhabilitado ? "bg-red-600 border-red-600" : "bg-white group-hover:border-red-400"}`}
+                className={`w-5 h-5 border-2 border-[var(--border-subtle)] flex items-center justify-center shrink-0 transition-colors cursor-pointer
+                  ${form.inhabilitado ? "bg-red-600 border-red-600" : "bg-[var(--bg-card)] group-hover:border-red-400"}`}
               >
                 {form.inhabilitado && (
                   <svg
-                    className="w-3 h-3 text-white"
+                    className="w-3 h-3 text-[var(--text-primary)]"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -453,7 +483,7 @@ export default function AlertForm() {
                   </svg>
                 )}
               </div>
-              <span className="text-xs font-bold text-gray-600">
+              <span className="text-xs font-bold text-[var(--text-muted)]">
                 El espacio está{" "}
                 <span className="text-red-600">inhabilitado</span> por este daño
               </span>
@@ -469,7 +499,7 @@ export default function AlertForm() {
                   set("categoria", e.target.value);
                   set("subcategoria", "");
                 }}
-                className={`w-full border-2 px-3 py-2 text-sm bg-gray-50 focus:outline-none focus:border-red-600 cursor-pointer appearance-none ${errors.categoria ? "border-red-600 bg-red-50" : "border-black"}`}
+                className={`w-full border-2 px-3 py-2 text-sm bg-[var(--bg-tertiary)] focus:outline-none focus:border-red-600 cursor-pointer appearance-none ${errors.categoria ? "border-red-600 bg-red-50" : "border-[var(--border-subtle)]"}`}
                 style={{
                   backgroundImage:
                     "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23000' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E\")",
@@ -495,7 +525,7 @@ export default function AlertForm() {
                 <select
                   value={form.subcategoria}
                   onChange={(e) => set("subcategoria", e.target.value)}
-                  className={`w-full border-2 px-3 py-2 text-sm bg-gray-50 focus:outline-none focus:border-red-600 cursor-pointer appearance-none ${errors.subcategoria ? "border-red-600 bg-red-50" : "border-black"}`}
+                  className={`w-full border-2 px-3 py-2 text-sm bg-[var(--bg-tertiary)] focus:outline-none focus:border-red-600 cursor-pointer appearance-none ${errors.subcategoria ? "border-red-600 bg-red-50" : "border-[var(--border-subtle)]"}`}
                   style={{
                     backgroundImage:
                       "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23000' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E\")",
@@ -523,7 +553,7 @@ export default function AlertForm() {
                 placeholder="Describe con detalle: qué falló, desde cuándo, si representa peligro..."
                 value={form.descripcion}
                 onChange={(e) => set("descripcion", e.target.value)}
-                className={`border-2 px-3 py-2 text-sm bg-gray-50 focus:outline-none focus:border-red-600 resize-none ${errors.descripcion ? "border-red-600 bg-red-50" : "border-black"}`}
+                className={`border-2 px-3 py-2 text-sm bg-[var(--bg-tertiary)] focus:outline-none focus:border-red-600 resize-none ${errors.descripcion ? "border-red-600 bg-red-50" : "border-[var(--border-subtle)]"}`}
               />
             </Field>
           </div>
@@ -539,8 +569,8 @@ export default function AlertForm() {
                   className={`flex flex-col items-start gap-1 px-3 py-2.5 border-2 text-left transition-all cursor-pointer
                     ${
                       form.urgencia === u.key
-                        ? "bg-black border-black shadow-[3px_3px_0px_#facc15]"
-                        : "bg-white border-gray-300 hover:border-black"
+                        ? "bg-[var(--bg-primary)] border-[var(--border-subtle)] shadow-[3px_3px_0px_#facc15]"
+                        : "bg-[var(--bg-card)] border-gray-300 hover:border-[var(--border-subtle)]"
                     }`}
                 >
                   <div className="flex items-center gap-1.5">
@@ -549,20 +579,19 @@ export default function AlertForm() {
                       style={{ background: u.dot }}
                     />
                     <span
-                      className={`text-xs font-black uppercase tracking-wider ${form.urgencia === u.key ? "text-yellow-400" : "text-black"}`}
+                      className={`text-xs font-black uppercase tracking-wider ${form.urgencia === u.key ? "text-yellow-500 dark:text-yellow-400" : "text-[var(--text-primary)]"}`}
                     >
                       {u.label}
                     </span>
                   </div>
-                  <span
-                    className={`text-[10px] leading-tight ${form.urgencia === u.key ? "text-gray-400" : "text-gray-400"}`}
-                  >
+                  <span className="text-[10px] leading-tight text-[var(--text-secondary)]">
                     {u.desc}
                   </span>
                 </button>
               ))}
             </div>
           </Field>
+
           {/* ⑥ CONTACTO */}
           <Field label="Correo de contacto">
             <div className="relative">
@@ -571,13 +600,13 @@ export default function AlertForm() {
                 placeholder="tu@upb.edu.co (opcional)"
                 value={form.contacto}
                 onChange={(e) => set("contacto", e.target.value)}
-                className="w-full border-2 border-black px-3 py-2 text-sm bg-gray-50 focus:outline-none focus:border-red-600"
+                className="w-full border-2 border-[var(--border-subtle)] px-3 py-2 text-sm bg-[var(--bg-tertiary)] focus:outline-none focus:border-red-600"
               />
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-gray-400 font-bold">
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-[var(--text-secondary)] font-bold">
                 OPCIONAL
               </span>
             </div>
-            <p className="text-[10px] text-gray-400">
+            <p className="text-[10px] text-[var(--text-secondary)]">
               Si lo ingresas, te notificaremos cuando el reporte sea atendido.
             </p>
           </Field>
@@ -588,7 +617,7 @@ export default function AlertForm() {
               type="date"
               value={form.fecha}
               onChange={(e) => set("fecha", e.target.value)}
-              className="border-2 border-black px-3 py-2 text-sm font-mono bg-gray-50 focus:outline-none focus:border-red-600 w-full"
+              className="border-2 border-[var(--border-subtle)] px-3 py-2 text-sm font-mono bg-[var(--bg-tertiary)] focus:outline-none focus:border-red-600 w-full"
             />
           </Field>
 
@@ -596,7 +625,7 @@ export default function AlertForm() {
           <button
             type="button"
             onClick={handleSubmit}
-            className="w-full bg-red-600 text-white font-black text-sm uppercase tracking-widest py-4 border-2 border-black hover:bg-yellow-400 hover:text-black transition-colors shadow-[4px_4px_0px_#000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none cursor-pointer"
+            className="w-full bg-red-600 text-[var(--text-primary)] font-black text-sm uppercase tracking-widest py-4 border-2 border-[var(--border-subtle)] hover:bg-yellow-400 hover:text-[var(--text-primary)] transition-colors shadow-[4px_4px_0px_#000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none cursor-pointer"
           >
             Enviar Reporte de Daño →
           </button>

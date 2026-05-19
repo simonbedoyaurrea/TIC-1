@@ -1,75 +1,247 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { useTheme } from "../context/ThemeContext";
+
+function ThemeToggle({ scrolled }) {
+  const { theme, toggleTheme } = useTheme();
+
+  return (
+    <button
+      onClick={toggleTheme}
+      aria-label="Cambiar tema"
+      title={
+        theme === "dark"
+          ? "Cambiar a modo claro"
+          : "Cambiar a modo oscuro"
+      }
+      className={`
+        relative
+        w-9
+        h-9
+        overflow-hidden
+        border-2
+        flex
+        items-center
+        justify-center
+        transition-all
+        duration-300
+        ${
+          scrolled
+            ? "border-[var(--accent-yellow)] bg-[var(--accent-yellow-dim)]"
+            : "border-black/60 bg-black/20"
+        }
+      `}
+    >
+      {/* Sol */}
+      <span
+        className={`
+          absolute
+          text-sm
+          transition-transform
+          duration-300
+          ${
+            theme === "dark"
+              ? "translate-y-0"
+              : "-translate-y-8"
+          }
+        `}
+      >
+        ☀️
+      </span>
+
+      {/* Luna */}
+      <span
+        className={`
+          absolute
+          text-sm
+          transition-transform
+          duration-300
+          ${
+            theme === "dark"
+              ? "translate-y-8"
+              : "translate-y-0"
+          }
+        `}
+      >
+        🌙
+      </span>
+    </button>
+  );
+}
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 40);
+    };
+
     window.addEventListener("scroll", onScroll);
+
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
-    <motion.nav
-      className=" top-0 left-0 right-0 z-50 glassmorphism border-b border-neon-cyan/20 backdrop-blur-md "
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+    <nav
+      className={`
+        fixed
+        top-0
+        left-0
+        right-0
+        z-50
+        border-b-4
+        transition-all
+        duration-300
+        ${
+          scrolled
+            ? "bg-[var(--nav-scrolled)] border-[var(--nav-border)] py-2"
+            : "bg-[var(--nav-bg)] border-black py-4"
+        }
+      `}
     >
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        {/* Logo / Brand */}
-        <motion.div
-          whileHover={{ scale: 1.05 }}
-          className="flex items-center gap-3 cursor-pointer group"
+      <div className="max-w-5xl mx-auto px-4 flex items-center justify-between">
+        {/* ───────── LOGO ───────── */}
+        <Link
+          to="/"
+          className="flex items-center gap-2 select-none group"
         >
-          <motion.div
-            className="relative w-10 h-10 flex items-center justify-center font-orbitron font-black text-lg text-neon-cyan"
-            whileHover={{
-              boxShadow: "0 0 20px rgba(0, 217, 255, 0.8)",
-            }}
+          {/* Icon */}
+          <div
+            className={`
+              w-8
+              h-8
+              flex
+              items-center
+              justify-center
+              font-black
+              text-sm
+              border-2
+              transition-all
+              duration-300
+              ${
+                scrolled
+                  ? "bg-[var(--accent-yellow)] border-[var(--accent-yellow)] text-black"
+                  : "bg-black border-black text-[var(--accent-yellow)]"
+              }
+            `}
           >
-            <div
-              className={`w-8 h-8 flex items-center justify-center font-black text-sm border-2 transition-all duration-300 bg-yellow-400 border-yellow-400 text-black group-hover:bg-white"            
-              `}
-            >
-              OU
-            </div>
-          </motion.div>
+            OU
+          </div>
 
           {/* Logo text */}
-          <div className="flex items-center gap-0">
-            <span className="font-orbitron font-black text-xl text-white tracking-widest group-hover:text-neon-cyan transition-colors">
-              OPTI
-            </span>
-            <span className="font-orbitron font-black text-xl text-neon-cyan tracking-widest">
+          <span
+            className={`
+              font-black
+              uppercase
+              tracking-widest
+              text-xl
+              transition-colors
+              duration-300
+              ${
+                scrolled
+                  ? "text-[var(--text-primary)]"
+                  : "text-white"
+              }
+            `}
+          >
+            Opti
+            <span
+              className={`
+                transition-colors
+                duration-300
+                ${
+                  scrolled
+                    ? "text-[var(--accent-yellow)]"
+                    : "text-black"
+                }
+              `}
+            >
               U
             </span>
-          </div>
-        </motion.div>
+          </span>
 
-        {/* Nav items (opcional para futuro) */}
-        <div className="hidden md:flex items-center gap-8"></div>
-
-        {/* CTA Button */}
-        <div className="flex items-center gap-3">
-          <motion.button
-            whileHover={{
-              scale: 1.05,
-            }}
-            whileTap={{ scale: 0.95 }}
-            asChild
+          {/* Beta */}
+          <span
+            className={`
+              hidden
+              sm:inline-block
+              text-[10px]
+              font-black
+              uppercase
+              tracking-widest
+              px-2
+              py-1
+              transition-all
+              duration-300
+              ${
+                scrolled
+                  ? "bg-[var(--accent-red)] text-white"
+                  : "bg-[var(--accent-yellow)] text-black"
+              }
+            `}
           >
-            <Link
-              to="/alertas/nueva"
-              className="px-6 py-2 rounded-lg  text-dark-bg font-orbitron font-bold text-xs tracking-widest uppercase cursor-pointer transition-all border border-amber-300 hover:shadow-lg"
-            >
-              Nuevo Reporte
-            </Link>
-          </motion.button>
+            Beta
+          </span>
+        </Link>
+
+        {/* ───────── ACTIONS ───────── */}
+        <div className="flex items-center gap-3">
+          {/* Guía */}
+          <Link
+            to="/optimizador/guia"
+            className="
+              hidden
+              md:inline-block
+              text-xs
+              font-black
+              uppercase
+              tracking-widest
+              px-4
+              py-2
+              border-2
+              transition-all
+              duration-300
+              border-[var(--border-medium)]
+              text-[var(--text-secondary)]
+              hover:border-[var(--accent-yellow)]
+              hover:text-[var(--accent-yellow)]
+            "
+          >
+            Guía
+          </Link>
+
+          {/* Nuevo reporte */}
+          <Link
+            to="/alertas/nueva"
+            className={`
+              text-xs
+              font-black
+              uppercase
+              tracking-widest
+              px-4
+              py-2
+              border-2
+              transition-all
+              duration-150
+              shadow-[3px_3px_0px]
+              active:translate-x-[3px]
+              active:translate-y-[3px]
+              active:shadow-none
+              ${
+                scrolled
+                  ? "bg-[var(--accent-red)] text-white border-[var(--accent-red)] shadow-[var(--accent-yellow)]"
+                  : "bg-[var(--accent-yellow)] text-black border-black shadow-black"
+              }
+            `}
+          >
+            Nuevo Reporte
+          </Link>
+
+          {/* Theme toggle */}
+          <ThemeToggle scrolled={scrolled} />
         </div>
       </div>
-    </motion.nav>
+    </nav>
   );
 }

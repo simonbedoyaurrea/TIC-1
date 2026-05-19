@@ -5,15 +5,65 @@
   nocompatible: true;
 }
 
-:root {
-  --neon-cyan: #00d9ff;
-  --neon-blue: #0099ff;
-  --neon-purple: #b300ff;
-  --neon-pink: #ff006e;
-  --neon-green: #39ff14;
-  --dark-bg: #050505;
-  --dark-card: #0a0a0a;
-  --dark-border: #1a1a1a;
+
+
+/* ── DARK MODE (default) ─────────────────────────────────── */
+:root,
+[data-theme="dark"] {
+  --bg-primary:     #000000;
+  --bg-secondary:   #0a0a0f;
+  --bg-tertiary:    #12121f;
+  --bg-card:        #0d0d1a;
+
+  --border-subtle:  #1e293b;
+  --border-medium:  #334155;
+
+  --text-primary:   #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-muted:     #475569;
+  --text-faint:     #334155;
+
+  --accent-red:     #ef4444;
+  --accent-red-dim: rgba(239, 68, 68, 0.15);
+  --accent-yellow:  #facc15;
+  --accent-yellow-dim: rgba(250, 204, 21, 0.12);
+
+  --nav-bg:         #dc2626;       /* red-600 when not scrolled */
+  --nav-scrolled:   #000000;
+  --nav-border:     #facc15;
+
+  --scrollbar-thumb: #dc2626;
+
+  color-scheme: dark;
+}
+
+/* ── LIGHT MODE ───────────────────────────────────────────── */
+[data-theme="light"] {
+  --bg-primary:     #f8f5f0;
+  --bg-secondary:   #f1ece4;
+  --bg-tertiary:    #ede7dc;
+  --bg-card:        #faf7f2;
+
+  --border-subtle:  #d6cec2;
+  --border-medium:  #b8ad9e;
+
+  --text-primary:   #1a1208;
+  --text-secondary: #4a3f30;
+  --text-muted:     #7a6d5e;
+  --text-faint:     #a89880;
+
+  --accent-red:     #cc1f1a;
+  --accent-red-dim: rgba(204, 31, 26, 0.1);
+  --accent-yellow:  #d97706;
+  --accent-yellow-dim: rgba(217, 119, 6, 0.12);
+
+  --nav-bg:         #cc1f1a;
+  --nav-scrolled:   #faf7f2;
+  --nav-border:     #d97706;
+
+  --scrollbar-thumb: #cc1f1a;
+
+  color-scheme: light;
 }
 
 html {
@@ -21,11 +71,15 @@ html {
 }
 
 body {
-  background-color: #050505;
-  color: #ffffff;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   font-family: "Inter", sans-serif;
-  overflow-x: hidden;
-  position: relative;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ── THEME TRANSITION ─────────────────────────────────────── */
+*, *::before, *::after {
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.2s ease;
 }
 
 /* Glassmorphism base */
@@ -60,7 +114,7 @@ body {
     0 0 40px rgba(255, 0, 110, 0.3);
 }
 
-/* Scrollbar styling */
+/* ── SCROLLBAR GLOBAL ─────────────────────────────────────── */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -92,3 +146,5 @@ select,
 textarea {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.6, 1);
 }
+
+/* LISTO */

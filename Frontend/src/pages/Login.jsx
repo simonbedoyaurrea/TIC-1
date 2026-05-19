@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { loginUser } from "../services/AuthService";
+import { useTheme } from "../context/ThemeContext";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -7,6 +8,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [focused, setFocused] = useState(null);
+  const { theme, toggleTheme } = useTheme();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -78,6 +80,7 @@ export default function Login() {
         }
 
         .left-panel {
+        
           width: 55%;
           position: relative;
           display: flex;
@@ -89,7 +92,7 @@ export default function Login() {
 
         .right-panel {
           width: 45%;
-          background: #ffffff;
+          background: var(--bg-card);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -133,21 +136,20 @@ export default function Login() {
         .input-field {
           width: 100%;
           padding: 14px 16px;
-          border: 1.5px solid #e5e7eb;
-          background: #f9fafb;
-          font-family: 'DM Mono', monospace;
+          border: 1.5px solid var(--border-subtle);
+          background: var(--bg-tertiary);          font-family: 'DM Mono', monospace;
           font-size: 14px;
-          color: #111;
+          color: var(--text-primary);
           outline: none;
           transition: all 0.2s;
         }
         .input-field:focus {
           border-color: #dc2626;
-          background: #fff;
+          background: var(--bg-secondary);
           box-shadow: 0 0 0 3px rgba(220,38,38,0.08);
         }
         .input-field::placeholder {
-          color: #9ca3af;
+          color: var(--text-muted);
         }
 
         .submit-btn {
@@ -190,7 +192,7 @@ export default function Login() {
           font-size: 10px;
           letter-spacing: 2px;
           text-transform: uppercase;
-          color: #6b7280;
+          color: var(--text-muted);
           margin-bottom: 8px;
           font-weight: 500;
         }
@@ -229,7 +231,7 @@ export default function Login() {
         .loading-dots span {
           display: inline-block;
           width: 6px; height: 6px;
-          background: #fff;
+          background: var(--bg-secondary);
           border-radius: 50%;
           margin: 0 2px;
           animation: blink 1s infinite;
@@ -438,6 +440,47 @@ export default function Login() {
       {/* RIGHT PANEL */}
       <div className="right-panel">
         <div style={{ width: "100%", maxWidth: 360 }}>
+          <div
+  style={{
+    position: "absolute",
+    top: 24,
+    right: 24,
+    zIndex: 20,
+  }}
+>
+  <button
+    onClick={toggleTheme}
+    title={
+      theme === "dark"
+        ? "Cambiar a modo claro"
+        : "Cambiar a modo oscuro"
+    }
+    style={{
+      width: 42,
+      height: 42,
+      border: "1px solid var(--border-subtle)",
+      background: "var(--bg-tertiary)",
+      color: "var(--text-primary)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      cursor: "pointer",
+      transition: "all 0.25s ease",
+      fontSize: 16,
+      backdropFilter: "blur(8px)",
+    }}
+    onMouseOver={(e) => {
+      e.currentTarget.style.borderColor = "var(--accent-yellow)";
+      e.currentTarget.style.transform = "translateY(-2px)";
+    }}
+    onMouseOut={(e) => {
+      e.currentTarget.style.borderColor = "var(--border-subtle)";
+      e.currentTarget.style.transform = "translateY(0px)";
+    }}
+  >
+    {theme === "dark" ? "☀️" : "🌙"}
+  </button>
+</div>
           {/* Header */}
           <div style={{ marginBottom: 40 }}>
             <div
@@ -455,7 +498,7 @@ export default function Login() {
               style={{
                 fontFamily: "Bebas Neue, sans-serif",
                 fontSize: 42,
-                color: "#0a0a0a",
+                color: "var(--text-primary)",
                 lineHeight: 1,
                 letterSpacing: 1,
               }}
@@ -469,7 +512,7 @@ export default function Login() {
               style={{
                 marginTop: 12,
                 fontSize: 12,
-                color: "#6b7280",
+                color: "var(--text-secondary)",
                 lineHeight: 1.7,
                 fontFamily: "DM Mono",
               }}
@@ -536,7 +579,7 @@ export default function Login() {
                     background: "none",
                     border: "none",
                     cursor: "pointer",
-                    color: "#9ca3af",
+                    color: "var(--text-muted)",
                     padding: 0,
                   }}
                 >
@@ -588,7 +631,31 @@ export default function Login() {
                 justifyContent: "flex-end",
                 marginTop: -8,
               }}
-            ></div>
+            >
+              <button
+                type="button"
+                style={{
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  fontSize: 11,
+                  color: "#dc2626",
+                  fontFamily: "DM Mono",
+                  letterSpacing: 1,
+                  textDecoration: "underline",
+                  textDecorationColor: "transparent",
+                  transition: "text-decoration-color 0.2s",
+                }}
+                onMouseOver={(e) =>
+                  (e.target.style.textDecorationColor = "#dc2626")
+                }
+                onMouseOut={(e) =>
+                  (e.target.style.textDecorationColor = "transparent")
+                }
+              >
+                ¿Olvidaste tu contraseña?
+              </button>
+            </div>
 
             <button
               type="submit"
@@ -607,6 +674,29 @@ export default function Login() {
               )}
             </button>
           </form>
+
+          {/* Footer note */}
+          <div
+            style={{
+              marginTop: 32,
+              padding: "12px 16px",
+              background: "var(--accent-yellow-dim)",
+              borderLeft: "3px solid #facc15",
+            }}
+          >
+            <p
+              style={{
+                fontSize: 10,
+                color: "var(--accent-yellow)",
+                letterSpacing: 0.5,
+                lineHeight: 1.6,
+                fontFamily: "DM Mono",
+              }}
+            >
+              Solo usuarios autorizados. Accesos no autorizados están sujetos a
+              sanciones institucionales.
+            </p>
+          </div>
         </div>
       </div>
     </div>

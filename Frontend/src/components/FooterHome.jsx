@@ -10,7 +10,7 @@ export default function FooterHome() {
 
           {/* Brand */}
           <div>
-            <h3 className="text-2xl font-orbitron font-bold text-neon-cyan mb-3">
+            <h3 className="text-2xl font-orbitron font-bold text-[var(--accent-yellow)] mb-3">
               OPTIU
             </h3>
 
@@ -30,7 +30,7 @@ export default function FooterHome() {
               <li>
                 <a
                   href="#inicio"
-                  className="hover:text-neon-cyan transition"
+                  className="hover:text-[var(--accent-yellow)] transition"
                 >
                   Inicio
                 </a>
@@ -39,7 +39,7 @@ export default function FooterHome() {
               <li>
                 <a
                   href="#features"
-                  className="hover:text-neon-cyan transition"
+                  className="hover:text-[var(--accent-yellow)] transition"
                 >
                   Características
                 </a>
@@ -48,7 +48,7 @@ export default function FooterHome() {
               <li>
                 <a
                   href="#team"
-                  className="hover:text-neon-cyan transition"
+                  className="hover:text-[var(--accent-yellow)] transition"
                 >
                   Equipo
                 </a>
@@ -66,8 +66,10 @@ export default function FooterHome() {
             <div className="flex gap-3">
 
               <a
-                href="#"
-                className="p-2 bg-dark-card border border-dark-border rounded-lg text-gray-400 hover:text-neon-cyan hover:border-neon-cyan transition"
+                href="https://github.com/TU-USUARIO/TU-REPO"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 bg-dark-card border border-dark-border rounded-lg text-gray-400 hover:text-[var(--accent-yellow)] hover:border-neon-cyan transition"
               >
                 <Github size={20} />
               </a>

@@ -14,7 +14,6 @@ export default function Home() {
       <CampusMapSection />
       <TeamSection />
       <FooterHome />
-      <TeamSection />
     </div>
   );
 }

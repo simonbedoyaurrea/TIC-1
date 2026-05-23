@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import mapa from "../assets/MapaUPB.png";
+import { useNavigate } from "react-router-dom";
 
 const buildingPositions = {
   1: { x: 58, y: 78 },
@@ -27,9 +28,12 @@ const buildingPositions = {
 export default function CampusMap({ onBuildingClick }) {
   const [hovered, setHovered] = useState(null);
   const [selected, setSelected] = useState(null);
+  const navigate = useNavigate();
 
   const handleClick = (id) => {
     setSelected(id);
+
+    navigate(`/bloque/${id}`);
     onBuildingClick?.(Number(id));
   };
 
@@ -84,13 +88,17 @@ export default function CampusMap({ onBuildingClick }) {
       </div>
 
       {/* Map area */}
-      <div className="relative w-full bg-dark-bg" style={{ paddingBottom: "62%" }}>
+      <div
+        className="relative w-full bg-dark-bg"
+        style={{ paddingBottom: "62%" }}
+      >
         <img
           src={mapa}
           alt="Mapa del Campus"
           className="absolute inset-0 w-full h-full object-cover"
           style={{
-            filter: "contrast(1.1) brightness(0.85) saturate(1.2) hue-rotate(-5deg)",
+            filter:
+              "contrast(1.1) brightness(0.85) saturate(1.2) hue-rotate(-5deg)",
           }}
         />
 
@@ -98,13 +106,16 @@ export default function CampusMap({ onBuildingClick }) {
         <div className="absolute inset-0 bg-gradient-to-b from-dark-bg/30 via-transparent to-dark-bg/40" />
 
         {/* Grid futurista sutil */}
-        <div className="absolute inset-0 opacity-[0.02]" style={{
-          backgroundImage: `
+        <div
+          className="absolute inset-0 opacity-[0.02]"
+          style={{
+            backgroundImage: `
             linear-gradient(0deg, transparent 24%, rgba(0, 217, 255, 0.05) 25%, rgba(0, 217, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 217, 255, 0.05) 75%, rgba(0, 217, 255, 0.05) 76%, transparent 77%, transparent),
             linear-gradient(90deg, transparent 24%, rgba(0, 217, 255, 0.05) 25%, rgba(0, 217, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 217, 255, 0.05) 75%, rgba(0, 217, 255, 0.05) 76%, transparent 77%, transparent)
           `,
-          backgroundSize: '80px 80px'
-        }} />
+            backgroundSize: "80px 80px",
+          }}
+        />
 
         {/* Marcadores */}
         {Object.entries(buildingPositions).map(([id, pos]) => {
@@ -132,7 +143,11 @@ export default function CampusMap({ onBuildingClick }) {
                     opacity: isSelected ? [0.6, 0.3, 0.6] : [0.4, 0.2, 0.4],
                   }}
                   transition={{ duration: 2, repeat: Infinity }}
-                  style={{ boxShadow: isSelected ? '0 0 30px rgba(0, 217, 255, 0.8)' : '0 0 20px rgba(0, 217, 255, 0.5)' }}
+                  style={{
+                    boxShadow: isSelected
+                      ? "0 0 30px rgba(0, 217, 255, 0.8)"
+                      : "0 0 20px rgba(0, 217, 255, 0.5)",
+                  }}
                 />
               )}
 
@@ -151,7 +166,10 @@ export default function CampusMap({ onBuildingClick }) {
                   }
                 `}
                 animate={isSelected ? { y: [0, -5, 0] } : {}}
-                transition={{ duration: 0.5, repeat: isSelected ? Infinity : 0 }}
+                transition={{
+                  duration: 0.5,
+                  repeat: isSelected ? Infinity : 0,
+                }}
               >
                 {id}
               </motion.div>
@@ -195,11 +213,18 @@ export default function CampusMap({ onBuildingClick }) {
         >
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded bg-neon-cyan/40 border border-neon-cyan/60" />
-            <span className="text-gray-300 text-xs font-inter font-medium">Normal</span>
+            <span className="text-gray-300 text-xs font-inter font-medium">
+              Normal
+            </span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded bg-neon-cyan border border-neon-cyan shadow-lg" style={{ boxShadow: '0 0 10px rgba(0, 217, 255, 0.8)' }} />
-            <span className="text-neon-cyan text-xs font-inter font-medium">Seleccionado</span>
+            <div
+              className="w-3 h-3 rounded bg-neon-cyan border border-neon-cyan shadow-lg"
+              style={{ boxShadow: "0 0 10px rgba(0, 217, 255, 0.8)" }}
+            />
+            <span className="text-neon-cyan text-xs font-inter font-medium">
+              Seleccionado
+            </span>
           </div>
         </motion.div>
       </div>

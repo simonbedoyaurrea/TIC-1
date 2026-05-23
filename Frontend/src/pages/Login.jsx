@@ -10,7 +10,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [focused, setFocused] = useState(null);
   const [error, setError] = useState(null);
-  const { login } = useAuth();
+  const { login, user } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -19,8 +19,12 @@ export default function Login() {
     setError(null);
     loginUser(email, password)
       .then((data) => {
-        login(data); // <- contexto actualiza user
-        navigate("/planeacion"); // <- sin recargar la app
+        login(data);
+        if (user.role === "ADMINISTRATIVO") {
+          navigate("/planeacion");
+        } else {
+          navigate("/");
+        }
       })
       .catch((err) => {
         setError(err.message);

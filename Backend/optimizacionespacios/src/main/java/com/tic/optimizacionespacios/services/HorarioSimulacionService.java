@@ -234,7 +234,7 @@ public class HorarioSimulacionService {
         horarioSimulacionRepository.save(horario);
     }
 
-     public ByteArrayInputStream exportarExcel() {
+    public ByteArrayInputStream exportarExcel() {
 
         List<HorarioSimulacion> horarios = horarioSimulacionRepository.findAll();
 

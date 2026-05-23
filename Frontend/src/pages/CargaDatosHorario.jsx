@@ -76,6 +76,7 @@ const COLOR_MAP = {
 export default function CargaDatosHorario() {
   const enviarArchivos = async () => {
     setFeedback(null);
+    setCargando(true);
     try {
       const formDataMaterias = new FormData();
       formDataMaterias.append("file", archivos.materias);
@@ -92,15 +93,22 @@ export default function CargaDatosHorario() {
         }),
       ]);
 
+      // éxito: mostrar mensaje y limpiar archivos
       setFeedback({
         tipo: "exito",
-        mensaje: "Archivos enviados correctamente.",
+        mensaje: "Los archivos fueron procesados y guardados correctamente.",
       });
+      setArchivos({ materias: null, simulacion: null });
     } catch (error) {
+      // axios pone la respuesta del backend en error.response.data
       const detalle =
-        error?.response?.data?.message ||
-        "No se pudo conectar con el servidor. Verifica tu conexión e intenta de nuevo.";
+        error?.response?.data?.mensaje || // ← "mensaje" no "message"
+        error?.message ||
+        "No se pudo conectar con el servidor.";
+
       setFeedback({ tipo: "error", mensaje: detalle });
+    } finally {
+      setCargando(false);
     }
   };
 
@@ -111,6 +119,7 @@ export default function CargaDatosHorario() {
   const [dragging, setDragging] = useState(null);
   const [pasoActivo] = useState(0);
   const [feedback, setFeedback] = useState(null);
+  const [cargando, setCargando] = useState(false);
 
   const handleDrop = (e, id) => {
     e.preventDefault();
@@ -338,21 +347,25 @@ export default function CargaDatosHorario() {
         {/* ACCIONES */}
         <div className="flex items-center justify-between">
           <button
-            onClick={() => setArchivos({ materias: null, aulas: null })}
+            onClick={() => setArchivos({ materias: null, simulacion: null })}
             className="text-sm text-zinc-500 hover:text-white border border-zinc-800 hover:border-zinc-600 px-5 py-2.5 rounded transition-all uppercase tracking-wide font-bold"
           >
             Limpiar todo
           </button>
           <button
-            disabled={!todosListos}
+            disabled={!todosListos || cargando}
             onClick={enviarArchivos}
             className={`text-sm font-black uppercase tracking-widest px-8 py-2.5 rounded transition-all ${
-              todosListos
-                ? "bg-red-600 hover:bg-red-500 text-white cursor-pointer"
-                : "bg-zinc-800 text-zinc-600 cursor-not-allowed"
+              !todosListos || cargando
+                ? "bg-zinc-800 text-zinc-600 cursor-not-allowed"
+                : "bg-red-600 hover:bg-red-500 text-white cursor-pointer"
             }`}
           >
-            {todosListos ? "CARGAR ARCHIVOS →" : "Faltan archivos"}
+            {cargando
+              ? "Cargando..."
+              : todosListos
+                ? "CARGAR ARCHIVOS →"
+                : "Faltan archivos"}
           </button>
         </div>
       </main>

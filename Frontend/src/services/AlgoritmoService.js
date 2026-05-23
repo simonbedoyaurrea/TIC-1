@@ -21,6 +21,19 @@ export const agregarHorarioService = async (payload) => {
   return response.data;
 };
 
+export const descargarHorario = async () => {
+  const response = await apiClient.get("/simulacion/horarios", {
+    responseType: "blob", // axios entrega response.data como blob directamente
+  });
+
+  const url = window.URL.createObjectURL(response.data);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "horario.xlsx";
+  a.click();
+  window.URL.revokeObjectURL(url);
+};
+
 export const BuscarHorariosService = async (payload) => {
   const response = await apiClient.post(
     "/simulacion/horarios/optimizador",

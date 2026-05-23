@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../components/NavBar";
 import { Link } from "react-router-dom";
+import { descargarHorario } from "../services/AlgoritmoService";
+import { getEstadoCarga } from "../services/EstadoCargaService";
 
 const cards = [
   {
@@ -85,16 +87,40 @@ const cards = [
   },
 ];
 
-// Archivos cargados de ejemplo
-const uploadedFiles = [
-  { name: "plantilla_clase_A.xlsx", status: "ok" },
-  { name: "horario_base.csv", status: "ok" },
-  { name: "restricciones.json", status: "error" },
-];
-
 export default function PlaneacionHome() {
   const [confirming, setConfirming] = useState(false);
   const [deleted, setDeleted] = useState(false);
+  const [descargando, setDescargando] = useState(false);
+  const [errorDescarga, setErrorDescarga] = useState(null);
+
+  const [estado, setEstado] = useState(null);
+
+  useEffect(() => {
+    getEstadoCarga()
+      .then(setEstado)
+      .catch(() => setEstado(null));
+  }, []);
+
+  const uploadedFiles = [
+    {
+      name: "Horarios",
+      status: estado?.horarios?.cargado ? "ok" : "error",
+      registros: estado?.horarios?.registros ?? "—",
+    },
+    {
+      name: "Materias",
+      status: estado?.materias?.cargado ? "ok" : "error",
+      registros: estado?.materias?.registros ?? "—",
+    },
+  ];
+
+  const handleDescargar = () => {
+    setDescargando(true);
+    setErrorDescarga(null);
+    descargarHorario()
+      .catch(() => setErrorDescarga("No se pudo descargar"))
+      .finally(() => setDescargando(false));
+  };
 
   const handleEliminar = () => {
     if (!confirming) {
@@ -183,7 +209,7 @@ export default function PlaneacionHome() {
                   Eliminar
                 </p>
               </div>
-              <p className="text-[11px] text-gray-400 leading-relaxed">
+              <p className="text-[11px] text-gray-200 leading-relaxed">
                 Borra todos los datos cargados en el sistema.
               </p>
               <button
@@ -226,23 +252,36 @@ export default function PlaneacionHome() {
                   Descargar
                 </p>
               </div>
-              <p className="text-[11px] text-gray-400 leading-relaxed">
+              <p className="text-[11px] text-gray-200 leading-relaxed">
                 Exporta el horario generado en formato Excel.
               </p>
-              <button className="w-full text-[11px] font-bold font-mono py-1.5 rounded-lg border bg-yellow-400/10 border-yellow-400/25 text-yellow-400 hover:bg-yellow-400/20 hover:border-yellow-400/50 transition-all duration-200 cursor-pointer">
-                Descargar horario
+              <button
+                onClick={handleDescargar}
+                disabled={descargando}
+                className="w-full text-[11px] font-bold font-mono py-1.5 rounded-lg border 
+    bg-yellow-400/10 border-yellow-400/25 text-yellow-400 
+    hover:bg-yellow-400/20 hover:border-yellow-400/50 
+    disabled:opacity-50 disabled:cursor-not-allowed
+    transition-all duration-200 cursor-pointer"
+              >
+                {descargando ? "Descargando..." : "Descargar horario"}
               </button>
+              {errorDescarga && (
+                <p className="text-[10px] text-red-400 font-mono mt-1">
+                  {errorDescarga}
+                </p>
+              )}
             </div>
 
             {/* 3. Status de archivos */}
             <div className="bg-white/2 border border-white/6 rounded-xl p-4 flex flex-col gap-3 hover:border-white/15 transition-all duration-300">
               <div className="flex items-center gap-2">
-                <div className="flex items-center justify-center w-8 h-8 bg-white/5 border border-white/10 rounded-lg">
+                <div className="flex items-center justify-center w-8 h-8 bg-green-400/5 border border-green-400/10 rounded-lg">
                   <svg
                     width="15"
                     height="15"
                     fill="none"
-                    stroke="#a1a1aa"
+                    stroke="#05df72"
                     strokeWidth="1.8"
                     viewBox="0 0 24 24"
                   >
@@ -252,27 +291,36 @@ export default function PlaneacionHome() {
                     <line x1="9" y1="17" x2="12" y2="17" />
                   </svg>
                 </div>
-                <p className="text-[10px] text-gray-400 tracking-[0.1em] uppercase font-mono font-semibold">
+                <p className="text-[10px] text-green-400 tracking-[0.1em] uppercase font-mono font-semibold">
                   Archivos
                 </p>
               </div>
 
               <div className="flex flex-col gap-1.5">
-                {uploadedFiles.map((f, i) => (
-                  <div key={i} className="flex items-center gap-2">
-                    <span
-                      className={`w-1.5 h-1.5 rounded-full shrink-0 ${
-                        f.status === "ok" ? "bg-green-400" : "bg-red-400"
-                      }`}
-                    />
-                    <span
-                      className="text-[10px] text-gray-400 font-mono truncate"
-                      title={f.name}
-                    >
-                      {f.name}
-                    </span>
-                  </div>
-                ))}
+                {estado === null ? (
+                  <p className="text-[10px] text-gray-600 font-mono">
+                    Consultando...
+                  </p>
+                ) : (
+                  uploadedFiles.map((f, i) => (
+                    <div key={i} className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span
+                          className={`w-1.5 h-1.5 rounded-full shrink-0 ${
+                            f.status === "ok" ? "bg-green-400" : "bg-red-400"
+                          }`}
+                        />
+                        <span className="text-[10px] text-white font-mono">
+                          {f.name}
+                        </span>
+                      </div>
+                      {/* número de registros */}
+                      <span className="text-[10px] text-gray-200 font-mono">
+                        {f.registros} reg.
+                      </span>
+                    </div>
+                  ))
+                )}
               </div>
 
               <div className="flex items-center justify-between pt-1 border-t border-white/6">
@@ -282,14 +330,14 @@ export default function PlaneacionHome() {
                 </span>
                 <span
                   className={`text-[10px] font-mono font-semibold ${
-                    uploadedFiles.every((f) => f.status === "ok")
-                      ? "text-green-400"
-                      : "text-red-400"
+                    estado?.listo ? "text-green-400" : "text-red-400"
                   }`}
                 >
-                  {uploadedFiles.every((f) => f.status === "ok")
-                    ? "✓ Listo"
-                    : "⚠ Errores"}
+                  {estado === null
+                    ? "..."
+                    : estado.listo
+                      ? "Listo"
+                      : "Faltan datos"}
                 </span>
               </div>
             </div>

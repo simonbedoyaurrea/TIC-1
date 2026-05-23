@@ -18,7 +18,11 @@ const HORAS = Array.from({ length: 15 }, (_, i) => {
 function RmInput({ className = "", ...props }) {
   return (
     <input
-      className={`w-full bg-[#0d0d18] border border-slate-800 rounded-md py-1.5 px-2.5 text-slate-200 text-xs outline-none transition-colors focus:border-yellow-400 placeholder:text-slate-700 box-border ${className}`}
+      className={`w-full bg-[#0d0d18] border border-gray-2
+        
+        
+        
+        00 rounded-md py-1.5 px-2.5 text-slate-200 text-xs outline-none transition-colors focus:border-yellow-400 placeholder:text-slate-700 box-border ${className}`}
       {...props}
     />
   );
@@ -208,7 +212,7 @@ export default function ModalNuevaMateria({ onClose, onSave, initialData }) {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <RmLabel>ID / Código</RmLabel>
-                <span className="text-slate-700 text-[10px] tracking-normal normal-case border border-slate-800 rounded-md  py-3.5 bg-[#0d0d18] block">
+                <span className="text-white text-[10px] tracking-normal normal-case border border-slate-800 rounded-md  py-3.5 bg-[#0d0d18] block">
                   {initialData?.materia?.id}
                 </span>
               </div>

@@ -97,7 +97,7 @@ export default function App() {
           path="/planeacion/carga/simulador"
           element={
             <ProtectedRoute rolesPermitidos={["ADMINISTRATIVO"]}>
-              <CargaDatosHorario />
+              <CargaDatosSimulador />
             </ProtectedRoute>
           }
         />

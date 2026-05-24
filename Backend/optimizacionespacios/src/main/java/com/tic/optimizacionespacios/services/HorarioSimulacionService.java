@@ -217,7 +217,8 @@ public class HorarioSimulacionService {
 
     return webClientBuilder.build()
             .post()
-            .uri("http://localhost:8000/optimizar")
+            // .uri("http://localhost:8000/optimizar")
+            .uri("http://fastapi2:8001/optimizar")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(body)
             .retrieve()

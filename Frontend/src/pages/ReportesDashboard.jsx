@@ -17,6 +17,7 @@ const STYLE = `
 
 // ── Constantes ────────────────────────────────────────────────
 const API = "http://localhost:8080/api";
+// const API = "http://java-api:8080/api";
 
 const ESTADO_CONFIG = {
   PENDIENTE: { label: "Pendiente", color: "#f59e0b", bg: "#1c1400" },
@@ -292,7 +293,6 @@ export default function ReportesDashboard() {
             {theme === "dark" ? "☀️" : "🌙"}
           </button>
           <div
-          
             style={{
               display: "flex",
               alignItems: "center",
@@ -418,7 +418,13 @@ function VistaDashboard({ stats, reportes, setVista }) {
         >
           PANEL DE CONTROL
         </h1>
-        <p style={{ color: "var(--text-secondary)", fontFamily: "IBM Plex Mono", fontSize: 12 }}>
+        <p
+          style={{
+            color: "var(--text-secondary)",
+            fontFamily: "IBM Plex Mono",
+            fontSize: 12,
+          }}
+        >
           Sistema de gestión de daños — Universidad Pontificia Bolivariana
         </p>
       </div>
@@ -437,55 +443,37 @@ function VistaDashboard({ stats, reportes, setVista }) {
             label: "TOTAL",
             valor: stats.total,
             color: "var(--text-primary)",
-            bg:
-              theme === "dark"
-                ? "#161616"
-                : "rgba(255,255,255,0.7)",
+            bg: theme === "dark" ? "#161616" : "rgba(255,255,255,0.7)",
           },
           {
             label: "PENDIENTES",
             valor: stats.pendientes,
             color: "#f59e0b",
-            bg:
-              theme === "dark"
-                ? "#1c1400"
-                : "rgba(245,158,11,0.12)",
+            bg: theme === "dark" ? "#1c1400" : "rgba(245,158,11,0.12)",
           },
           {
             label: "EN PROCESO",
             valor: stats.enProceso,
             color: "#3b82f6",
-            bg:
-              theme === "dark"
-                ? "#00091c"
-                : "rgba(59,130,246,0.10)",
+            bg: theme === "dark" ? "#00091c" : "rgba(59,130,246,0.10)",
           },
           {
             label: "RESUELTOS",
             valor: stats.resueltos,
             color: "#22c55e",
-            bg:
-              theme === "dark"
-                ? "#001408"
-                : "rgba(34,197,94,0.10)",
+            bg: theme === "dark" ? "#001408" : "rgba(34,197,94,0.10)",
           },
           {
             label: "CRÍTICOS",
             valor: stats.criticos,
             color: "#ff0055",
-            bg:
-              theme === "dark"
-                ? "#1a0010"
-                : "rgba(255,0,85,0.10)",
+            bg: theme === "dark" ? "#1a0010" : "rgba(255,0,85,0.10)",
           },
           {
             label: "INHABILITADOS",
             valor: stats.inhabilitados,
             color: "#fbbf24",
-            bg:
-              theme === "dark"
-                ? "#1a1000"
-                : "rgba(251,191,36,0.12)",
+            bg: theme === "dark" ? "#1a1000" : "rgba(251,191,36,0.12)",
           },
         ].map((c) => (
           <div
@@ -547,7 +535,11 @@ function VistaDashboard({ stats, reportes, setVista }) {
       >
         {/* GRÁFICA POR CATEGORÍA */}
         <div
-          style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", padding: 20 }}
+          style={{
+            background: "var(--bg-card)",
+            border: "1px solid var(--border-subtle)",
+            padding: 20,
+          }}
         >
           <h3
             style={{
@@ -594,7 +586,11 @@ function VistaDashboard({ stats, reportes, setVista }) {
 
         {/* GRÁFICA POR BLOQUE */}
         <div
-          style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", padding: 20 }}
+          style={{
+            background: "var(--bg-card)",
+            border: "1px solid var(--border-subtle)",
+            padding: 20,
+          }}
         >
           <h3
             style={{
@@ -778,7 +774,7 @@ function VistaLista({
   onSeleccionar,
   cargando,
 }) {
-    const inputStyle = {
+  const inputStyle = {
     background: "var(--bg-tertiary)",
     border: "1px solid var(--border-subtle)",
     color: "var(--text-primary)",
@@ -811,7 +807,11 @@ function VistaLista({
             REPORTES DE DAÑOS
           </h1>
           <p
-            style={{ color: "var(--text-secondary)", fontFamily: "IBM Plex Mono", fontSize: 11 }}
+            style={{
+              color: "var(--text-secondary)",
+              fontFamily: "IBM Plex Mono",
+              fontSize: 11,
+            }}
           >
             {reportes.length} registros encontrados
           </p>
@@ -1056,7 +1056,9 @@ function VistaLista({
                     >
                       Bloque {r.numeroBloque} — {r.salon}
                     </div>
-                    <div style={{ fontSize: 12, color: "var(--text-secondary)" }}>
+                    <div
+                      style={{ fontSize: 12, color: "var(--text-secondary)" }}
+                    >
                       {r.nombreBloque}
                     </div>
                   </td>
@@ -1066,7 +1068,9 @@ function VistaLista({
                     >
                       {r.categoria}
                     </div>
-                    <div style={{ fontSize: 12, color: "var(--text-secondary)" }}>
+                    <div
+                      style={{ fontSize: 12, color: "var(--text-secondary)" }}
+                    >
                       {r.subcategoria}
                     </div>
                   </td>
@@ -1185,7 +1189,13 @@ function VistaMapa({ reportes, onSeleccionar }) {
         >
           MAPA DEL CAMPUS
         </h1>
-        <p style={{ color: "var(--text-secondary)", fontFamily: "IBM Plex Mono", fontSize: 11 }}>
+        <p
+          style={{
+            color: "var(--text-secondary)",
+            fontFamily: "IBM Plex Mono",
+            fontSize: 11,
+          }}
+        >
           Estado de daños por bloque — haz clic para ver reportes
         </p>
       </div>
@@ -1200,7 +1210,7 @@ function VistaMapa({ reportes, onSeleccionar }) {
           { color: "#3b82f6", label: "En proceso" },
           { color: "#22c55e", label: "Resuelto" },
           { color: "#1a1a1a", label: "Sin reportes" },
-        ].map((l) => (   
+        ].map((l) => (
           <div
             key={l.label}
             style={{

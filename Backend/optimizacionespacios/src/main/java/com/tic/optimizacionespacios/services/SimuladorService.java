@@ -14,7 +14,8 @@ public class SimuladorService {
     private final WebClient webClient;
 
     public SimuladorService(WebClient.Builder builder) {
-        this.webClient = builder.baseUrl("http://localhost:8000").build();
+        // this.webClient = builder.baseUrl("http://localhost:8000").build();
+        this.webClient = builder.baseUrl("http://fastapi1:8000").build();
     }
 
      

@@ -1,6 +1,7 @@
 import { getToken } from "./AuthService";
 
 const API_URL = "http://localhost:8080/api/reportes";
+// const API_URL = "http://java-api:8080/api/reportes";
 
 function buildQuery(params = {}) {
   const qs = Object.entries(params)

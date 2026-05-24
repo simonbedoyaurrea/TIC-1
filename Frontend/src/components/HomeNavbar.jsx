@@ -48,12 +48,24 @@ export default function HomeNavbar() {
               >
                 Inicio
               </a>
-              <a
-                href="#simulador"
-                className="text-gray-300 hover:text-neon-cyan transition"
+              <button
+                onClick={() => {
+                  const element =
+                    document.getElementById("campus");
+
+                  element?.scrollIntoView({
+                    behavior: "smooth",
+                  });
+                }}
+                className="
+                  text-gray-300
+                  hover:text-[var(--accent-yellow)]
+                  transition
+                  cursor-pointer
+                "
               >
                 Mapa Campus
-              </a>
+              </button>
               <a
                 href="#features"
                 className="text-gray-300 hover:text-neon-cyan transition"

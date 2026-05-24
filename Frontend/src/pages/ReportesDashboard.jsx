@@ -1,6 +1,8 @@
 import { Activity, ClipboardMinus } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 
+import { useTheme } from "../context/ThemeContext";
+
 // ── Paleta y estilos globales ─────────────────────────────────
 const STYLE = `
   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=Barlow+Condensed:wght@400;600;700;800&display=swap');
@@ -72,6 +74,7 @@ export default function ReportesDashboard() {
   const [cargando, setCargando] = useState(false);
   const [notif, setNotif] = useState(null);
   const [modoOnline, setModoOnline] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   const cargarReportes = useCallback(async () => {
     if (!modoOnline) return;
@@ -192,12 +195,12 @@ export default function ReportesDashboard() {
   return (
     <>
       <style>{STYLE}</style>
-      <div style={{ minHeight: "100vh", background: "#0a0a0a" }}>
+      <div style={{ minHeight: "100vh", background: "var(--bg-primary)" }}>
         {/* HEADER */}
         <header
           style={{
-            background: "#111",
-            borderBottom: "3px solid #e63946",
+            background: "var(--bg-card)",
+            borderBottom: "3px solid var(--accent-red)",
             padding: "0 24px",
             display: "flex",
             alignItems: "center",
@@ -223,15 +226,15 @@ export default function ReportesDashboard() {
               style={{
                 fontFamily: "Bebas Neue",
                 fontSize: 20,
-                color: "#f0f0f0",
+                color: "var(--text-primary)",
                 letterSpacing: 1,
               }}
             >
-              OptimU
+              OptiU
             </span>
             <span
               style={{
-                background: "#e63946",
+                background: "var(--accent-red)",
                 color: "#fff",
                 fontSize: 10,
                 fontFamily: "IBM Plex Mono",
@@ -267,7 +270,29 @@ export default function ReportesDashboard() {
               </button>
             ))}
           </div>
+          <button
+            onClick={toggleTheme}
+            title={
+              theme === "dark"
+                ? "Cambiar a modo claro"
+                : "Cambiar a modo oscuro"
+            }
+            style={{
+              width: 38,
+              height: 38,
+              borderRadius: 8,
+              border: "1px solid var(--border-subtle)",
+              background: "var(--bg-card)",
+              color: "var(--text-primary)",
+              cursor: "pointer",
+              fontSize: 16,
+              transition: "all 0.2s ease",
+            }}
+          >
+            {theme === "dark" ? "☀️" : "🌙"}
+          </button>
           <div
+          
             style={{
               display: "flex",
               alignItems: "center",
@@ -371,6 +396,7 @@ function VistaDashboard({ stats, reportes, setVista }) {
 
   const maxCat = Math.max(...Object.values(porCategoria), 1);
   const maxBlq = Math.max(...Object.values(porBloque), 1);
+  const { theme } = useTheme();
 
   const urgentes = reportes
     .filter(
@@ -387,12 +413,12 @@ function VistaDashboard({ stats, reportes, setVista }) {
             fontFamily: "Bebas Neue",
             fontSize: 40,
             letterSpacing: 2,
-            color: "#f0f0f0",
+            color: "var(--text-primary)",
           }}
         >
           PANEL DE CONTROL
         </h1>
-        <p style={{ color: "#666", fontFamily: "IBM Plex Mono", fontSize: 12 }}>
+        <p style={{ color: "var(--text-secondary)", fontFamily: "IBM Plex Mono", fontSize: 12 }}>
           Sistema de gestión de daños — Universidad Pontificia Bolivariana
         </p>
       </div>
@@ -410,38 +436,56 @@ function VistaDashboard({ stats, reportes, setVista }) {
           {
             label: "TOTAL",
             valor: stats.total,
-            color: "#f0f0f0",
-            bg: "#161616",
+            color: "var(--text-primary)",
+            bg:
+              theme === "dark"
+                ? "#161616"
+                : "rgba(255,255,255,0.7)",
           },
           {
             label: "PENDIENTES",
             valor: stats.pendientes,
             color: "#f59e0b",
-            bg: "#1c1400",
+            bg:
+              theme === "dark"
+                ? "#1c1400"
+                : "rgba(245,158,11,0.12)",
           },
           {
             label: "EN PROCESO",
             valor: stats.enProceso,
             color: "#3b82f6",
-            bg: "#00091c",
+            bg:
+              theme === "dark"
+                ? "#00091c"
+                : "rgba(59,130,246,0.10)",
           },
           {
             label: "RESUELTOS",
             valor: stats.resueltos,
             color: "#22c55e",
-            bg: "#001408",
+            bg:
+              theme === "dark"
+                ? "#001408"
+                : "rgba(34,197,94,0.10)",
           },
           {
             label: "CRÍTICOS",
             valor: stats.criticos,
             color: "#ff0055",
-            bg: "#1a0010",
+            bg:
+              theme === "dark"
+                ? "#1a0010"
+                : "rgba(255,0,85,0.10)",
           },
           {
             label: "INHABILITADOS",
             valor: stats.inhabilitados,
             color: "#fbbf24",
-            bg: "#1a1000",
+            bg:
+              theme === "dark"
+                ? "#1a1000"
+                : "rgba(251,191,36,0.12)",
           },
         ].map((c) => (
           <div
@@ -468,7 +512,7 @@ function VistaDashboard({ stats, reportes, setVista }) {
               style={{
                 fontFamily: "IBM Plex Mono",
                 fontSize: 10,
-                color: "#888",
+                color: "var(--text-muted)",
                 marginTop: 4,
                 letterSpacing: 1,
               }}
@@ -503,7 +547,7 @@ function VistaDashboard({ stats, reportes, setVista }) {
       >
         {/* GRÁFICA POR CATEGORÍA */}
         <div
-          style={{ background: "#111", border: "1px solid #222", padding: 20 }}
+          style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", padding: 20 }}
         >
           <h3
             style={{
@@ -550,7 +594,7 @@ function VistaDashboard({ stats, reportes, setVista }) {
 
         {/* GRÁFICA POR BLOQUE */}
         <div
-          style={{ background: "#111", border: "1px solid #222", padding: 20 }}
+          style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", padding: 20 }}
         >
           <h3
             style={{
@@ -650,7 +694,7 @@ function VistaDashboard({ stats, reportes, setVista }) {
               <div
                 key={r.id}
                 style={{
-                  background: "#0a0a0a",
+                  background: "var(--bg-primary)",
                   border: "1px solid #e6394644",
                   padding: 14,
                 }}
@@ -666,7 +710,7 @@ function VistaDashboard({ stats, reportes, setVista }) {
                     style={{
                       fontFamily: "IBM Plex Mono",
                       fontSize: 11,
-                      color: "#666",
+                      color: "var(--text-secondary)",
                     }}
                   >
                     #{r.id}
@@ -688,7 +732,7 @@ function VistaDashboard({ stats, reportes, setVista }) {
                     fontFamily: "Barlow Condensed",
                     fontSize: 15,
                     fontWeight: 700,
-                    color: "#f0f0f0",
+                    color: "var(--text-primary)",
                     marginBottom: 4,
                   }}
                 >
@@ -698,7 +742,7 @@ function VistaDashboard({ stats, reportes, setVista }) {
                   style={{
                     fontFamily: "Barlow Condensed",
                     fontSize: 13,
-                    color: "#888",
+                    color: "var(--text-muted)",
                   }}
                 >
                   {r.categoria} · {r.subcategoria}
@@ -734,10 +778,10 @@ function VistaLista({
   onSeleccionar,
   cargando,
 }) {
-  const inputStyle = {
-    background: "#161616",
-    border: "1px solid #333",
-    color: "#f0f0f0",
+    const inputStyle = {
+    background: "var(--bg-tertiary)",
+    border: "1px solid var(--border-subtle)",
+    color: "var(--text-primary)",
     padding: "7px 12px",
     fontFamily: "Barlow Condensed",
     fontSize: 14,
@@ -761,13 +805,13 @@ function VistaLista({
               fontFamily: "Bebas Neue",
               fontSize: 36,
               letterSpacing: 2,
-              color: "#f0f0f0",
+              color: "var(--text-primary)",
             }}
           >
             REPORTES DE DAÑOS
           </h1>
           <p
-            style={{ color: "#666", fontFamily: "IBM Plex Mono", fontSize: 11 }}
+            style={{ color: "var(--text-secondary)", fontFamily: "IBM Plex Mono", fontSize: 11 }}
           >
             {reportes.length} registros encontrados
           </p>
@@ -793,8 +837,8 @@ function VistaLista({
           gridTemplateColumns: "repeat(4,1fr)",
           gap: 10,
           marginBottom: 20,
-          background: "#111",
-          border: "1px solid #222",
+          background: "var(--bg-card)",
+          border: "1px solid var(--border-subtle)",
           padding: 16,
         }}
       >
@@ -803,7 +847,7 @@ function VistaLista({
             style={{
               fontFamily: "IBM Plex Mono",
               fontSize: 10,
-              color: "#666",
+              color: "var(--text-secondary)",
               display: "block",
               marginBottom: 4,
               letterSpacing: 1,
@@ -831,7 +875,7 @@ function VistaLista({
             style={{
               fontFamily: "IBM Plex Mono",
               fontSize: 10,
-              color: "#666",
+              color: "var(--text-secondary)",
               display: "block",
               marginBottom: 4,
               letterSpacing: 1,
@@ -859,7 +903,7 @@ function VistaLista({
             style={{
               fontFamily: "IBM Plex Mono",
               fontSize: 10,
-              color: "#666",
+              color: "var(--text-secondary)",
               display: "block",
               marginBottom: 4,
               letterSpacing: 1,
@@ -887,7 +931,7 @@ function VistaLista({
             style={{
               fontFamily: "IBM Plex Mono",
               fontSize: 10,
-              color: "#666",
+              color: "var(--text-secondary)",
               display: "block",
               marginBottom: 4,
               letterSpacing: 1,
@@ -916,7 +960,7 @@ function VistaLista({
           }}
         >
           <thead>
-            <tr style={{ background: "#e63946", color: "#fff" }}>
+            <tr style={{ background: "var(--accent-red)", color: "#fff" }}>
               {[
                 "#",
                 "ROL",
@@ -1007,12 +1051,12 @@ function VistaLista({
                       style={{
                         fontSize: 14,
                         fontWeight: 700,
-                        color: "#f0f0f0",
+                        color: "var(--text-primary)",
                       }}
                     >
                       Bloque {r.numeroBloque} — {r.salon}
                     </div>
-                    <div style={{ fontSize: 12, color: "#666" }}>
+                    <div style={{ fontSize: 12, color: "var(--text-secondary)" }}>
                       {r.nombreBloque}
                     </div>
                   </td>
@@ -1022,7 +1066,7 @@ function VistaLista({
                     >
                       {r.categoria}
                     </div>
-                    <div style={{ fontSize: 12, color: "#666" }}>
+                    <div style={{ fontSize: 12, color: "var(--text-secondary)" }}>
                       {r.subcategoria}
                     </div>
                   </td>
@@ -1058,7 +1102,7 @@ function VistaLista({
                   <td
                     style={{
                       padding: "10px 12px",
-                      color: "#666",
+                      color: "var(--text-secondary)",
                       fontSize: 12,
                       fontFamily: "IBM Plex Mono",
                       whiteSpace: "nowrap",
@@ -1073,7 +1117,7 @@ function VistaLista({
                         onSeleccionar(r);
                       }}
                       style={{
-                        background: "#e63946",
+                        background: "var(--accent-red)",
                         color: "#fff",
                         border: "none",
                         padding: "5px 12px",
@@ -1136,12 +1180,12 @@ function VistaMapa({ reportes, onSeleccionar }) {
             fontFamily: "Bebas Neue",
             fontSize: 36,
             letterSpacing: 2,
-            color: "#f0f0f0",
+            color: "var(--text-primary)",
           }}
         >
           MAPA DEL CAMPUS
         </h1>
-        <p style={{ color: "#666", fontFamily: "IBM Plex Mono", fontSize: 11 }}>
+        <p style={{ color: "var(--text-secondary)", fontFamily: "IBM Plex Mono", fontSize: 11 }}>
           Estado de daños por bloque — haz clic para ver reportes
         </p>
       </div>
@@ -1156,7 +1200,7 @@ function VistaMapa({ reportes, onSeleccionar }) {
           { color: "#3b82f6", label: "En proceso" },
           { color: "#22c55e", label: "Resuelto" },
           { color: "#1a1a1a", label: "Sin reportes" },
-        ].map((l) => (
+        ].map((l) => (   
           <div
             key={l.label}
             style={{
@@ -1289,10 +1333,10 @@ function PanelDetalle({ reporte, onCerrar, onActualizar, onEliminar }) {
   };
 
   const inputStyle = {
-    background: "#0a0a0a",
-    border: "1px solid #333",
-    color: "#f0f0f0",
-    padding: "8px 12px",
+    background: "var(--bg-tertiary)",
+    border: "1px solid var(--border-subtle)",
+    color: "var(--text-primary)",
+    padding: "7px 12px",
     fontFamily: "Barlow Condensed",
     fontSize: 14,
     outline: "none",
@@ -1310,7 +1354,7 @@ function PanelDetalle({ reporte, onCerrar, onActualizar, onEliminar }) {
       <div
         style={{
           width: 480,
-          background: "#111",
+          background: "var(--bg-card)",
           borderLeft: "3px solid #e63946",
           overflowY: "auto",
           animation: "slideIn 0.3s ease",
@@ -1321,7 +1365,7 @@ function PanelDetalle({ reporte, onCerrar, onActualizar, onEliminar }) {
         {/* Header del panel */}
         <div
           style={{
-            background: "#e63946",
+            background: "var(--accent-red)",
             padding: "16px 20px",
             display: "flex",
             justifyContent: "space-between",
@@ -1437,8 +1481,8 @@ function PanelDetalle({ reporte, onCerrar, onActualizar, onEliminar }) {
             <Fila label="Elemento" valor={reporte.subcategoria} />
             <div
               style={{
-                background: "#0a0a0a",
-                border: "1px solid #222",
+                background: "var(--bg-primary)",
+                border: "1px solid var(--border-subtle)",
                 padding: 12,
                 marginTop: 8,
               }}
@@ -1478,7 +1522,7 @@ function PanelDetalle({ reporte, onCerrar, onActualizar, onEliminar }) {
           {/* GESTIÓN ADMIN */}
           <div
             style={{
-              background: "#0a0a0a",
+              background: "var(--bg-primary)",
               border: "1px solid #e6394633",
               padding: 16,
             }}
@@ -1500,7 +1544,7 @@ function PanelDetalle({ reporte, onCerrar, onActualizar, onEliminar }) {
                 style={{
                   fontFamily: "IBM Plex Mono",
                   fontSize: 10,
-                  color: "#666",
+                  color: "var(--text-secondary)",
                   display: "block",
                   marginBottom: 6,
                   letterSpacing: 1,
@@ -1543,7 +1587,7 @@ function PanelDetalle({ reporte, onCerrar, onActualizar, onEliminar }) {
                 style={{
                   fontFamily: "IBM Plex Mono",
                   fontSize: 10,
-                  color: "#666",
+                  color: "var(--text-secondary)",
                   display: "block",
                   marginBottom: 6,
                   letterSpacing: 1,

@@ -103,6 +103,8 @@ export default function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/planeacion/alertas
+          " element={<ReportesDashboard />} />
           <Route
             path="/planeacion/carga/simulador"
             element={

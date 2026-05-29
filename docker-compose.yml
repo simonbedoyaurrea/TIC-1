@@ -7,7 +7,7 @@ services:
       - "5173:5173"
     depends_on:
       - java-api
-      - fastapi1
+      # - fastapi1
       - fastapi2
 
   java-api:
@@ -15,10 +15,10 @@ services:
     ports:
       - "8080:8080"
 
-  fastapi1:
-    build: ./apijulian
-    ports:
-      - "8000:8000"
+  # fastapi1:
+  #   build: ./apijulian
+  #   ports:
+  #     - "8000:8000"
 
   fastapi2:
     build: ./AlgoritmoS

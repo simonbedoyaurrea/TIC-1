@@ -1,6 +1,6 @@
 #FileLock
-#Tue May 19 13:26:04 COT 2026
+#Fri May 29 12:23:41 COT 2026
 hostName=DESKTOP-T33S3S6
-id=19e417cdcd8be52eab3ac0154ba19c335a3ceb94e9b
+id=19e74c343cc14bc112761c3ebb196006f1962c4c218
 method=file
-server=192.168.56.1\:59361
+server=172.24.0.1\:58919

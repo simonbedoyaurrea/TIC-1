@@ -6,7 +6,7 @@ app = FastAPI()
 
 @app.post("/optimizar")
 async def optimizar(data: dict):
-
+ 
     df_json = data["df"]
     nueva_materia = data["materia"]
     disponibilidad = data["disponibilidad"]

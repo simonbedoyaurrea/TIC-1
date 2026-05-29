@@ -277,7 +277,7 @@ export default function PlaneacionHome() {
             </div>
 
             {/* 3. Status de archivos */}
-            <div className="bg-white/2 border border-white/6 rounded-xl p-4 flex flex-col gap-3 hover:border-white/15 transition-all duration-300">
+            <div className="bg-white/2 border  rounded-xl p-4 flex flex-col gap-3 border-green-300/20 transition-all duration-300">
               <div className="flex items-center gap-2">
                 <div className="flex items-center justify-center w-8 h-8 bg-green-400/5 border border-green-400/10 rounded-lg">
                   <svg
